@@ -1,4 +1,4 @@
-# 5月5日更新20.4M/S，2024年最新高速Clash/V2ray/Shadowrocket/SSR订阅链接免费节点订阅  更新时间 {{##updatetime##}}
+# 5月5日更新18.7M/S，2024年最新高速Shadowrocket/Clash/SSR/V2ray订阅链接免费节点订阅  更新时间 2024-05-05 16:42:36
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://{{##homepage##}}" target="_blank">点击跳转</a>
 
 ## clash使用教程：
