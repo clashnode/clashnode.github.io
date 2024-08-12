@@ -1,4 +1,4 @@
-# 8月11日更新19.2M/S，2024年最新高速V2ray/Shadowrocket/Clash/SSR订阅链接免费节点订阅  更新时间 2024-08-11 10:47:02
+# 8月12日更新22.7M/S，2024年最新高速SSR/Clash/V2ray/Shadowrocket订阅链接免费节点订阅  更新时间 2024-08-12 11:22:29
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://clashnode.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,19 +9,19 @@
 
 ### Clash订阅链接
 
-- https://clashnode.github.io/uploads/2024/08/0-20240811.yaml
-- https://clashnode.github.io/uploads/2024/08/1-20240811.yaml
-- https://clashnode.github.io/uploads/2024/08/2-20240811.yaml
-- https://clashnode.github.io/uploads/2024/08/3-20240811.yaml
-- https://clashnode.github.io/uploads/2024/08/4-20240811.yml
+- https://clashnode.github.io/uploads/2024/08/0-20240812.yaml
+- https://clashnode.github.io/uploads/2024/08/1-20240812.yaml
+- https://clashnode.github.io/uploads/2024/08/2-20240812.yaml
+- https://clashnode.github.io/uploads/2024/08/3-20240812.yaml
+- https://clashnode.github.io/uploads/2024/08/4-20240812.yml
 
 ### V2ray订阅链接
 
-- https://clashnode.github.io/uploads/2024/08/0-20240811.txt
-- https://clashnode.github.io/uploads/2024/08/1-20240811.txt
-- https://clashnode.github.io/uploads/2024/08/2-20240811.txt
-- https://clashnode.github.io/uploads/2024/08/3-20240811.txt
-- https://clashnode.github.io/uploads/2024/08/4-20240811.txt
+- https://clashnode.github.io/uploads/2024/08/0-20240812.txt
+- https://clashnode.github.io/uploads/2024/08/1-20240812.txt
+- https://clashnode.github.io/uploads/2024/08/2-20240812.txt
+- https://clashnode.github.io/uploads/2024/08/3-20240812.txt
+- https://clashnode.github.io/uploads/2024/08/4-20240812.txt
 
 ## 更多clash节点订阅 ：
 
