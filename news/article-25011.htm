@@ -95,7 +95,8 @@
     <div class="container py-lg-5 py-3">
         <div class="row">
             <div class="col-md-8">
-                                  				  				  				<div id="content_views" class="htmledit_views"> <p>Logback日志系统是SLF4J的原生实现。同时，Logback也是Log4j的继任者，补全了Log4j的不足。</p> <p>1.&nbsp;Logback的模块组成</p> <ul> <li>logback-core，其他模块的功能基础</li> <li>logback-classic</li> </ul> <p>可以看作Log4j的增强版实现。<br /> 实现了SLF4J API，能够在部署的时候提供给应用日志功能。</p> <ul> <li>logback-access</li> </ul> <p>集成了Servlet容器（Tomcat,Jetty），提供以HTTP方式访问日志的功能。</p> <p>2. Logback在Maven项目中的应用</p> <p>在应用中使用兼容SLF4J的日志系统，无需在构建时依赖任何具体的日志系统，而只需要依赖SLF4J API，POM配置示例如下：</p> <pre class="has"><code>&lt;dependency&gt;   &lt;groupId&gt;org.slf4j&lt;/groupId&gt;   &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;   &lt;version&gt;1.7.9&lt;/version&gt; &lt;/dependency&gt;</code></pre> <p>而对于实际部署时使用的日志系统，无需在POM中配置，只需将日志系统的jar文件置于应用部署环境的classpath中即可。</p> <p>但是为了部署方便，可以直接在POM中给出对日志系统的依赖。例如，应用中使用Logback日志系统，配置POM如下即可：</p> <pre class="has"><code>&lt;dependency&gt;   &lt;groupId&gt;org.slf4j&lt;/groupId&gt;   &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;   &lt;version&gt;1.7.9&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt;   &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;   &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;   &lt;version&gt;1.2.3&lt;/version&gt; &lt;/dependency&gt;</code></pre> <p>3.&nbsp;Logback的MDC功能概述</p> <p>Logback的设计目标就是审计、调试复杂的分布式应用。</p> <p>在分布式应用中，为了区分不同客户端的日志输出，往往为每个客户端实例化一个单独的logger。但是这样将导致大量日志的产生，而且增加了日志管理的负担。</p> <p>为此，Logback采用了更轻量级的技术，为一个客户端的每一个日志请求打上唯一识别的时间戳，而这是通过SLF4J的MDC实现的。为了给每个日志请求打上唯一识别的时间戳，必须利用请求的上下文信息，即将请求的上下文信息装入MDC，并在需要的时候被Logback的日志组件提取。</p> <p>4.&nbsp;Logback的MDC功能实现</p> <p>Logback是在logback-classic模块中实现了SLF4J的MDC功能。</p> <p>MDC中管理的数据（简称MDC数据）是以单个线程为单位进行访问的，即对MDC数据的操作（如put, get）只对当前线程有效，所以也永远是线程安全的。<br /> 在服务端，为每个请求分配一个线程进行处理，所以每个服务端线程处理的请求，都具有唯一的MDC上下文数据。</p> <p>子线程不会自动继承父线程的MDC数据。所以在创建子线程时，可以先调用MDC的getCopyOfContextMap()方法以返回一个Map&lt;String, String&gt;对象，从而获取父线程的MDC数据，然后再在子线程的开始处，最先调用MDC的setContextMap()方法为子线程设置父线程的MDC数据。从而能够在子线程中访问父线程的MDC数据。</p> <p>在使用java.util.concurrent.Executors管理线程时，使用同样的方法让子线程继承主线程的MDC数据。</p> <p>但是，在Web应用中，一个请求可能在不同的阶段被多个线程处理。这时，只是在服务端的处理线程中设置MDC数据，并不能保证请求的某些信息（如用户的认证信息等）总是能够被处理线程访问到。为了在处理一个请求时能够保证某些信息总是可访问，建议使用Servlet Filter，在请求到来时就将信息装入到MDC中，在完成所有的后续处理后，再次通过过滤器时将MDC数据移除。</p> <pre class="has"><code>		public class MyFilter implements Filter { 			public void doFilter(ServletRequest request, ServletResponse response, 				FilterChain chain) throws IOException, ServletException { 				... 				MDC.put(MY_KEY, myValue); 				... 			    try { 				  chain.doFilter(request, response); 				} finally { 				  if (MDC.contains(MY_KEY)) { 					MDC.remove(MY_KEY); 				  } 				}</code></pre> <p> Logback自带的ch.qos.logback.classic.helpers.MDCInsertingServletFilter能够将HTTP请求的hostname, request URI, user-agent等信息装入MDC，只需在web.xml中设置（建议MDCInsertingServletFilter作为第一个Filter配置，原因请读者思考），后续处理过程就可以直接访问如下请求参数的值：</p> <ul> <li>req.remoteHost</li> <li>req.xForwardedFor</li> <li>req.method</li> <li>req.requestURI</li> <li>req.requestURL</li> <li>req.queryString</li> <li>req.userAgent</li> </ul> <p>参考链接：</p> <p>&nbsp;&nbsp; &nbsp;https://logback.qos.ch/index.html<br /> &nbsp;&nbsp; &nbsp;http://logback.qos.ch/manual/mdc.html</p> </div> 			                <div class="clearfix"></div>
+                                <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>Logback日志系统是SLF4J的原生实现。同时，Logback也是Log4j的继任者，补全了Log4j的不足。</p> <p>1.&nbsp;Logback的模块组成</p> <ul> <li>logback-core，其他模块的功能基础</li> <li>logback-classic</li> </ul> <p>可以看作Log4j的增强版实现。<br /> 实现了SLF4J API，能够在部署的时候提供给应用日志功能。</p> <ul> <li>logback-access</li> </ul> <p>集成了Servlet容器（Tomcat,Jetty），提供以HTTP方式访问日志的功能。</p> <p>2. Logback在Maven项目中的应用</p> <p>在应用中使用兼容SLF4J的日志系统，无需在构建时依赖任何具体的日志系统，而只需要依赖SLF4J API，POM配置示例如下：</p> <pre class="has"><code>&lt;dependency&gt;   &lt;groupId&gt;org.slf4j&lt;/groupId&gt;   &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;   &lt;version&gt;1.7.9&lt;/version&gt; &lt;/dependency&gt;</code></pre> <p>而对于实际部署时使用的日志系统，无需在POM中配置，只需将日志系统的jar文件置于应用部署环境的classpath中即可。</p> <p>但是为了部署方便，可以直接在POM中给出对日志系统的依赖。例如，应用中使用Logback日志系统，配置POM如下即可：</p> <pre class="has"><code>&lt;dependency&gt;   &lt;groupId&gt;org.slf4j&lt;/groupId&gt;   &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;   &lt;version&gt;1.7.9&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt;   &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;   &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;   &lt;version&gt;1.2.3&lt;/version&gt; &lt;/dependency&gt;</code></pre> <p>3.&nbsp;Logback的MDC功能概述</p> <p>Logback的设计目标就是审计、调试复杂的分布式应用。</p> <p>在分布式应用中，为了区分不同客户端的日志输出，往往为每个客户端实例化一个单独的logger。但是这样将导致大量日志的产生，而且增加了日志管理的负担。</p> <p>为此，Logback采用了更轻量级的技术，为一个客户端的每一个日志请求打上唯一识别的时间戳，而这是通过SLF4J的MDC实现的。为了给每个日志请求打上唯一识别的时间戳，必须利用请求的上下文信息，即将请求的上下文信息装入MDC，并在需要的时候被Logback的日志组件提取。</p> <p>4.&nbsp;Logback的MDC功能实现</p> <p>Logback是在logback-classic模块中实现了SLF4J的MDC功能。</p> <p>MDC中管理的数据（简称MDC数据）是以单个线程为单位进行访问的，即对MDC数据的操作（如put, get）只对当前线程有效，所以也永远是线程安全的。<br /> 在服务端，为每个请求分配一个线程进行处理，所以每个服务端线程处理的请求，都具有唯一的MDC上下文数据。</p> <p>子线程不会自动继承父线程的MDC数据。所以在创建子线程时，可以先调用MDC的getCopyOfContextMap()方法以返回一个Map&lt;String, String&gt;对象，从而获取父线程的MDC数据，然后再在子线程的开始处，最先调用MDC的setContextMap()方法为子线程设置父线程的MDC数据。从而能够在子线程中访问父线程的MDC数据。</p> <p>在使用java.util.concurrent.Executors管理线程时，使用同样的方法让子线程继承主线程的MDC数据。</p> <p>但是，在Web应用中，一个请求可能在不同的阶段被多个线程处理。这时，只是在服务端的处理线程中设置MDC数据，并不能保证请求的某些信息（如用户的认证信息等）总是能够被处理线程访问到。为了在处理一个请求时能够保证某些信息总是可访问，建议使用Servlet Filter，在请求到来时就将信息装入到MDC中，在完成所有的后续处理后，再次通过过滤器时将MDC数据移除。</p> <pre class="has"><code>		public class MyFilter implements Filter { 			public void doFilter(ServletRequest request, ServletResponse response, 				FilterChain chain) throws IOException, ServletException { 				... 				MDC.put(MY_KEY, myValue); 				... 			    try { 				  chain.doFilter(request, response); 				} finally { 				  if (MDC.contains(MY_KEY)) { 					MDC.remove(MY_KEY); 				  } 				}</code></pre> <p> Logback自带的ch.qos.logback.classic.helpers.MDCInsertingServletFilter能够将HTTP请求的hostname, request URI, user-agent等信息装入MDC，只需在web.xml中设置（建议MDCInsertingServletFilter作为第一个Filter配置，原因请读者思考），后续处理过程就可以直接访问如下请求参数的值：</p> <ul> <li>req.remoteHost</li> <li>req.xForwardedFor</li> <li>req.method</li> <li>req.requestURI</li> <li>req.requestURL</li> <li>req.queryString</li> <li>req.userAgent</li> </ul> <p>参考链接：</p> <p>&nbsp;&nbsp; &nbsp;https://logback.qos.ch/index.html<br /> &nbsp;&nbsp; &nbsp;http://logback.qos.ch/manual/mdc.html</p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-24548.htm">上海宠物领养平台电话多少 上海宠物领养平台电话多少号</a></p>
                                         <p>下一个：<a href="/news/article-25012.htm">动物医院部门科室是什么（动物医院诊室）</a></p>
@@ -107,8 +108,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-19952.htm">重庆宠物领养中心有哪些地址呢（重庆宠物领养重庆宠物赠送）</a></h4>
-                <p>摘要：       今天给各位分享重庆宠物领养中心有哪些地址呢的知识，其中也会对重庆宠物领养重庆宠物赠送进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、重庆有.</p>
+                <h4><a href="/free-nodes/2024-9-28-free-node-subscribe.htm">9月28日更新22.3M/S，2024年最新高速Shadowrocket/SSR/Clash/V2ray订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、欧洲、新加坡、香港、美国、日本、韩国等地区,最高速度可达22.3 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -117,8 +118,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-11-10-free-ssr-subscribe.htm">11月10日更新18.4M/S，2024年最新高速V2ray/Shadowrocket/SSR/Clash订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了韩国、新加坡、日本、香港、欧洲、加拿大、美国等地区,最高速度可达18.4 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-6-9-clash-node-daily-updates.htm">6月9日更新21.8M/S，2024年最新高速Clash/V2ray/SSR/Shadowrocket订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了美国、加拿大、新加坡、香港、日本、欧洲、韩国等地区,最高速度可达21.8 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -127,8 +128,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-6-23-free-high-speed-nodes.htm">6月23日更新19.3M/S，2024年最新高速V2ray/Shadowrocket/Clash/SSR订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了日本、欧洲、韩国、香港、加拿大、美国、新加坡等地区,最高速度可达19.3 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-4-2-free-node-subscribe.htm">4月2日更新19.7M/S，2024年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点</a></h4>
+                <p>这一次的节点更新覆盖了美国、欧洲、日本、新加坡、香港、加拿大、韩国等地区,最高速度可达19.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -137,8 +138,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-11-12-free-subscribe-node.htm">11月12日更新21.6M/S，2024年最新高速V2ray/Shadowrocket/Clash/SSR订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、美国、日本、香港、欧洲、韩国、新加坡等地区,最高速度可达21.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-7-30-free-clash.htm">7月30日更新18.6M/S，2024年最新高速Shadowrocket/V2ray/SSR/Clash订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了香港、韩国、新加坡、加拿大、欧洲、美国、日本等地区,最高速度可达18.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -147,8 +148,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-7-5-free-clash-subscribe.htm">7月5日更新18.7M/S，2024年最新高速V2ray/Shadowrocket/SSR/Clash订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了日本、加拿大、美国、新加坡、韩国、香港、欧洲等地区,最高速度可达18.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-23619.htm">vue中Element UI表格分页功能的实现</a></h4>
+                <p>一、需求问题 在vue的开发中，如果需要开发管理系统，那么Element UI就是一个不错的UI框架。在Element UI中的表格数据，如果数据量大的话，通过后端进行分页。如果数据量不大的话，我们可</p>
             </div>
         </div>
     </div>
@@ -157,8 +158,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-3-25-free-ssr-node.htm">3月25日更新18.7M/S，2024年最新高速Shadowrocket/Clash/SSR/V2ray订阅链接免费节点</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、美国、加拿大、香港、日本、韩国、欧洲等地区,最高速度可达18.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-26407.htm">动物生物疫苗工资 动物生物疫苗工资高吗</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于动物生物疫苗工资的问题，于是小编就整理了4个相关介绍动物生物疫苗工资的解答，让我们一起看看吧。牧原兽医待遇怎么样？万泰生物待遇怎</p>
             </div>
         </div>
     </div>
@@ -167,8 +168,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-6-11-free-shadowrocket-node.htm">6月11日更新22.6M/S，2024年最新高速Shadowrocket/SSR/Clash/V2ray订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、美国、香港、加拿大、欧洲、韩国、日本等地区,最高速度可达22.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-10-13-free-clash.htm">10月13日更新18.1M/S，2024年最新高速V2ray/Clash/Shadowrocket/SSR订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、美国、日本、欧洲、新加坡、香港、韩国等地区,最高速度可达18.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -177,8 +178,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-6-21-free-high-speed-nodes.htm">6月21日更新20.9M/S，2024年最新高速Clash/V2ray/SSR/Shadowrocket订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了韩国、加拿大、美国、香港、新加坡、日本、欧洲等地区,最高速度可达20.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-26870.htm">宠物领养协议模板图片 宠物领养协议模板图片大全</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于宠物领养协议模板图片的问题，于是小编就整理了3个相关介绍宠物领养协议模板图片的解答，让我们一起看看吧。领养猫捆绑合同有法律效应吗</p>
             </div>
         </div>
     </div>
@@ -187,8 +188,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-9-18-free-node-subscribe.htm">9月18日更新22.1M/S，2024年最新高速Shadowrocket/SSR/Clash/V2ray订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了日本、加拿大、欧洲、韩国、美国、新加坡、香港等地区,最高速度可达22.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-4-7-clash-node-daily-updates.htm">4月7日更新20.6M/S，2024年最新高速V2ray/SSR/Shadowrocket/Clash订阅链接免费节点</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、新加坡、韩国、日本、美国、欧洲、香港等地区,最高速度可达20.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -197,8 +198,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-3-31-free-clash-subscribe.htm">3月31日更新19.1M/S，2024年最新高速SSR/Clash/Shadowrocket/V2ray订阅链接免费节点</a></h4>
-                <p>这一次的节点更新覆盖了美国、韩国、欧洲、日本、香港、加拿大、新加坡等地区,最高速度可达19.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-5-10-free-high-speed-nodes.htm">5月10日更新21.1M/S，2024年最新高速Shadowrocket/Clash/SSR/V2ray订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、香港、韩国、新加坡、日本、欧洲、美国等地区,最高速度可达21.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -209,7 +210,7 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">45</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
                                 <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
                                 <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
                                 <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
@@ -233,6 +234,15 @@
             <div class="footer-content">
                 <div class="row">
                     <div class="col-lg-8 footer-left">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
                         <p class="m-0">Clash Node官网订阅站 版权所有</p>
                     </div>
                     <div class="col-lg-4 footer-right text-lg-right text-center mt-lg-0 mt-3">
