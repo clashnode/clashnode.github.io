@@ -99,6 +99,7 @@
                   				  				  				<p>文件移动(Move)操作和文件的复制(Copy)是C#程式开发经常遇到的方法，根据传入的源文件地址和目标文件地址参数，实现对文件的操作。实现代码如下：</p> <h3>Move操作代码</h3> <div class="ay1code"> <pre class="brush:csharp;">public static void MoveFolder(string sourcePath, string destPath)          {              if (Directory.Exists(sourcePath))              {                  if (!Directory.Exists(destPath))                  {                      //目标目录不存在则创建                        try                      {                          Directory.CreateDirectory(destPath);                      }                      catch (Exception ex)                      {                          throw new Exception("创建目标目录失败：" + ex.Message);                      }                  }                  //获得源文件下所有文件                    List&lt;string&gt; files = new List&lt;string&gt;(Directory.GetFiles(sourcePath));                  files.ForEach(c =&gt;                  {                      string destFile = Path.Combine(new string[] { destPath, Path.GetFileName(c) });                      //覆盖模式                        if (File.Exists(destFile))                      {                          File.Delete(destFile);                      }                      File.Move(c, destFile);                  });                  //获得源文件下所有目录文件                    List&lt;string&gt; folders = new List&lt;string&gt;(Directory.GetDirectories(sourcePath));                    folders.ForEach(c =&gt;                  {                      string destDir = Path.Combine(new string[] { destPath, Path.GetFileName(c) });                      //Directory.Move必须要在同一个根目录下移动才有效，不能在不同卷中移动。                        //Directory.Move(c, destDir);                          //采用递归的方法实现                        MoveFolder(c, destDir);                  });              }              else              {}          }         </pre> </div> <h3>Copy操作代码</h3> <div class="ay1code"> <pre class="brush:csharp;">public static void CopyFilefolder(string sourceFilePath, string targetFilePath)          {              //获取源文件夹中的所有非目录文件              string[] files = Directory.GetFiles(sourceFilePath);              string fileName;              string destFile;              //如果目标文件夹不存在，则新建目标文件夹              if (!Directory.Exists(targetFilePath))              {                  Directory.CreateDirectory(targetFilePath);              }              //将获取到的文件一个一个拷贝到目标文件夹中                foreach (string s in files)              {                  fileName = Path.GetFileName(s);                  destFile = Path.Combine(targetFilePath, fileName);                  File.Copy(s, destFile, true);              }              //上面一段在MSDN上可以看到源码                 //获取并存储源文件夹中的文件夹名              string[] filefolders = Directory.GetFiles(sourceFilePath);              //创建Directoryinfo实例               DirectoryInfo dirinfo = new DirectoryInfo(sourceFilePath);              //获取得源文件夹下的所有子文件夹名              DirectoryInfo[] subFileFolder = dirinfo.GetDirectories();              for (int j = 0; j &lt; subFileFolder.Length; j++)              {                  //获取所有子文件夹名                   string subSourcePath = sourceFilePath + "\\" + subFileFolder[j].ToString();                  string subTargetPath = targetFilePath + "\\" + subFileFolder[j].ToString();                  //把得到的子文件夹当成新的源文件夹，递归调用CopyFilefolder                  CopyFilefolder(subSourcePath, subTargetPath);              }          }</pre> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-41263.htm">如何从AngularJS模板的HTML中调用encodeURIComponent？</a></p>
+                                        <p>下一个：<a href="/news/article-41748.htm">netty系列之:netty中各不同种类的channel详解</a></p>
                                     </div>
                             </div>
             <div class="col-md-4 w3l-services">
@@ -107,8 +108,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-1-5-clash-windows.htm">1月5日更新20.2M/S，2025年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、香港、欧洲、新加坡、美国、加拿大、韩国等地区,最高速度可达20.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-30616.htm">猫咪3针疫苗多久能打完啊图片（猫咪三针疫苗打多久）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈猫咪3针疫苗多久能打完啊图片，以及猫咪三针疫苗打多久对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、新手养猫最全猫咪养护指南...    </p>
             </div>
         </div>
     </div>
@@ -117,8 +118,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-11-18-node-share.htm">11月18日更新18.3M/S，2024年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、韩国、美国、日本、欧洲、香港、新加坡等地区,最高速度可达18.3 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-11-30-shadowrocket-node.htm">11月30日更新21.9M/S，2024年最新高速SSR/Shadowrocket/Clash/V2ray订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、加拿大、日本、香港、新加坡、韩国、美国等地区,最高速度可达21.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -127,8 +128,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-25940.htm">git下载、安装、配置与简单应用</a></h4>
-                <p>目录 1 git下载、安装与配置 1.1下载与安装 1.1.1登录git官网：Git (git-scm.com)点击击图中红线圈出的Downloads,进入下载页面。 1.1.2根据自己系统，下载相应</p>
+                <h4><a href="/news/article-27337.htm">领养宠物在哪里领养（领养宠物狗的地方在哪里）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈领养宠物在哪里领养，以及领养宠物狗的地方在哪里对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、哪里有领养狗狗的?2、...        </p>
             </div>
         </div>
     </div>
@@ -137,8 +138,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-12-19-clash-node.htm">12月19日更新20.6M/S，2024年最新高速Clash/V2ray/SSR/Shadowrocket订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、加拿大、日本、美国、欧洲、韩国等地区,最高速度可达20.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-11-24-free-shadowrocket-node.htm">11月24日更新18.5M/S，2024年最新高速Shadowrocket/V2ray/SSR/Clash订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了美国、韩国、新加坡、欧洲、香港、日本、加拿大等地区,最高速度可达18.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -147,8 +148,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-1-13-free-clash-subscribe.htm">1月13日更新22.2M/S，2025年最新高速V2ray/SSR/Shadowrocket/Clash订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、香港、欧洲、韩国、加拿大、美国、新加坡等地区,最高速度可达22.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-22244.htm">生产宠物粮的工厂有哪些公司名称（生产宠物粮前景如何）</a></h4>
+                <p>摘要：       今天给各位分享生产宠物粮的工厂有哪些公司名称的知识，其中也会对生产宠物粮前景如何进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、山东帅克宠.</p>
             </div>
         </div>
     </div>
@@ -157,8 +158,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-24547.htm">动物医院实验室常见设备仪器有哪些（动物医院实验室常见设备仪器有哪些品牌）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈动物医院实验室常见设备仪器有哪些，以及动物医院实验室常见设备仪器有哪些品牌对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、常用生物医学..</p>
+                <h4><a href="/free-nodes/2024-11-4-free-high-speed-nodes.htm">11月4日更新20.8M/S，2024年最新高速Clash/Shadowrocket/SSR/V2ray订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了美国、新加坡、韩国、欧洲、日本、加拿大、香港等地区,最高速度可达20.8 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -167,8 +168,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-1-6-free-v2ray-subscribe.htm">1月6日更新21M/S，2025年最新高速SSR/V2ray/Clash/Shadowrocket订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、欧洲、韩国、日本、新加坡、香港、加拿大等地区,最高速度可达21 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-19495.htm">小动物疫苗注射证明是疫苗本吗 动物疫苗注射证明怎么开</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于小动物疫苗注射证明是疫苗本吗的问题，于是小编就整理了2个相关介绍小动物疫苗注射证明是疫苗本吗的解答，让我们一起看看吧。宠物疫苗本</p>
             </div>
         </div>
     </div>
@@ -177,8 +178,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-12-7-free-node-subscribe.htm">12月7日更新21.8M/S，2024年最新高速Clash/SSR/Shadowrocket/V2ray订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了美国、香港、欧洲、日本、新加坡、加拿大、韩国等地区,最高速度可达21.8 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-12-11-shadowrocket-node.htm">12月11日更新19M/S，2024年最新高速Clash/V2ray/Shadowrocket/SSR订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、新加坡、日本、韩国、香港、美国、加拿大等地区,最高速度可达19 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -187,8 +188,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-27336.htm">ruby 版本管理RVM （ruby version manager）</a></h4>
-                <p>macOS. 自带的ruby 版本目录权限比较高， 经常有很多 操作需要权限而不能执行   虽然 macOS 自带了一个 ruby 环境，但是是系统自己使用的，所以权限很小，只有 system。   </p>
+                <h4><a href="/free-nodes/2024-10-30-free-subscribe-node.htm">10月30日更新20.5M/S，2024年最新高速Clash/SSR/V2ray/Shadowrocket订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、新加坡、香港、日本、美国、韩国、欧洲等地区,最高速度可达20.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -197,8 +198,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-38288.htm">人和宠物打的狂犬疫苗一样吗 人和宠物打的狂犬疫苗一样吗多少钱</a></h4>
-                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于人和宠物打的狂犬疫苗一样吗的问题，于是小编就整理了4个相关介绍人和宠物打的狂犬疫苗一样吗的解答，让我们一起看看吧。狗打了狂犬疫苗</p>
+                <h4><a href="/free-nodes/2024-10-10-clash-windows.htm">10月10日更新21.7M/S，2024年最新高速Shadowrocket/Clash/V2ray/SSR订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了韩国、美国、欧洲、新加坡、日本、香港、加拿大等地区,最高速度可达21.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -209,7 +210,7 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">48</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                                <h4><span class="badge" style="float: right;">51</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
                                 <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
                                 <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
                                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
