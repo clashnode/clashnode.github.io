@@ -1,0 +1,507 @@
+<!doctype html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashnode.github.io/news/article-49182.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Spring Boot 容器镜像分层构建</title>
+    <link rel="icon" href="/assets/website/img/clashnode/favicon.ico" type="image/x-icon"/>
+        <meta name="description" content="一、场景 最常见的是容器镜像，将依赖、代码、配置分层后可以利用容器镜像层缓存机制加快构建和下载，这个场景使用分层是最优最简单的。 k8s 移除 Docker 后，文档中的 Docker 都去掉了…现在" />
+    
+    <meta name="author" content="Clash Node官网订阅站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashnode.github.io/news/article-49182.htm" />
+    <meta property="og:site_name" content="Clash Node官网订阅站" />
+    <meta property="og:title" content="Spring Boot 容器镜像分层构建" />
+    <meta property="og:image" content="https://clashnode.github.io/uploads/20240214/15f3c4212f40fda7ce92fc452dc790b7.webp" />
+        <meta property="og:release_date" content="2025-02-01T07:12:17" />
+    <meta property="og:updated_time" content="2025-02-01T07:12:17" />
+        <meta property="og:description" content="一、场景 最常见的是容器镜像，将依赖、代码、配置分层后可以利用容器镜像层缓存机制加快构建和下载，这个场景使用分层是最优最简单的。 k8s 移除 Docker 后，文档中的 Docker 都去掉了…现在" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Spring Boot 容器镜像分层构建">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/clashnode/style-starter.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8B9V1K3BBT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8B9V1K3BBT');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- header -->
+    <header id="site-header" class="fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg stroke">
+                <a class="navbar-brand" href="/">
+                                        <span class="fa fa-laptop"></span> Clash Node
+                                    </a>
+                <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                    </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav ml-auto">
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/">首页</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/free-nodes/">免费节点</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/news/">新闻资讯</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="#">关于</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">联系</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- toggle switch for light and dark theme -->
+                <div class="mobile-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+            </nav>
+        </div>
+    </header>
+    <!-- //header -->
+    <!-- about breadcrumb -->
+    <section class="w3l-about-breadcrumb text-center">
+        <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+            <div class="container py-2">
+                <h1 class="title" style="word-break: break-all;">Spring Boot 容器镜像分层构建</h1>
+                <ul class="breadcrumbs-custom-path mt-2">
+                    <li><a href="/">首页</a></li>
+                    <li><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span></li>
+                    <li><a href="/news/">新闻资讯</a></li>
+                    <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> 正文</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- //about breadcrumb -->
+    <div class="container py-lg-5 py-3">
+        <div class="row">
+            <div class="col-md-8">
+                                <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h2>一、场景</h2> <p>最常见的是容器镜像，将依赖、代码、配置分层后可以利用容器镜像层缓存机制加快构建和下载，这个场景使用分层是最优最简单的。</p> <p>k8s 移除 Docker 后，文档中的 Docker 都去掉了…现在也把常说的<strong>Docker 镜像</strong>&nbsp;改成了<strong>容器镜像</strong></p> <h2>二、分层配置</h2> <p>如果不需要自定义分层，这一步可以跳过</p> <p>在项目根目录中添加<strong>layers.xml</strong>&nbsp;配置文件，文件内容如下：</p> <pre>&lt;layers xmlns="http://www.springframework.org/schema/boot/layers"         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://www.springframework.org/schema/boot/layers                           https://www.springframework.org/schema/boot/layers/layers-2.6.xsd"&gt;     &lt;application&gt;         &lt;into layer="spring-boot-loader"&gt;             &lt;include&gt;org/springframework/boot/loader/**&lt;/include&gt;         &lt;/into&gt;         &lt;into layer="application"/&gt;     &lt;/application&gt;     &lt;dependencies&gt;         &lt;into layer="application"&gt;             &lt;includeModuleDependencies/&gt;         &lt;/into&gt;         &lt;into layer="snapshot-dependencies"&gt;             &lt;include&gt;*:*:*SNAPSHOT&lt;/include&gt;         &lt;/into&gt;         &lt;into layer="sencond-dependencies"&gt;             &lt;include&gt;com.example:*:*&lt;/include&gt;         &lt;/into&gt;         &lt;into layer="dependencies"/&gt;     &lt;/dependencies&gt;     &lt;layerOrder&gt;         &lt;layer&gt;dependencies&lt;/layer&gt;         &lt;layer&gt;spring-boot-loader&lt;/layer&gt;         &lt;layer&gt;sencond-dependencies&lt;/layer&gt;         &lt;layer&gt;snapshot-dependencies&lt;/layer&gt;         &lt;layer&gt;application&lt;/layer&gt;     &lt;/layerOrder&gt; &lt;/layers&gt;</pre> <p>和官方示例相比这里增加了<strong>sencond-dependencies</strong>&nbsp;，算是二方库依赖，如果公司有自己框架，自己平台，根据依赖的稳定性（修改频率）进行更细的分层。</p> <p>依赖分层设计，可以参考<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://gitbook.cn/gitchat/activity/5e10b5812a3a513b4f607934"  title="企业 Maven 依赖管理层次结构设计" rel="nofollow">企业 Maven 依赖管理层次结构设计</a>&nbsp;。</p> <p>使用 IDEA，并且下载<strong>layers-2.6.xsd</strong>&nbsp;的情况下，<code>&lt;includeModuleDependencies/&gt;</code>&nbsp;会报红，如下图所示：</p> <p class="img-center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220602/78cbfa843a63411c017b5d9849842e3d.jpg"></p> <p>通过查看官方文档和 spring boot 代码，发现文档、代码和 xsd 定义存在不一致的地方，提了<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/spring-projects/spring-boot/issues/31115"  title="issues#31115" rel="nofollow">issues#31115</a>&nbsp;、<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/spring-projects/spring-boot/pull/31117"  title="pr#31117&nbsp;" rel="nofollow">pr#31117</a>、<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/spring-projects/spring-boot/pull/31126"  title="pr#31126" rel="nofollow">pr#31126</a>&nbsp;，<strong>代码已经合并， xsd经过修改，和文档保持一致。</strong></p> <p>增加上面的配置后，修改插件使用该配置：</p> <pre>&lt;plugin&gt;     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;     &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;     &lt;version&gt;${spring-boot.version}&lt;/version&gt;     &lt;executions&gt;         &lt;execution&gt;             &lt;id&gt;repackage&lt;/id&gt;             &lt;goals&gt;                 &lt;goal&gt;repackage&lt;/goal&gt;             &lt;/goals&gt;         &lt;/execution&gt;     &lt;/executions&gt;     &lt;configuration&gt;         &lt;layers&gt;             &lt;enabled&gt;true&lt;/enabled&gt;             &lt;configuration&gt;${project.basedir}/layers.xml&lt;/configuration&gt;         &lt;/layers&gt;     &lt;/configuration&gt; &lt;/plugin&gt;</pre> <h2>三、容器镜像</h2> <p>构建镜像有多种方式，官方文档介绍了 Dockerfile 和 Buildpacks 两种。</p> <h3>3.1 Dockerfile</h3> <p>通过<code>layertools</code>&nbsp;可以将 fat jar 按照分层定义中的层进行解压，命令如下：</p> <pre>Usage:   java -Djarmode=layertools -jar my-app.jar  Available commands:   list     List layers from the jar that can be extracted   extract  Extracts layers from the jar for image creation   help     Help about any command</pre> <p>通过<code>java -Djarmode=layertools -jar my-app.jar extract</code>&nbsp;即可解压 jar 包到当前目录。为了方便，可以直接通过 Dockerfile 的多阶段构建进行，Dockerfile 如下：</p> <pre>FROM eclipse-temurin:11-jre as builder WORKDIR application ARG JAR_FILE=target/*.jar COPY ${JAR_FILE} application.jar RUN java -Djarmode=layertools -jar application.jar extract  FROM eclipse-temurin:11-jre WORKDIR application COPY --from=builder application/dependencies/ ./ COPY --from=builder application/spring-boot-loader/ ./ COPY --from=builder application/snapshot-dependencies/ ./ COPY --from=builder application/application/ ./ ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]</pre> <p>如果有自定义分层，记得按顺序加入到 COPY 部分</p> <p>一般情况下 target 下面只有一个 jar 后缀的包，此时可以直接执行下面的 Docker 命令：</p> <pre>docker build --tag imageName:version .</pre> <p>如果有多个 jar，需要通过参数指定：</p> <pre>docker build  --build-arg JAR_FILE=path/to/myapp.jar --tag imageName:version .</pre> <p>构建后查看镜像信息：</p> <pre>IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT e1d22f48893d   11 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…   0B        buildkit.dockerfile.v0 &lt;missing&gt;      11 seconds ago   COPY application/application/ ./ # buildkit     55.1kB    buildkit.dockerfile.v0 &lt;missing&gt;      11 seconds ago   COPY application/snapshot-dependencies/ ./ #…   46.1MB    buildkit.dockerfile.v0 &lt;missing&gt;      12 seconds ago   COPY application/spring-boot-loader/ ./ # bu…   252kB     buildkit.dockerfile.v0 &lt;missing&gt;      12 seconds ago   COPY application/dependencies/ ./ # buildkit    216MB     buildkit.dockerfile.v0 &lt;missing&gt;      10 minutes ago   WORKDIR /application                            0B        buildkit.dockerfile.v0 &lt;missing&gt;      2 months ago     /bin/sh -c set -eux;   arch="$(dpkg --print-…   210MB      &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV JAVA_VERSION=8u322       0B         &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV LANG=C.UTF-8             0B         &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV PATH=/usr/local/openj…   0B         &lt;missing&gt;      2 months ago     /bin/sh -c { echo '#/bin/sh'; echo 'echo "$J…   27B        &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV JAVA_HOME=/usr/local/…   0B         &lt;missing&gt;      2 months ago     /bin/sh -c set -eux;  apt-get update;  apt-g…   4.88MB     &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  CMD ["bash"]                 0B         &lt;missing&gt;      2 months ago     /bin/sh -c #(nop) ADD file:d48a85028743f16ed…   80.4MB</pre> <p>层信息：</p> <pre>"RootFS": {       "Type": "layers",     "Layers": [         "sha256:1401df2b50d5de5a743b7bac3238ef3b7ce905ae39f54707b0ebb8eda3ab10bc",         "sha256:43015d7c36457e91ff0994082e7016335d5aa7690e8b5c799d41c2bab47f086c",         "sha256:f1bceed991c5891bd4bf3ad6e1ade5334e2c40ada40305b59fbf0a275ebbed17",         "sha256:7a49a2f5a65e2f57886dd32ffe85542283b249ccefd7a1b5379632030912d804",         "sha256:8791c93670dee0e973efce4424ea9b33caa49e7ef15c8e0bde1912b51c349524",         "sha256:94c6796cee53f42ae2478affbfc8510c97c76e65015ec46309f83265df078ef8",         "sha256:033be8a54968fe881ce71510862eacc0c3f3bdb6eb2af1a9130704bbe7442ae8",         "sha256:ab0700832472168ad4a9060b3fbedf8cc44f22ff1d074aebb67d9ee466796515",         "sha256:06a62903d01189112c0c8b6b68debaa170228e9d7cf868e1b9959001e877a4c4"     ] }</pre> <p>对代码进行简单修改后，重新构建镜像，再次查看：</p> <pre>IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT cc399ec3ba61   13 seconds ago   ENTRYPOINT ["java" "org.springframework.boot…   0B        buildkit.dockerfile.v0 &lt;missing&gt;      13 seconds ago   COPY application/application/ ./ # buildkit     52.9kB    buildkit.dockerfile.v0 &lt;missing&gt;      3 minutes ago    COPY application/snapshot-dependencies/ ./ #…   46.1MB    buildkit.dockerfile.v0 &lt;missing&gt;      3 minutes ago    COPY application/spring-boot-loader/ ./ # bu…   252kB     buildkit.dockerfile.v0 &lt;missing&gt;      3 minutes ago    COPY application/dependencies/ ./ # buildkit    216MB     buildkit.dockerfile.v0 &lt;missing&gt;      13 minutes ago   WORKDIR /application                            0B        buildkit.dockerfile.v0 &lt;missing&gt;      2 months ago     /bin/sh -c set -eux;   arch="$(dpkg --print-…   210MB      &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV JAVA_VERSION=8u322       0B         &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV LANG=C.UTF-8             0B         &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV PATH=/usr/local/openj…   0B         &lt;missing&gt;      2 months ago     /bin/sh -c { echo '#/bin/sh'; echo 'echo "$J…   27B        &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  ENV JAVA_HOME=/usr/local/…   0B         &lt;missing&gt;      2 months ago     /bin/sh -c set -eux;  apt-get update;  apt-g…   4.88MB     &lt;missing&gt;      2 months ago     /bin/sh -c #(nop)  CMD ["bash"]                 0B         &lt;missing&gt;      2 months ago     /bin/sh -c #(nop) ADD file:d48a85028743f16ed…   80.4MB</pre> <p>层信息：</p> <pre>"RootFS": {       "Type": "layers",     "Layers": [         "sha256:1401df2b50d5de5a743b7bac3238ef3b7ce905ae39f54707b0ebb8eda3ab10bc",         "sha256:43015d7c36457e91ff0994082e7016335d5aa7690e8b5c799d41c2bab47f086c",         "sha256:f1bceed991c5891bd4bf3ad6e1ade5334e2c40ada40305b59fbf0a275ebbed17",         "sha256:7a49a2f5a65e2f57886dd32ffe85542283b249ccefd7a1b5379632030912d804",         "sha256:8791c93670dee0e973efce4424ea9b33caa49e7ef15c8e0bde1912b51c349524",         "sha256:94c6796cee53f42ae2478affbfc8510c97c76e65015ec46309f83265df078ef8",         "sha256:033be8a54968fe881ce71510862eacc0c3f3bdb6eb2af1a9130704bbe7442ae8",         "sha256:ab0700832472168ad4a9060b3fbedf8cc44f22ff1d074aebb67d9ee466796515",         "sha256:4c0f187537195a34793722097d719f0c1247fec1648a6bdcf08f42556348af74"     ] }</pre> <p>和上面相比只有最上面的一层不同，通过分层尽可能利用Docker层缓存，可以减小镜像的差异，使得镜像更新时，只需要下载有差异的这一小部分。</p> <p>构建镜像后，我们通过<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/anchore/grype"  title="grype" rel="nofollow">grype</a>&nbsp;检测镜像是否存在安全漏洞：</p> <pre>$ grype 镜像名:版本  ✔ Vulnerability DB        [no update available]  ✔ Loaded image              ✔ Parsed image              ✔ Cataloged packages      [521 packages]  ✔ Scanned image           [136 vulnerabilities]  NAME                           INSTALLED           FIXED-IN                 TYPE          VULNERABILITY        SEVERITY    apt                            2.2.4                                        deb           CVE-2011-3374        Negligible   aviator                        3.3.0                                        java-archive  GHSA-xpv2-8ppj-79hh  Critical     bsdutils                       1:2.36.1-8+deb11u1                           deb           CVE-2022-0563        Negligible   coreutils                      8.32-4+b1                                    deb           CVE-2017-18018       Negligible   coreutils                      8.32-4+b1           (won't fix)              deb           CVE-2016-2781        Low          e2fsprogs                      1.46.2-2            (won't fix)              deb           CVE-2022-1304        High         gzip                           1.10-4              1.10-4+deb11u1           deb           CVE-2022-1271        Unknown      libapt-pkg6.0                  2.2.4                                        deb           CVE-2011-3374        Negligible   ...</pre> <p>还可以对代码进行检查（<code>dir:.</code>&nbsp;当前目录）：</p> <pre>$ grype dir:.    ✔ Vulnerability DB        [no update available]  ✔ Indexed .                 ✔ Cataloged packages      [378 packages]  ✔ Scanned image           [36 vulnerabilities]  NAME                           INSTALLED     FIXED-IN      TYPE          VULNERABILITY        SEVERITY  aviator                        3.3.0                       java-archive  GHSA-xpv2-8ppj-79hh  Critical   maven-aether-provider          3.1.1                       java-archive  CVE-2021-26291       Critical   maven-artifact                 3.1.1                       java-archive  CVE-2021-26291       Critical   maven-common-artifact-filters  3.2.0                       java-archive  CVE-2021-26291       Critical   maven-core                     3.1.1                       java-archive  CVE-2021-26291       Critical   maven-model                    3.1.1                       java-archive  CVE-2021-26291       Critical   maven-model-builder            3.1.1                       java-archive  CVE-2021-26291       Critical   maven-repository-metadata      3.1.1                       java-archive  CVE-2021-26291       Critical   maven-settings                 3.1.1                       java-archive  CVE-2021-26291       Critical   maven-settings-builder         3.1.1                       java-archive  CVE-2021-26291       Critical   maven-shared-utils             3.3.3                       java-archive  CVE-2021-26291       Critical   minio                          8.3.8                       java-archive  CVE-2021-21390       Medium     minio                          8.3.8                       java-archive  CVE-2020-11012       High       minio                          8.3.8                       java-archive  CVE-2021-21287       High</pre> <h3>3.2 Buildpacks</h3> <p>Spring Boot 插件集成了 Buildpacks 功能，插件配置如下：</p> <pre>&lt;build&gt;     &lt;plugins&gt;         &lt;plugin&gt;             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;             &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;             &lt;executions&gt;                 &lt;execution&gt;                     &lt;goals&gt;                         &lt;goal&gt;build-image&lt;/goal&gt;                     &lt;/goals&gt;                 &lt;/execution&gt;             &lt;/executions&gt;         &lt;/plugin&gt;     &lt;/plugins&gt; &lt;/build&gt;</pre> <p>执行<code>mvn org.springframework.boot:spring-boot-maven-plugin:build-image</code>&nbsp;即可构建镜像。</p> <p>构建完镜像后，运行时可能会遇到中文乱码，可以通过下面两种方式解决：</p> <p>1 运行镜像时，通过环境变量指定编码:</p> <p><code>docker run -e JAVA_OPTS="-Dfile.encoding=UTF-8" &lt;image_name&gt;</code></p> <p>2 配置 spring boot 插件，添加默认的 JVM 配置：</p> <pre>&lt;plugin&gt;     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;     &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;     &lt;version&gt;${spring-boot.version}&lt;/version&gt;     &lt;executions&gt;         &lt;execution&gt;             &lt;goals&gt;                 &lt;goal&gt;build-image&lt;/goal&gt;             &lt;/goals&gt;         &lt;/execution&gt;     &lt;/executions&gt;     &lt;configuration&gt;         &lt;image&gt;             &lt;env&gt;                 &lt;BPE_DELIM_JAVA_TOOL_OPTIONS xml:space="preserve"&gt; &lt;/BPE_DELIM_JAVA_TOOL_OPTIONS&gt;                 &lt;BPE_APPEND_JAVA_TOOL_OPTIONS&gt;-Dfile.encoding=UTF-8&lt;/BPE_APPEND_JAVA_TOOL_OPTIONS&gt;             &lt;/env&gt;         &lt;/image&gt;     &lt;/configuration&gt; &lt;/plugin&gt;</pre> <p>环境变量配置规则文档</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/paketo-buildpacks/environment-variables"  title="GitHub - paketo-buildpacks/environment-variables: A Cloud Native Buildpack that embeds environment variables into an image" rel="nofollow">GitHub - paketo-buildpacks/environment-variables: A Cloud Native Buildpack that embeds environment variables into an image</a></p> <p>上面两个ENV配置介绍如下：</p> <ol> <li>追加分隔符使用空格&nbsp;，xml配置保留空格（<code>xml:space="preserve"</code>&nbsp;）。</li> <li>追加JVM参数</li> </ol> <h2>四、Jar 包运行</h2> <p>除了使用镜像外，当使用 Jar 包运行时，通过<code>jar xf xxxx.jar</code>&nbsp;可以解压 jar 包到当前目录，解压后通过下面命令启动：</p> <pre>java org.springframework.boot.loader.JarLauncher</pre> <p>通过这种方式运行时，可以相对方便的修改配置文件，可以替换更新某些 jar 依赖，不用在对整个 fat jar 进行操作。</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-48679.htm">两个月猫抓伤了要打疫苗吗（两个月的猫抓伤了怎么办）</a></p>
+                                        <p>下一个：<a href="/news/article-49183.htm">宠物粮食品牌名字4个字大全及寓意图片 宠物粮食品牌名字4个字大全及寓意图片及价格</a></p>
+                                    </div>
+                            </div>
+            <div class="col-md-4 w3l-services">
+                <h3 class="title-big mb-sm-3 mb-3">热门文章</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-27337.htm">领养宠物在哪里领养（领养宠物狗的地方在哪里）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈领养宠物在哪里领养，以及领养宠物狗的地方在哪里对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、哪里有领养狗狗的?2、...        </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2024-12-8-clash-v2ray-ss-ssr.htm">12月8日更新22.7M/S，2024年最新高速SSR/Shadowrocket/V2ray/Clash订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了日本、韩国、加拿大、香港、新加坡、美国、欧洲等地区,最高速度可达22.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2024-11-7-free-clash-subscribe.htm">11月7日更新19.1M/S，2024年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了美国、日本、新加坡、加拿大、欧洲、韩国、香港等地区,最高速度可达19.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-31571.htm">如何在IDEA 中配置 Maven</a></h4>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maven 是一个能使我们的java程序开发节省时间和精力，是开发变得相对简单，还能使开发规范化的工具。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2024-11-30-shadowrocket-node.htm">11月30日更新21.9M/S，2024年最新高速SSR/Shadowrocket/Clash/V2ray订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、加拿大、日本、香港、新加坡、韩国、美国等地区,最高速度可达21.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-47197.htm">养猫的人容易得什么病视频讲解（养猫咪的人会得什么病）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈养猫的人容易得什么病视频讲解，以及养猫咪的人会得什么病对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、养猫的人容易得什么病...     </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-36334.htm">匿名类（Anonymous Classes）</a></h4>
+                <p>匿名类 匿名类可以让代码更加简洁，因为它允许声明的同时实例化一个类。类似于局部类，只不过他们没有名字，当只需要一次局部类时，用匿名类更简洁。  匿名类的声明 局部类的声明是类的声明，但匿名类的声明是一</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-23620.htm">kotlin 标准函数和静态方法 with、run、apply</a></h4>
+                <p>一.标准函数 1.with函数 with函数接受两个参数，第一个是任意类型的对象，第二个是lambda表达式。 作用：连续调用同一对象的多个方法。返回值是最后一个值 格式如下： val result </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-19038.htm">动物诊疗机构管理与执业兽医制度规范（动物诊疗机构应当具备的条件）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈动物诊疗机构管理与执业兽医制度规范，以及动物诊疗机构应当具备的条件对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、执业兽医管理办法... </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-1-14-node-share.htm">1月14日更新19.8M/S，2025年最新高速Clash/V2ray/Shadowrocket/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、加拿大、香港、韩国、欧洲、新加坡、日本等地区,最高速度可达19.8 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="title-big mb-sm-3 mb-3">归纳</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+                                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+                            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+        <!-- Footer -->
+    <section class="w3l-footer py-sm-5 py-4">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-8 footer-left">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        <p class="m-0">Clash Node官网订阅站 版权所有</p>
+                    </div>
+                    <div class="col-lg-4 footer-right text-lg-right text-center mt-lg-0 mt-3">
+                        <ul class="social m-0 p-0">
+                            <li><a href="#facebook"><span class="fa fa-facebook-official"></span></a></li>
+                            <li><a href="#linkedin"><span class="fa fa-linkedin-square"></span></a></li>
+                            <li><a href="#instagram"><span class="fa fa-instagram"></span></a></li>
+                            <li><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            <span class="fa fa-angle-up"></span>
+        </button>
+        <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+        </script>
+        <!-- /move top -->
+    </section>
+    <!-- //Footer -->
+    <!-- all js scripts and files here -->
+    <script src="/assets/website/js/frontend/clashnode/theme-change.js"></script><!-- theme switch js (light and dark)-->
+    <script src="/assets/website/js/frontend/clashnode/jquery-3.5.1.min.js"></script><!-- default jQuery -->
+    <!-- /typig-text-->
+    <script>
+    const typedTextSpan = document.querySelector(".typed-text");
+    const cursorSpan = document.querySelector(".cursor");
+
+    const textArray = ["UI/UX Designer", "Freelancer", "Web developer"];
+    const typingDelay = 200;
+    const erasingDelay = 10;
+    const newTextDelay = 100; // Delay between current and next text
+    let textArrayIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+        if (charIndex < textArray[textArrayIndex].length) {
+            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+            typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            setTimeout(erase, newTextDelay);
+        }
+    }
+
+    function erase() {
+        if (charIndex > 0) {
+            // add class 'typing' if there's none
+            if (!cursorSpan.classList.contains("typing")) {
+                cursorSpan.classList.add("typing");
+            }
+            typedTextSpan.textContent = textArray[textArrayIndex].substring(0, 0);
+            charIndex--;
+            setTimeout(erase, erasingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            textArrayIndex++;
+            if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+            setTimeout(type, typingDelay);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+        if (textArray.length) setTimeout(type, newTextDelay + 250);
+    });
+    </script>
+    <!-- //typig-text-->
+    <!-- services owlcarousel -->
+    <script src="/assets/website/js/frontend/clashnode/owl.carousel.js"></script>
+    <!-- script for services -->
+    <script>
+    $(document).ready(function() {
+        $('.owl-two').owlCarousel({
+            loop: true,
+            margin: 30,
+            nav: false,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                700: {
+                    items: 1,
+                    nav: false
+                },
+                1090: {
+                    items: 3,
+                    nav: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for services -->
+    <!-- script for tesimonials carousel slider -->
+    <script>
+    $(document).ready(function() {
+        $("#owl-demo1").owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: false,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                736: {
+                    items: 1,
+                    nav: false
+                },
+                1000: {
+                    items: 2,
+                    nav: false,
+                    loop: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for tesimonials carousel slider -->
+    <!-- video popup -->
+    <script src="/assets/website/js/frontend/clashnode/jquery.magnific-popup.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+        $('.popup-with-move-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-slide-bottom'
+        });
+    });
+    </script>
+    <!-- //video popup -->
+    <!-- stats number counter-->
+    <script src="/assets/website/js/frontend/clashnode/jquery.waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/clashnode/jquery.countup.js"></script>
+    <script>
+    $('.counter').countUp();
+    </script>
+    <!-- //stats number counter -->
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+    $(function() {
+        $('.navbar-toggler').click(function() {
+            $('body').toggleClass('noscroll');
+        })
+    });
+    </script>
+    <!-- disable body scroll which navbar is in active -->
+    <!--/MENU-JS-->
+    <script>
+    $(window).on("scroll", function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 80) {
+            $("#site-header").addClass("nav-fixed");
+        } else {
+            $("#site-header").removeClass("nav-fixed");
+        }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function() {
+        $("header").toggleClass("active");
+    });
+    $(document).on("ready", function() {
+        if ($(window).width() > 991) {
+            $("header").removeClass("active");
+        }
+        $(window).on("resize", function() {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+        });
+    });
+    </script>
+    <!--//MENU-JS-->
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/clashnode/bootstrap.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
