@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html xml:lang="zh-CN" lang="zh-CN">
 
 <head>
         <link rel="canonical" href="https://clashnode.github.io/news/article-24464.htm" />
@@ -8,7 +8,35 @@
     <title>VUE3 之 全局 Mixin 与 自定义属性合并策略 &#8211; 这个系列的教程通俗易懂，适合新手</title>
     <link rel="icon" href="/assets/website/img/clashnode/favicon.ico" type="image/x-icon"/>
         <meta name="description" content="1. 概述 老话说的好：心态决定命运，好心态才能有好的命运。 言归正传，今天我们来聊聊 VUE 中的全局 Mixin 与 自定义属性合并策略。 2. Mixin 的使用 2.1 全局 Mixin &n" />
-        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <meta name="author" content="Clash Node官网订阅站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashnode.github.io/news/article-24464.htm" />
+    <meta property="og:site_name" content="Clash Node官网订阅站" />
+    <meta property="og:title" content="VUE3 之 全局 Mixin 与 自定义属性合并策略 &#8211; 这个系列的教程通俗易懂，适合新手" />
+    <meta property="og:image" content="https://clashnode.github.io/uploads/20240214/e1cb19dc65fe145e5652417f9d9ba379.webp" />
+        <meta property="og:release_date" content="2024-12-11T10:07:26" />
+    <meta property="og:updated_time" content="2024-12-11T10:07:26" />
+        <meta property="og:description" content="1. 概述 老话说的好：心态决定命运，好心态才能有好的命运。 言归正传，今天我们来聊聊 VUE 中的全局 Mixin 与 自定义属性合并策略。 2. Mixin 的使用 2.1 全局 Mixin &n" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="VUE3 之 全局 Mixin 与 自定义属性合并策略 &#8211; 这个系列的教程通俗易懂，适合新手">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/website/css/clashnode/style-starter.css">
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8B9V1K3BBT"></script>
@@ -99,7 +127,7 @@
                   				  				  				<p><span style="font-size: 18pt"><strong>1. 概述</strong></span></p> <p>老话说的好：心态决定命运，好心态才能有好的命运。</p> <p>言归正传，今天我们来聊聊 VUE 中的全局 Mixin 与 自定义属性合并策略。</p> <p><span style="font-size: 18pt"><strong>2. Mixin 的使用</strong></span></p> <p><span style="font-size: 14pt"><strong>2.1 全局 Mixin</strong></span></p> <p>&nbsp;之前咱们介绍的 Mixin 用法，是局部 Mixin，需要在组件和子组件中使用&nbsp;mixins:[myMixin] 去引入 Mixin，下面我们介绍 全局 Mixin。</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(255, 0, 0, 1)">id</span><span style="color: rgba(0, 0, 255, 1)">="myDiv"</span><span style="color: rgba(0, 0, 255, 1)">&gt;&lt;/</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">body</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">script</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">     const app</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">=</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)"> Vue.createApp({         data(){</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 255, 1)">return</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)"> {                 num :</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">1</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">             }         },          created() {             console.info(</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">created</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">);         },          methods : {             myAdd() {                 console.info(</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">myAdd</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">);             }         },          template:`</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">div</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">button @click</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">=</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">"</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">myAdd</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">"</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">增加</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">/</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">button&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">div</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">{{num}}</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">/</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">div&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">sub</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">-</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">com</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">/</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">/</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">div&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">        `     });     app.mixin({         data(){</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 255, 1)">return</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)"> {                 num :</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">2</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">,                 count :</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">1</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">             }         },         created() {             console.info(</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">myMixin created</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">);         },         methods : {             myAdd() {                 console.info(</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">myMixin myAdd</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">);             }         },     });      app.component(</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">sub-com</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">'</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">, {         template: `</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">div</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">{{count}}</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">&lt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">/</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">div&gt;</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">        `     });      const vm</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">=</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)"> app.mount(</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">"</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">#myDiv</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">"</span><span style="background-color: rgba(245, 245, 245, 1); color: rgba(0, 0, 0, 1)">);</span><span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">script</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre> </div> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/e7de72b2644470dfb577036ae2c22314.jpg" alt="VUE3 之 全局 Mixin 与 自定义属性合并策略 - 这个系列的教程通俗易懂，适合新手"></p> <p>&nbsp;使用 app.mixin 声明的 Mixin 就是全局 Mixin，全局 Mixin 不需要在组件或子组件中使用&nbsp;mixins:[myMixin] 去引入 Mixin，效果和局部 Mixin 一样。</p> <p><span style="font-size: 14pt"><strong>2.2 自定义属性的使用</strong></span></p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 0, 1)">    const myMixin = {         num : 2     }          const app = Vue.createApp({         num : 1,          mixins:[myMixin],          template:`</span><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>{{this.$options.num}}<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 0, 1)">         `     });</span></pre> </div> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/217ccdc516b2b7c119b01974e1964db1.jpg" alt="VUE3 之 全局 Mixin 与 自定义属性合并策略 - 这个系列的教程通俗易懂，适合新手"></p> <p>这个例子中的 num 就是自定义属性，渲染时使用 {{this.$options.num}} 得到自定义属性。</p> <p>自定义属性，不写在 data 里，组件中的自定义属性优先级高于 Mixin 中的自定义属性。</p> <p><span style="font-size: 14pt"><strong>2.3 自定义属性合并策略</strong></span></p> <p>自定义属性的优先级可以调整，我们来看下面的例子</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 0, 1)">    const myMixin = {         num : 2     }          const app = Vue.createApp({         num : 1,           mixins:[myMixin],          template:`</span><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>{{this.$options.num}}<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">div</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span><span style="color: rgba(0, 0, 0, 1)">         `     });      app.config.optionMergeStrategies.num = (mixinValue, appValue) =&gt; {         return mixinValue || appValue; // 意思是先使用 mixinValue，如果 mixinValue 不存在，再使用 appValue     }</span></pre> </div> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/484609c9b1856519a4573b5a970a8df9.jpg" alt="VUE3 之 全局 Mixin 与 自定义属性合并策略 - 这个系列的教程通俗易懂，适合新手"></p> <p>&nbsp;这个例子中，我们使用&nbsp;app.config.optionMergeStrategies.num，对自定义属性 num 的优先级进行了调整。</p> <p><span style="font-size: 18pt"><strong>3. 综述</strong></span></p> <p>今天聊了一下 VUE3 中的全局 Mixin 与 自定义属性合并策略，希望可以对大家的工作有所帮助，下一节我们继续讲 Vue 中的高级语法，敬请期待</p> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-23620.htm">kotlin 标准函数和静态方法 with、run、apply</a></p>
-                                        <p>下一个：<a href="/news/article-24465.htm">宠物粮食品牌都有什么牌子好 宠物粮食品牌都有什么牌子好的</a></p>
+                                        <p>下一个：<a href="/news/article-28264.htm">北京农大动物医院哪个医生好些（北京农大动物医院最好的医生）</a></p>
                                     </div>
                             </div>
             <div class="col-md-4 w3l-services">
@@ -108,8 +136,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-10-17-clash-node-daily-updates.htm">10月17日更新21.5M/S，2024年最新高速Clash/V2ray/SSR/Shadowrocket订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了日本、欧洲、加拿大、香港、韩国、美国、新加坡等地区,最高速度可达21.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-19038.htm">动物诊疗机构管理与执业兽医制度规范（动物诊疗机构应当具备的条件）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈动物诊疗机构管理与执业兽医制度规范，以及动物诊疗机构应当具备的条件对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、执业兽医管理办法... </p>
             </div>
         </div>
     </div>
@@ -118,8 +146,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-12-29-free-v2ray.htm">12月29日更新19.2M/S，2024年最新高速Shadowrocket/V2ray/SSR/Clash订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、日本、美国、加拿大、香港、欧洲、韩国等地区,最高速度可达19.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-2-2-free-node-subscribe.htm">2月2日更新20.3M/S，2025年最新高速SSR/Clash/Shadowrocket/V2ray订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、韩国、加拿大、欧洲、新加坡、香港、日本等地区,最高速度可达20.3 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -128,8 +156,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-3-19-clash-v2ray-ss-ssr.htm">3月19日19.1M/S|SSR/V2ray/Shadowrocket/Clash免费节点每天更新订阅链接</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、美国、日本、新加坡、香港、加拿大、韩国等地区,最高速度可达19.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-1-9-clash-node.htm">1月9日更新18.7M/S，2025年最新高速Clash/SSR/Shadowrocket/V2ray订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、日本、加拿大、美国、香港、欧洲、新加坡等地区,最高速度可达18.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -138,8 +166,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-7-26-node-share.htm">7月26日更新20.2M/S，2024年最新高速Clash/V2ray/Shadowrocket/SSR订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了韩国、美国、香港、加拿大、欧洲、日本、新加坡等地区,最高速度可达20.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-30070.htm">宠物疫苗可以带上火车吗（宠物用疫苗可以带上高铁吗）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈宠物疫苗可以带上火车吗，以及宠物用疫苗可以带上高铁吗对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、宠物可以上火车吗2、...      </p>
             </div>
         </div>
     </div>
@@ -148,8 +176,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-11-21-clash-v2ray-ss-ssr.htm">11月21日更新21M/S，2024年最新高速V2ray/SSR/Shadowrocket/Clash订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了香港、加拿大、日本、美国、韩国、欧洲、新加坡等地区,最高速度可达21 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-11-23-clash-v2ray-ss-ssr.htm">11月23日更新20.6M/S，2024年最新高速Clash/SSR/Shadowrocket/V2ray订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、新加坡、香港、欧洲、日本、美国、韩国等地区,最高速度可达20.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -158,8 +186,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-3-7-free-shadowrocket-node.htm">3月7日21.4M/S|SSR/V2ray/Shadowrocket/Clash免费节点每天更新订阅链接</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、加拿大、日本、韩国、美国、欧洲等地区,最高速度可达21.4 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-1-19-clash-node-daily-updates.htm">1月19日更新20.8M/S，2025年最新高速V2ray/Clash/Shadowrocket/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、香港、欧洲、日本、美国、新加坡、加拿大等地区,最高速度可达20.8 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -168,8 +196,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-5-3-node-share-links.htm">5月3日更新19.2M/S，2024年最新高速Clash/SSR/V2ray/Shadowrocket订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、日本、美国、欧洲、香港、韩国、加拿大等地区,最高速度可达19.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-30615.htm">动物疫苗生产许可（动物疫苗生产许可管理办法）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈动物疫苗生产许可，以及动物疫苗生产许可管理办法对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、给羊打疫苗的公司的行政许可手续...    </p>
             </div>
         </div>
     </div>
@@ -178,8 +206,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-5-14-free-v2ray.htm">5月14日更新18.7M/S，2024年最新高速Shadowrocket/Clash/V2ray/SSR订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、新加坡、日本、韩国、美国、欧洲、香港等地区,最高速度可达18.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-37308.htm">动物医院好评模版（宠物医院的好评怎么写）</a></h4>
+                <p>摘要：       今天给各位分享动物医院好评模版的知识，其中也会对宠物医院的好评怎么写进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、宠物医院好评怎么写...</p>
             </div>
         </div>
     </div>
@@ -188,8 +216,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-6-22-node-share-links.htm">6月22日更新20.9M/S，2024年最新高速V2ray/SSR/Shadowrocket/Clash订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了香港、加拿大、美国、日本、新加坡、韩国、欧洲等地区,最高速度可达20.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-19496.htm">初中学历能考什么证来提升自己（初中学历可以考个什么证）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈初中学历能考什么证来提升自己，以及初中学历可以考个什么证对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、初中学历怎么提升学历啊...   </p>
             </div>
         </div>
     </div>
@@ -198,8 +226,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-11-30-shadowrocket-node.htm">11月30日更新21.9M/S，2024年最新高速SSR/Shadowrocket/Clash/V2ray订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、加拿大、日本、香港、新加坡、韩国、美国等地区,最高速度可达21.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-12-24-free-high-speed-nodes.htm">12月24日更新21.3M/S，2024年最新高速V2ray/Clash/Shadowrocket/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、新加坡、美国、日本、韩国、欧洲、加拿大等地区,最高速度可达21.3 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -210,18 +238,10 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
                                 <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
-                                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
-                                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
-                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
-                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
-                                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
-                                <h4><span class="badge" style="float: right;">29</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
-                                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
-                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
-                                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
-                                <h4><span class="badge" style="float: right;">16</span> <a href="/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
                             </div>
         </div>
     </div>

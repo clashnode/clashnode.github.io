@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html xml:lang="zh-CN" lang="zh-CN">
 
 <head>
         <link rel="canonical" href="https://clashnode.github.io/news/article-27336.htm" />
@@ -8,7 +8,35 @@
     <title>ruby 版本管理RVM （ruby version manager）</title>
     <link rel="icon" href="/assets/website/img/clashnode/favicon.ico" type="image/x-icon"/>
         <meta name="description" content="macOS. 自带的ruby 版本目录权限比较高， 经常有很多 操作需要权限而不能执行   虽然 macOS 自带了一个 ruby 环境，但是是系统自己使用的，所以权限很小，只有 system。   " />
-        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <meta name="author" content="Clash Node官网订阅站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashnode.github.io/news/article-27336.htm" />
+    <meta property="og:site_name" content="Clash Node官网订阅站" />
+    <meta property="og:title" content="ruby 版本管理RVM （ruby version manager）" />
+    <meta property="og:image" content="https://clashnode.github.io/uploads/20240214/15f3c4212f40fda7ce92fc452dc790b7.webp" />
+        <meta property="og:release_date" content="2024-12-18T09:52:31" />
+    <meta property="og:updated_time" content="2024-12-18T09:52:31" />
+        <meta property="og:description" content="macOS. 自带的ruby 版本目录权限比较高， 经常有很多 操作需要权限而不能执行   虽然 macOS 自带了一个 ruby 环境，但是是系统自己使用的，所以权限很小，只有 system。   " />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ruby 版本管理RVM （ruby version manager）">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/website/css/clashnode/style-starter.css">
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8B9V1K3BBT"></script>
@@ -99,7 +127,7 @@
                   				  				  				<blockquote> <p>macOS. 自带的ruby 版本目录权限比较高， 经常有很多 操作需要权限而不能执行</p> </blockquote> <blockquote> <p>虽然 macOS 自带了一个 ruby 环境，但是是系统自己使用的，所以权限很小，只有 system。</p> </blockquote> <blockquote> <p>而/Library 目录是 root 权限,所以很多会提示无权限。<br /> 使用自带ruby更新,管理不方便<br /> 一系列无原因的报错<br /> permission deny<br /> 所以需要自己 安装其他版本的 ruby<br /> 删除系统ruby方法[⚠️删除容易出现问题，尽量不要删除，不要删除，不要删除]</p> </blockquote> <h2><a id="%E8%B5%B7%E6%BA%90" class="anchor" aria-hidden="true" href="#%E8%B5%B7%E6%BA%90" rel="nofollow"><span class="octicon octicon-link"></span></a>起源</h2> <blockquote> <p>我是因为需要用gem 安装软件<br /> gem install xxx<br /> 但是总是提示去权限不足 ，好气呀，才选择 用哪个版本管理 ，用自己的ruby 去安装软件</p> </blockquote> <h2><a id="%E6%A3%80%E6%9F%A5" class="anchor" aria-hidden="true" href="#%E6%A3%80%E6%9F%A5" rel="nofollow"><span class="octicon octicon-link"></span></a>检查</h2> <p>要检查您当前正在使用系统Ruby，请打开终端并输入以下内容：</p> <p><code>which ruby</code></p> <p>如果您使用的是Ruby系统，OS X将回应：</p> <p><code>/usr/bin/ruby</code></p> <p>您可以检查使用哪个版本的Ruby OS X：</p> <p><code>ruby -v</code></p> <h2><a id="rvm%E5%AE%89%E8%A3%85%E9%A1%B5%E9%9D%A2" class="anchor" aria-hidden="true" href="#rvm%E5%AE%89%E8%A3%85%E9%A1%B5%E9%9D%A2" rel="nofollow"><span class="octicon octicon-link"></span></a>RVM安装页面</h2> <h3><a id="1%E5%AE%89%E8%A3%85-mpapis%E5%85%AC%E9%92%A5%E3%80%82" class="anchor" aria-hidden="true" href="#1%E5%AE%89%E8%A3%85-mpapis%E5%85%AC%E9%92%A5%E3%80%82" rel="nofollow"><span class="octicon octicon-link"></span></a>1.安装mpapis公钥。</h3> <blockquote> <p>但是，正如安装页面所记录的，您可能需要gpg。Mac OS X不附带gpg，因此在安装公钥之前，您需要安装gpg。我用Homebrew安装了gpg ：</p> </blockquote> <p><code>brew install gnupg</code></p> <h3><a id="2%E5%AE%89%E8%A3%85%E5%AE%8C-gpg%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E5%AE%89%E8%A3%85mpapis%E5%85%AC%E9%92%A5%EF%BC%9A" class="anchor" aria-hidden="true" href="#2%E5%AE%89%E8%A3%85%E5%AE%8C-gpg%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E5%AE%89%E8%A3%85mpapis%E5%85%AC%E9%92%A5%EF%BC%9A" rel="nofollow"><span class="octicon octicon-link"></span></a>2.安装完gpg之后，你可以安装mpapis公钥：</h3> <p><code>gpg --keyserver hkp://pgp.mit.edu --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</code></p> <h3><a id="3%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84-ruby%E7%9A%84rvm" class="anchor" aria-hidden="true" href="#3%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84-ruby%E7%9A%84rvm" rel="nofollow"><span class="octicon octicon-link"></span></a>3.安装最新版本的Ruby的RVM</h3> <p><code>\curl -sSL https://get.rvm.io | bash -s stable --ruby</code></p> <blockquote> <p>注意如果出现 443 请求被拒绝 则 在本地 host 添加 添加指定ip</p> </blockquote> <p><code>sudo vim /etc/hosts</code></p> <blockquote> <p>然后添加 上 （不知打如何操作vim 这个就自己百度吧），就可以继续步骤三的操作了</p> </blockquote> <p><code>199.232.28.133 raw.githubusercontent.com</code></p> <h3><a id="4%E5%90%AF%E7%94%A8-rvm%E5%9C%B0%E5%9D%80-username%E6%9B%BF%E6%8D%A2%E6%88%90%E4%BD%A0%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF" class="anchor" aria-hidden="true" href="#4%E5%90%AF%E7%94%A8-rvm%E5%9C%B0%E5%9D%80-username%E6%9B%BF%E6%8D%A2%E6%88%90%E4%BD%A0%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF" rel="nofollow"><span class="octicon octicon-link"></span></a>4.启用RVM(地址,userName 替换成你本机信息)</h3> <p><code>source /Users/userName/.rvm/scripts/rvm</code></p> <h3><a id="%E5%88%B0%E6%AD%A4%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E6%9A%82%E6%97%B6%E5%AE%89%E8%A3%85%E5%AE%8C%E6%AF%95%EF%BC%8C%E6%8E%A5%E4%B8%8B%E5%8E%BB%E6%98%AF%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true" href="#%E5%88%B0%E6%AD%A4%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E6%9A%82%E6%97%B6%E5%AE%89%E8%A3%85%E5%AE%8C%E6%AF%95%EF%BC%8C%E6%8E%A5%E4%B8%8B%E5%8E%BB%E6%98%AF%E4%BD%BF%E7%94%A8" rel="nofollow"><span class="octicon octicon-link"></span></a>到此管理工具暂时安装完毕，接下去是使用</h3> <h2><a id="%E4%BD%BF%E7%94%A8rvm%E5%AE%89%E8%A3%85ruby" class="anchor" aria-hidden="true" href="#%E4%BD%BF%E7%94%A8rvm%E5%AE%89%E8%A3%85ruby" rel="nofollow"><span class="octicon octicon-link"></span></a>使用RVM安装ruby</h2> <h3><a id="1%E6%A3%80%E6%9F%A5" class="anchor" aria-hidden="true" href="#1%E6%A3%80%E6%9F%A5" rel="nofollow"><span class="octicon octicon-link"></span></a>1.检查</h3> <blockquote> <p>您可以列出可供RVM使用的Ruby版本rvm list</p> </blockquote> <p><code>rvm list</code></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/5b01083848f650ba1a2c201331b645c8.jpg" alt="ruby 版本管理RVM （ruby version manager）"></p> <blockquote> <p>查看可用的ruby 版本</p> </blockquote> <p><code>rvm list known</code></p> <blockquote> <p>可以看到我这里没有可用版本 ，接下去是安装</p> </blockquote> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/7d9943584a8d654adf8a298642085cf6.jpg" alt="ruby 版本管理RVM （ruby version manager）"></p> <h3><a id="2%E5%AE%89%E8%A3%85%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC" class="anchor" aria-hidden="true" href="#2%E5%AE%89%E8%A3%85%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC" rel="nofollow"><span class="octicon octicon-link"></span></a>2.安装指定版本</h3> <p><code>rvm install 3.0.0</code></p> <blockquote> <p>我第一次安装爆了个错，但是重新执行<strong>安装又好了</strong><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/0b257932ec4c97e0a4adf263bf24c146.jpg" alt="ruby 版本管理RVM （ruby version manager）"></p> </blockquote> <blockquote> <p>查询，终于有了</p> </blockquote> <p><code>rvm list</code></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/1f559e8b1ad8978959401c07232b44f5.jpg" alt="ruby 版本管理RVM （ruby version manager）"></p> <blockquote> <p>指定版本 完成</p> </blockquote> <p><code>rvm use 3.0.0</code></p> <h2><a id="%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4" class="anchor" aria-hidden="true" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4" rel="nofollow"><span class="octicon octicon-link"></span></a>常用指令</h2> <h3><a id="ruby-rvm" class="anchor" aria-hidden="true" href="#ruby-rvm" rel="nofollow"><span class="octicon octicon-link"></span></a>ruby rvm</h3> <pre><code>$ ruby -v # 查看ruby 版本 $ rvm list known # 列出已知的 ruby 版本 $ rvm install 2.3.0 # 选择指定 ruby 版本进行更新 $ rvm get stable # 更新 rvm $ rvm use 2.2.2 # 切换到指定 ruby 版本 $ rvm use 2.2.2 --default # 设置指定 ruby 版本为默认版本 $ rvm list # 查询已安装的 ruby 版本 $ rvm remove 1.9.2 # 卸载移除 指定 ruby 版本  $ curl -L https://get.rvm.io | bash -s stable # 安装 rvm 环境 $ curl -sSL https://get.rvm.io | bash -s stable --ruby # 默认安装 rvm 最新版本 $ curl -sSL https://get.rvm.io | bash -s stable --ruby=2.3.0 # 安装 rvm 指定版本 $ source ~/.rvm/scripts/rvm # 载入 rvm</code></pre> <h3><a id="gem" class="anchor" aria-hidden="true" href="#gem" rel="nofollow"><span class="octicon octicon-link"></span></a>Gem</h3> <pre><code>$ gem -v # 查看 gem 版本 $ gem source # 查看 gem 配置源 $ gem source -l # 查看 gem 配置源目录 $ gem sources -a url # 添加 gem 配置源（url 需换成网址） $ gem sources --add url # 添加 gem 配置源（url 需换成网址） $ gem sources -r url # 删除 gem 配置源（url 需换成网址） $ gem sources --remove url # 删除 gem 配置源（url 需换成网址） $ gem update # 更新 所有包 $ gem update --system # 更新 Ruby Gems 软件 $ $ gem install rake # 安装 rake，从本地或远程服务器 $ gem install rake --remote # 安装 rake，从远程服务器 $ gem install watir -v 1.6.2 # 安装 指定版本的 watir $ gem install watir --version 1.6.2 # 安装 指定版本的 watir $ gem uninstall rake # 卸载 rake 包 $ gem list d # 列出 本地以 d 打头的包 $ gem query -n ''[0-9]'' --local # 查找 本地含有数字的包 $ gem search log --both # 查找 从本地和远程服务器上查找含有 log 字符串的包 $ gem search log --remoter # 查找 只从远程服务器上查找含有 log 字符串的包 $ gem search -r log # 查找 只从远程服务器上查找含有log字符串的包 $ $ gem help # 提醒式的帮助 $ gem help install # 列出 install 命令 帮助 $ gem help examples # 列出 gem 命令使用一些例子 $ gem build rake.gemspec # 把 rake.gemspec 编译成 rake.gem $ gem check -v pkg/rake-0.4.0.gem # 检测 rake 是否有效 $ gem cleanup # 清除 所有包旧版本，保留最新版本 $ gem contents rake # 显示 rake 包中所包含的文件 $ gem dependency rails -v 0.10.1 # 列出 与 rails 相互依赖的包 $ gem environment # 查看 gem 的环境 $ $ sudo gem -v # 查看 gem 版本（以管理员权限） $ sudo gem install cocoa pods # 安装 CocoaPods（以管理员权限） $ sudo gem install cocoapods # 安装 CocoaPods（以管理员权限） $ sudo gem install cocoapods --pre # 安装 CocoaPods 至预览版（以管理员权限） $ sudo gem install cocoapods -v 0.39.0 # 安装 CocoaPods 指定版本（以管理员权限） $ sudo gem update cocoapods # 更新 CocoaPods 至最新版（以管理员权限） $ sudo gem update cocoapods --pre # 更新 CocoaPods 至预览版（以管理员权限） $ sudo gem uninstall cocoapods -v 0.39.0 # 移除 CocoaPods 指定版本（以管理员权限）</code></pre> <h2><a id="%E7%AC%AC%E4%BA%8C%E5%BC%B9cocoapods" class="anchor" aria-hidden="true" href="#%E7%AC%AC%E4%BA%8C%E5%BC%B9cocoapods" rel="nofollow"><span class="octicon octicon-link"></span></a>第二弹cocoapods</h2> <blockquote> <p>coapods 搜索一直提示没有 信息<img decoding="async" src="http://img.555519.xyz/uploads3/20220510/2e770b482e0b29786f88d043a85a02a0.jpg" alt="ruby 版本管理RVM （ruby version manager）"><code>[!] Unable to find a pod with name, author, summary, or description matching</code>Masonry<code></code></p> </blockquote> <blockquote> <p>我查看 search_index.json 都是空的数据<br /> master 也都是没有，</p> </blockquote> <p>终极方案：</p> <ol> <li>pod repo remove master</li> <li>cd ~/.cocoapods/repos</li> <li>git clone --depth 1<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/CocoaPods/Specs.git"  rel="nofollow">https://github.com/CocoaPods/Specs.git</a> master</li> <li>rm ~/Library/Caches/CocoaPods/search_index.json</li> <li>pod search AFNetworking</li> </ol> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-26871.htm">哈医大王海洋个人资料（王海云哈尔滨医生）</a></p>
-                                        <p>下一个：<a href="/news/article-27337.htm">领养宠物在哪里领养（领养宠物狗的地方在哪里）</a></p>
+                                        <p>下一个：<a href="/news/article-28264.htm">北京农大动物医院哪个医生好些（北京农大动物医院最好的医生）</a></p>
                                     </div>
                             </div>
             <div class="col-md-4 w3l-services">
@@ -108,8 +136,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-2-18-clash-windows.htm">2月18日21.1M/S|Shadowrocket/Clash/SSR/V2ray免费节点每天更新订阅链接</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、欧洲、美国、新加坡、韩国、香港、日本等地区,最高速度可达21.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-20869.htm">win11系统怎么禁用Superfetch服务</a></h4>
+                <p>&nbsp; &nbsp;Superfetch也被叫做SysMain，这个服务会记录用户打开应用程序的模式，并且预先将它们加载到内存中节省时间，不过最近有位win11系统用户在使用电脑的过程当中，发现</p>
             </div>
         </div>
     </div>
@@ -118,8 +146,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-12-26-free-ssr-subscribe.htm">12月26日更新20.9M/S，2024年最新高速SSR/V2ray/Clash/Shadowrocket订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、加拿大、韩国、欧洲、日本、新加坡、香港等地区,最高速度可达20.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-25476.htm">动物疫苗批号查询网 动物疫苗批号查询网站官网入口</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于动物疫苗批号查询网的问题，于是小编就整理了2个相关介绍动物疫苗批号查询网的解答，让我们一起看看吧。接种证没有编号可以去哪里查询？</p>
             </div>
         </div>
     </div>
@@ -128,8 +156,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-5-28-free-shadowrocket-node.htm">5月28日更新20.9M/S，2024年最新高速Clash/Shadowrocket/SSR/V2ray订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、香港、美国、新加坡、韩国、欧洲、日本等地区,最高速度可达20.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-47686.htm">动物预防针多少钱 动物预防针多少钱一针</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于动物预防针多少钱的问题，于是小编就整理了3个相关介绍动物预防针多少钱的解答，让我们一起看看吧。兽医站打疫苗要不要钱？做狂犬疫苗抗</p>
             </div>
         </div>
     </div>
@@ -138,8 +166,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-8-10-free-ssr-subscribe.htm">8月10日更新22.9M/S，2024年最新高速Clash/SSR/Shadowrocket/V2ray订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了香港、欧洲、韩国、美国、日本、加拿大、新加坡等地区,最高速度可达22.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-37798.htm">同城免费领养宠物怎么领取 同城免费领养宠物怎么领取的</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于同城免费领养宠物怎么领取的问题，于是小编就整理了4个相关介绍同城免费领养宠物怎么领取的解答，让我们一起看看吧。58上怎么发布免费</p>
             </div>
         </div>
     </div>
@@ -148,8 +176,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-11-19-free-v2ray.htm">11月19日更新20.4M/S，2024年最新高速Clash/Shadowrocket/V2ray/SSR订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、新加坡、韩国、欧洲、日本、美国、香港等地区,最高速度可达20.4 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-34903.htm">包含福州免费领养宠物的平台有哪些的词条</a></h4>
+                <p>摘要：       今天给各位分享福州免费领养宠物的平台有哪些的知识，其中也会对进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、谁能推荐几个大型一点的宠物网站.</p>
             </div>
         </div>
     </div>
@@ -158,8 +186,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-8-4-free-node-subscribe-links.htm">8月4日更新20.2M/S，2024年最新高速Clash/Shadowrocket/SSR/V2ray订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了日本、美国、韩国、香港、欧洲、新加坡、加拿大等地区,最高速度可达20.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-40758.htm">狗粮品牌大全国产排行榜前十名（国内狗粮十大品牌）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈狗粮品牌大全国产排行榜前十名，以及国内狗粮十大品牌对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、狗粮排名前十品牌国产2、...     </p>
             </div>
         </div>
     </div>
@@ -168,8 +196,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-25011.htm">Logback及其MDC功能详解</a></h4>
-                <p>Logback日志系统是SLF4J的原生实现。同时，Logback也是Log4j的继任者，补全了Log4j的不足。 1.&nbsp;Logback的模块组成  logback-core，其他模块的功能</p>
+                <h4><a href="/news/article-19953.htm">动物疫苗经营范围有哪些内容要求（动物疫苗经营许可）</a></h4>
+                <p>摘要：       今天给各位分享动物疫苗经营范围有哪些内容要求的知识，其中也会对动物疫苗经营许可进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、生物科技有限.</p>
             </div>
         </div>
     </div>
@@ -178,8 +206,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-8-7-clash-node-daily-updates.htm">8月7日更新20.2M/S，2024年最新高速Shadowrocket/SSR/V2ray/Clash订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、香港、美国、新加坡、加拿大、日本、韩国等地区,最高速度可达20.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-38287.htm">面试之Java String 编码相关</a></h4>
+                <p>另有一篇我的字符编码本质入门的文章见这里：https://www.cnblogs.com/uncleguo/p/16008551.html 　　实话说，作为一个多年Java老年程序员，直到近来，在没有</p>
             </div>
         </div>
     </div>
@@ -188,8 +216,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-30139.htm">58同城宠物狗免费领养的有没有骗局（58同城宠物专区的领养）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈58同城宠物狗免费领养的有没有骗局，以及58同城宠物专区的领养对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、我想领养一狗狗,见58同..</p>
+                <h4><a href="/free-nodes/2025-1-14-node-share.htm">1月14日更新19.8M/S，2025年最新高速Clash/V2ray/Shadowrocket/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、加拿大、香港、韩国、欧洲、新加坡、日本等地区,最高速度可达19.8 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -198,8 +226,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-2-14-free-ssr-node.htm">2月14日19.8M/S|SSR/V2ray/Shadowrocket/Clash免费节点每天更新订阅链接</a></h4>
-                <p>这一次的节点更新覆盖了香港、韩国、新加坡、欧洲、加拿大、美国、日本等地区,最高速度可达19.8 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2024-11-24-free-shadowrocket-node.htm">11月24日更新18.5M/S，2024年最新高速Shadowrocket/V2ray/SSR/Clash订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了美国、韩国、新加坡、欧洲、香港、日本、加拿大等地区,最高速度可达18.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -210,18 +238,10 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
                                 <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
-                                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
-                                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
-                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
-                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
-                                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
-                                <h4><span class="badge" style="float: right;">29</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
-                                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
-                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
-                                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
-                                <h4><span class="badge" style="float: right;">16</span> <a href="/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
                             </div>
         </div>
     </div>

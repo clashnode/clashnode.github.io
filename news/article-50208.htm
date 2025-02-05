@@ -1,0 +1,505 @@
+<!doctype html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashnode.github.io/news/article-50208.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>通过make生成执行文件的过程详解_在线工具</title>
+    <link rel="icon" href="/assets/website/img/clashnode/favicon.ico" type="image/x-icon"/>
+        <meta name="description" content="lab_0 清华大学ucore实验环境配置详细步骤！（小白入） lab_1 清华大学ucore bootload启动ucore os（预备知识） Lab_1：练习1——理解通过make生成执行文件的过" />
+    
+    <meta name="author" content="Clash Node官网订阅站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashnode.github.io/news/article-50208.htm" />
+    <meta property="og:site_name" content="Clash Node官网订阅站" />
+    <meta property="og:title" content="通过make生成执行文件的过程详解_在线工具" />
+    <meta property="og:image" content="https://clashnode.github.io/uploads/20240214/72b0aaa8811f609f03eeb6123bd29eae.webp" />
+        <meta property="og:release_date" content="2025-02-03T09:24:16" />
+    <meta property="og:updated_time" content="2025-02-03T09:24:16" />
+        <meta property="og:description" content="lab_0 清华大学ucore实验环境配置详细步骤！（小白入） lab_1 清华大学ucore bootload启动ucore os（预备知识） Lab_1：练习1——理解通过make生成执行文件的过" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="通过make生成执行文件的过程详解_在线工具">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/clashnode/style-starter.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8B9V1K3BBT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8B9V1K3BBT');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- header -->
+    <header id="site-header" class="fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg stroke">
+                <a class="navbar-brand" href="/">
+                                        <span class="fa fa-laptop"></span> Clash Node                </a>
+                <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                    </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav ml-auto">
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/">首页</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/free-nodes/">免费节点</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/news/">新闻资讯</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="#">关于</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">联系</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- toggle switch for light and dark theme -->
+                <div class="mobile-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+            </nav>
+        </div>
+    </header>
+    <!-- //header -->
+    <!-- about breadcrumb -->
+    <section class="w3l-about-breadcrumb text-center">
+        <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+            <div class="container py-2">
+                <h1 class="title" style="word-break: break-all;">通过make生成执行文件的过程详解_在线工具</h1>
+                <ul class="breadcrumbs-custom-path mt-2">
+                    <li><a href="/">首页</a></li>
+                    <li><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span></li>
+                    <li><a href="/news/">新闻资讯</a></li>
+                    <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> 正文</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- //about breadcrumb -->
+    <div class="container py-lg-5 py-3">
+        <div class="row">
+            <div class="col-md-8">
+                                <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<h3 id="lab_0-清华大学ucore实验环境配置详细步骤小白入"><strong><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/450go/p/16211900.html"  target="_blank" rel="nofollow">lab_0 清华大学ucore实验环境配置详细步骤！（小白入）</a></strong></h3> <h3 id="lab_1-清华大学ucore-bootload启动ucore-os预备知识"><strong><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/450go/p/16214166.html"  target="_blank" rel="nofollow">lab_1 清华大学ucore bootload启动ucore os（预备知识）</a></strong></h3> <h4 id="lab_1练习1理解通过make生成执行文件的过程"><strong><a href="" rel="nofollow">Lab_1：练习1——理解通过make生成执行文件的过程</a></strong></h4> <h2 id="练习一理解通过make生成执行文件的过程">练习一：理解通过make生成执行文件的过程。</h2> <blockquote> <p>列出本实验各练习中对应的OS原理的知识点，并说明本实验中的实现部分如何对应和体现了原理中的基本概念和关键知识点。</p> <p>在此练习中，大家需要通过静态分析代码来了解：</p> <ol> <li>操作系统镜像文件ucore.img是如何一步一步生成的？(需要比较详细地解释Makefile中每一条相关命令和命令参数的含义，以及说明命令导致的结果)</li> <li>一个被系统认为是符合规范的硬盘主引导扇区的特征是什么？</li> </ol> <p>补充材料：</p> <p>如何调试Makefile</p> <p>当执行make时，一般只会显示输出，不会显示make到底执行了哪些命令。</p> <p>如想了解make执行了哪些命令，可以执行：</p> <pre><code>$ make "V="</code></pre> <p>要获取更多有关make的信息，可上网查询，并请执行</p> <pre><code>$ man make</code></pre> </blockquote> <h3 id="一操作步骤"><strong>一、操作步骤</strong></h3> <p>1、输入make clean，删掉上次的make命令所产生的object文件（后缀为“.o”的文件）及可执行文件</p> <pre><code>myliuxb@myliuxb-virtual-machine:~/ucore/labcodes_answer/lab1_result$ make clean rm -f -r obj bin</code></pre> <p>2、输入make V=这实际就是设置一个标记，使得make它的执行过程能够展现出来。能够知道Bootloader和ucore是如何一步步生成的。</p> <pre><code>myliuxb@myliuxb-virtual-machine:~/ucore/labcodes_answer/lab1_result$ make V= + cc kern/init/init.c i386-elf-gcc -Ikern/init/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/init/init.c -o obj/kern/init/init.o + cc kern/libs/stdio.c i386-elf-gcc -Ikern/libs/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/libs/stdio.c -o obj/kern/libs/stdio.o + cc kern/libs/readline.c i386-elf-gcc -Ikern/libs/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/libs/readline.c -o obj/kern/libs/readline.o + cc kern/debug/panic.c i386-elf-gcc -Ikern/debug/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/debug/panic.c -o obj/kern/debug/panic.o + cc kern/debug/kdebug.c i386-elf-gcc -Ikern/debug/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/debug/kdebug.c -o obj/kern/debug/kdebug.o + cc kern/debug/kmonitor.c i386-elf-gcc -Ikern/debug/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/debug/kmonitor.c -o obj/kern/debug/kmonitor.o + cc kern/driver/clock.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/clock.c -o obj/kern/driver/clock.o + cc kern/driver/console.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/console.c -o obj/kern/driver/console.o + cc kern/driver/picirq.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/picirq.c -o obj/kern/driver/picirq.o + cc kern/driver/intr.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/intr.c -o obj/kern/driver/intr.o + cc kern/trap/trap.c i386-elf-gcc -Ikern/trap/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/trap/trap.c -o obj/kern/trap/trap.o + cc kern/trap/vectors.S i386-elf-gcc -Ikern/trap/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/trap/vectors.S -o obj/kern/trap/vectors.o + cc kern/trap/trapentry.S i386-elf-gcc -Ikern/trap/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/trap/trapentry.S -o obj/kern/trap/trapentry.o + cc kern/mm/pmm.c i386-elf-gcc -Ikern/mm/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/mm/pmm.c -o obj/kern/mm/pmm.o + cc libs/string.c i386-elf-gcc -Ilibs/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/  -c libs/string.c -o obj/libs/string.o + cc libs/printfmt.c i386-elf-gcc -Ilibs/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/  -c libs/printfmt.c -o obj/libs/printfmt.o + ld bin/kernel i386-elf-ld -m    elf_i386 -nostdlib -T tools/kernel.ld -o bin/kernel  obj/kern/init/init.o obj/kern/libs/stdio.o obj/kern/libs/readline.o obj/kern/debug/panic.o obj/kern/debug/kdebug.o obj/kern/debug/kmonitor.o obj/kern/driver/clock.o obj/kern/driver/console.o obj/kern/driver/picirq.o obj/kern/driver/intr.o obj/kern/trap/trap.o obj/kern/trap/vectors.o obj/kern/trap/trapentry.o obj/kern/mm/pmm.o  obj/libs/string.o obj/libs/printfmt.o + cc boot/bootasm.S i386-elf-gcc -Iboot/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Os -nostdinc -c boot/bootasm.S -o obj/boot/bootasm.o + cc boot/bootmain.c i386-elf-gcc -Iboot/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Os -nostdinc -c boot/bootmain.c -o obj/boot/bootmain.o + cc tools/sign.c gcc -Itools/ -g -Wall -O2 -c tools/sign.c -o obj/sign/tools/sign.o gcc -g -Wall -O2 obj/sign/tools/sign.o -o bin/sign + ld bin/bootblock i386-elf-ld -m    elf_i386 -nostdlib -N -e start -Ttext 0x7C00 obj/boot/bootasm.o obj/boot/bootmain.o -o obj/bootblock.o 'obj/bootblock.out' size: 500 bytes build 512 bytes boot sector: 'bin/bootblock' success! dd if=/dev/zero of=bin/ucore.img count=10000 记录了10000+0 的读入 记录了10000+0 的写出 5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.0416907 s, 123 MB/s dd if=bin/bootblock of=bin/ucore.img conv=notrunc 记录了1+0 的读入 记录了1+0 的写出 512 bytes copied, 0.000462614 s, 1.1 MB/s dd if=bin/kernel of=bin/ucore.img seek=1 conv=notrunc 记录了146+1 的读入 记录了146+1 的写出 74844 bytes (75 kB, 73 KiB) copied, 0.000676749 s, 111 MB/s</code></pre> <h3 id="二问题一操作系统镜像文件ucoreimg是如何一步一步生成的"><strong>二、问题一：操作系统镜像文件ucore.img是如何一步一步生成的？</strong></h3> <blockquote> <p>问题：操作系统镜像文件ucore.img是如何一步一步生成的？(需要比较详细地解释Makefile中每一条相关命令和命令参数的含义，以及说明命令导致的结果)</p> </blockquote> <h4 id="1大概流程"><strong>1.大概流程</strong></h4> <p>1.在下图代码中可以看到它调用了gcc，把C的源代码编译成了所谓的.o文件，是目标文件。通过查看make的执行过程，可以发现将项目中的kern和libs boot中的C文件都编译成.o文件</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/6aeb4b48f9063aa60ad260bc72fa2f6a.jpg" alt="通过make生成执行文件的过程详解_在线工具"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/991664827226250331dc9b7d4b2139c8.jpg" alt="通过make生成执行文件的过程详解_在线工具"></p> <p>最后生成的.o文件全部存在obj文件夹中</p> <p>2.然后通过ld会把这些目标文件转换成 像下面bootblock.out这样的可执行文件，可以理解为是bootloader一个执行程序（后文bootblock和bootloader其实是一个意思）</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/2fb02b4510b7c6445962fd2b89cec8a9.jpg" alt="通过make生成执行文件的过程详解_在线工具"></p> <p>3.dd命令可以把bootloader放到一个虚拟的硬盘里面去，在这里生成一个虚拟硬盘叫ucore.img 然后我们的硬件模拟器就会基于这个虚拟硬盘中的数据来执行相应的代码。把bootloader放到ucore.img的虚拟硬盘中</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/280b66c2b10b67b2904d5d6bf00015c8.jpg" alt="通过make生成执行文件的过程详解_在线工具"></p> <p>4.我们可以看到最后生成两个软件，第一个是kernel，第二个叫Bootloader，kernel实际上是ucore的组成部分。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/15b9bdbf1aec6c5f8eca172828c390b4.jpg" alt="通过make生成执行文件的过程详解_在线工具"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/3135e01a20deb2c199755570c0068889.jpg" alt="通过make生成执行文件的过程详解_在线工具"></p> <p>其实如何生成这两个文件是取决于Makefile文件，但是这个文件比较复杂，其实只要关注到底用了哪些.C程序来最后生成Bootloader和ucore就够了。</p> <h4 id="2具体分析这里参考另一个博主"><strong>2.具体分析：（这里参考另一个<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/cyx-b/p/11750020.html"  target="_blank" rel="nofollow">博主</a>）</strong></h4> <p>需要生成ucore.img首先需要生成bootblock，而生成bootblock需要先生成bootmain.o和bootasm.o还有sign.o</p> <pre><code>+ ld bin/kernel ld -m    elf_i386 -nostdlib -T tools/kernel.ld -o bin/kernel  obj/kern/init/init.o obj/kern/libs/readline.o obj/kern/libs/stdio.o obj/kern/debug/kdebug.o obj/kern/debug/kmonitor.o obj/kern/debug/panic.o obj/kern/driver/clock.o obj/kern/driver/console.o obj/kern/driver/intr.o obj/kern/driver/picirq.o obj/kern/trap/trap.o obj/kern/trap/trapentry.o obj/kern/trap/vectors.o obj/kern/mm/pmm.o  obj/libs/printfmt.o obj/libs/string.o</code></pre> <p>ld将.o文件整合成可执行文件kernel，而这些.o文件是Makefile文件通过命令使用gcc把有关kernel的.c文件编译生成</p> <pre><code>+ ld bin/bootblock ld -m    elf_i386 -nostdlib -N -e start -Ttext 0x7C00 obj/boot/bootasm.o obj/boot/bootmain.o -o obj/bootblock.o 'obj/bootblock.out' size: 488 bytes build 512 bytes boot sector: 'bin/bootblock' success!</code></pre> <p>同理ld也将.o文件整合成可执行文件bootblock，大小为488字节,但还是放入512字节扇区中，但是，而这些.o文件也是Makefile文件通过命令使用gcc把有关bootloader的.c文件编译生成</p> <pre><code>dd if=/dev/zero of=bin/ucore.img count=10000 10000+0 records in 10000+0 records out 5120000 bytes (5.1 MB) copied, 0.0601803 s, 85.1 MB/s</code></pre> <p>创建10000块扇区，每个扇区512字节，制成ucore.img虚拟磁盘</p> <pre><code>dd if=bin/bootblock of=bin/ucore.img conv=notrunc 1+0 records in 1+0 records out 512 bytes (512 B) copied, 0.000141238 s, 3.6 MB/s</code></pre> <p>将bootblock存到ucore.img虚拟磁盘的第一块</p> <pre><code>dd if=bin/kernel of=bin/ucore.img seek=1 conv=notrunc 146+1 records in 146+1 records out 74923 bytes (75 kB) copied, 0.00356787 s, 21.0 MB/s</code></pre> <p>将kernel存到ucore.img虚拟磁盘的第二块及之后几块，注意seek1，最终ucore.img虚拟磁盘制作完成</p> <h4 id="3分析makefile文件"><strong>3.分析Makefile文件</strong></h4> <p>之前有总结过关于Makefile的规则，在第三节https://www.cnblogs.com/450go/p/16019887.html</p> <p>Makefile文件中，可以看到对应的生成ucore.img的过程及相应语句如下：</p> <pre><code># create ucore.img UCOREIMG	:= $(call totarget,ucore.img)  $(UCOREIMG): $(kernel) $(bootblock) 	$(V)dd if=/dev/zero of=$@ count=10000 	$(V)dd if=$(bootblock) of=$@ conv=notrunc 	$(V)dd if=$(kernel) of=$@ seek=1 conv=notrunc  $(call create_target,ucore.img)</code></pre> <p>逐条分析：</p> <p><strong><code>$(kernel)</code></strong>：生成kernel。需要以下两步</p> <p><strong>1.编译kern/目录下的C程序，生成kernel需要的.o文件</strong></p> <p>$(call add_files_cc,$(call listf_cc,$(KSRCDIR)),kernel,$(KCFLAGS))</p> <p>实际执行的命令为：</p> <pre><code>+ cc kern/init/init.c i386-elf-gcc -Ikern/init/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/init/init.c -o obj/kern/init/init.o + cc kern/libs/stdio.c i386-elf-gcc -Ikern/libs/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/libs/stdio.c -o obj/kern/libs/stdio.o + cc kern/libs/readline.c i386-elf-gcc -Ikern/libs/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/libs/readline.c -o obj/kern/libs/readline.o + cc kern/debug/panic.c i386-elf-gcc -Ikern/debug/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/debug/panic.c -o obj/kern/debug/panic.o + cc kern/debug/kdebug.c i386-elf-gcc -Ikern/debug/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/debug/kdebug.c -o obj/kern/debug/kdebug.o + cc kern/debug/kmonitor.c i386-elf-gcc -Ikern/debug/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/debug/kmonitor.c -o obj/kern/debug/kmonitor.o + cc kern/driver/clock.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/clock.c -o obj/kern/driver/clock.o + cc kern/driver/console.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/console.c -o obj/kern/driver/console.o + cc kern/driver/picirq.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/picirq.c -o obj/kern/driver/picirq.o + cc kern/driver/intr.c i386-elf-gcc -Ikern/driver/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/driver/intr.c -o obj/kern/driver/intr.o + cc kern/trap/trap.c i386-elf-gcc -Ikern/trap/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/trap/trap.c -o obj/kern/trap/trap.o + cc kern/trap/vectors.S i386-elf-gcc -Ikern/trap/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/trap/vectors.S -o obj/kern/trap/vectors.o + cc kern/trap/trapentry.S i386-elf-gcc -Ikern/trap/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/trap/trapentry.S -o obj/kern/trap/trapentry.o + cc kern/mm/pmm.c i386-elf-gcc -Ikern/mm/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Ikern/debug/ -Ikern/driver/ -Ikern/trap/ -Ikern/mm/ -c kern/mm/pmm.c -o obj/kern/mm/pmm.o</code></pre> <p><strong>2.链接这些.o文件，生成kernel</strong></p> <pre><code># create kernel target kernel = $(call totarget,kernel)  $(kernel): tools/kernel.ld  $(kernel): $(KOBJS) 	@echo + ld $@ 	$(V)$(LD) $(LDFLAGS) -T tools/kernel.ld -o $@ $(KOBJS) 	@$(OBJDUMP) -S $@ &gt; $(call asmfile,kernel) 	@$(OBJDUMP) -t $@ | $(SED) '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' &gt; $(call symfile,kernel)</code></pre> <p>执行的实际命令为：</p> <pre><code>+ ld bin/kernel ld -m    elf_i386 -nostdlib -T tools/kernel.ld -o bin/kernel  obj/kern/init/init.o obj/kern/libs/readline.o obj/kern/libs/stdio.o obj/kern/debug/kdebug.o obj/kern/debug/kmonitor.o obj/kern/debug/panic.o obj/kern/driver/clock.o obj/kern/driver/console.o obj/kern/driver/intr.o obj/kern/driver/picirq.o obj/kern/trap/trap.o obj/kern/trap/trapentry.o obj/kern/trap/vectors.o obj/kern/mm/pmm.o  obj/libs/printfmt.o obj/libs/string.o</code></pre> <p><strong><code>$(bootblock)</code>****：</strong>生成bootblock。需要以下三步：</p> <p><strong>1.生成bootmain.o和bootasm.o</strong></p> <pre><code>bootfiles = $(call listf_cc,boot) $(foreach f,$(bootfiles),$(call cc_compile,$(f),$(CC),$(CFLAGS) -Os -nostdinc))</code></pre> <p>执行的实际命令为</p> <pre><code>+ cc boot/bootasm.S gcc -Iboot/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Os -nostdinc -c boot/bootasm.S -o         obj/boot/bootasm.o + cc boot/bootmain.c gcc -Iboot/ -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -Ilibs/ -Os -nostdinc -c boot/bootmain.c -o obj/boot/bootmain.o</code></pre> <p><strong>2.编译tools/sign.c，生成sign.o</strong></p> <pre><code># create 'sign' tools $(call add_files_host,tools/sign.c,sign,sign) $(call create_target_host,sign,sign)</code></pre> <p>执行的实际命令为：</p> <pre><code>+ cc tools/sign.c gcc -Itools/ -g -Wall -O2 -c tools/sign.c -o obj/sign/tools/sign.o gcc -g -Wall -O2 obj/sign/tools/sign.o -o bin/sign</code></pre> <p><strong>3.链接以上的.o文件</strong></p> <pre><code>bootblock = $(call totarget,bootblock)  $(bootblock): $(call toobj,$(bootfiles)) | $(call totarget,sign) 	@echo + ld $@ 	$(V)$(LD) $(LDFLAGS) -N -e start -Ttext 0x7C00 $^ -o $(call toobj,bootblock) 	@$(OBJDUMP) -S $(call objfile,bootblock) &gt; $(call asmfile,bootblock) 	@$(OBJDUMP) -t $(call objfile,bootblock) | $(SED) '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' &gt; $(call symfile,bootblock) 	@$(OBJCOPY) -S -O binary $(call objfile,bootblock) $(call outfile,bootblock) 	@$(call totarget,sign) $(call outfile,bootblock) $(bootblock)  $(call create_target,bootblock)</code></pre> <p>执行的实际命令为：</p> <pre><code>+ ld bin/bootblock ld -m  elf_i386 -nostdlib -N -e start -Ttext 0x7C00 obj/boot/bootasm.o obj/boot/bootmain.o -o obj/bootblock.o</code></pre> <p><code>$(V)dd if=/dev/zero of=$@ count=10000</code>:生成一个有10000个块的文件，每个块默认512字节，用0填充。</p> <p>执行的实际命令为：</p> <pre><code>dd ``if``=/dev/zero of=bin/ucore.img count=10000</code></pre> <p><code>$(V)dd if=$(bootblock) of=$@ conv=notrunc</code>:把bootblock中的内容写到第一个块。</p> <p>执行的实际命令为：</p> <pre><code>dd ``if``=bin/bootblock of=bin/ucore.img conv=notrunc</code></pre> <p><code>$(V)dd if=$(kernel) of=$@ seek=1 conv=notrunc</code>：从第二个块开始写kernel中的内容。</p> <p>执行的实际命令为：</p> <pre><code>dd ``if``=bin/kernel of=bin/ucore.img seek=1 conv=notrunc</code></pre> <h3 id="三问题二一个被系统认为是符合规范的硬盘主引导扇区的特征是什么">三、问题二：一个被系统认为是符合规范的硬盘主引导扇区的特征是什么？</h3> <blockquote> <p>引导扇区的大小为512字节，最后两个字节为标志性结束字节0x55，0xAA，做完这样的检查才能认为是符合规范的磁盘主引导扇区。</p> </blockquote> <p>在sign.c文件中，它完成了相应的特征的标记，查看sign.c文件</p> <pre><code class="language-c++">#include &lt;stdio.h&gt; #include &lt;errno.h&gt; #include &lt;string.h&gt; #include &lt;sys/stat.h&gt;  int main(int argc, char *argv[]) {     struct stat st;     if (argc != 3) {         fprintf(stderr, "Usage: &lt;input filename&gt; &lt;output filename&gt;\n");         return -1;     }     if (stat(argv[1], &amp;st) != 0) {         fprintf(stderr, "Error opening file '%s': %s\n", argv[1], strerror(errno));         return -1;     }     printf("'%s' size: %lld bytes\n", argv[1], (long long)st.st_size);     if (st.st_size &gt; 510) {         fprintf(stderr, "%lld &gt;&gt; 510!!\n", (long long)st.st_size);         return -1;     }     char buf[512];     memset(buf, 0, sizeof(buf));     FILE *ifp = fopen(argv[1], "rb");     int size = fread(buf, 1, st.st_size, ifp);     if (size != st.st_size) {         fprintf(stderr, "read '%s' error, size is %d.\n", argv[1], size);         return -1;     }     fclose(ifp);     buf[510] = 0x55;     buf[511] = 0xAA;     FILE *ofp = fopen(argv[2], "wb+");     size = fwrite(buf, 1, 512, ofp);     if (size != 512) {         fprintf(stderr, "write '%s' error, size is %d.\n", argv[2], size);         return -1;     }     fclose(ofp);     printf("build 512 bytes boot sector: '%s' success!\n", argv[2]);     return 0; }</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/4117aa180ac9fcf9d5f6ea0ce9e488c7.jpg" alt="通过make生成执行文件的过程详解_在线工具"></p> <p>引导扇区的大小为512字节，最后两个字节为标志性结束字节0x55，0xAA</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-49694.htm">动物疫苗的种类及特点（动物疫苗的种类及特点是什么）</a></p>
+                                        <p>下一个：<a href="/news/article-50209.htm">动物注射疫苗最佳的用药方法是静脉注射吗对吗（动物注射疫苗注射哪里）</a></p>
+                                    </div>
+                            </div>
+            <div class="col-md-4 w3l-services">
+                <h3 class="title-big mb-sm-3 mb-3">热门文章</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2024-12-6-free-node-subscribe-links.htm">12月6日更新19.7M/S，2024年最新高速V2ray/Shadowrocket/SSR/Clash订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了美国、日本、新加坡、欧洲、加拿大、韩国、香港等地区,最高速度可达19.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-1-2-free-v2ray-subscribe.htm">1月2日更新22.2M/S，2025年最新高速Shadowrocket/SSR/Clash/V2ray订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、美国、欧洲、韩国、加拿大、香港、新加坡等地区,最高速度可达22.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-22702.htm">动物防疫法2021不牵绳（动物防疫法禁养犬有哪些）</a></h4>
+                <p>摘要：       今天给各位分享动物防疫法2021不牵绳的知识，其中也会对动物防疫法禁养犬有哪些进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、5月1日起遛.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-1-10-free-v2ray.htm">1月10日更新18.5M/S，2025年最新高速V2ray/Clash/SSR/Shadowrocket订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、新加坡、韩国、日本、加拿大、香港、美国等地区,最高速度可达18.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-50208.htm">通过make生成执行文件的过程详解_在线工具</a></h4>
+                <p>lab_0 清华大学ucore实验环境配置详细步骤！（小白入） lab_1 清华大学ucore bootload启动ucore os（预备知识） Lab_1：练习1——理解通过make生成执行文件的过</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-46217.htm">vue axios请求分页器</a></h4>
+                <p>&lt;template&gt;     &lt;div&gt;          &lt;el-pagination background layout="total, prev, pager, n</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-25941.htm">家用小型狗粮机器价格表（小型家用狗粮制作机）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈家用小型狗粮机器价格表，以及小型家用狗粮制作机对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、哪里有卖做猫粮狗粮的机器多少钱一台...  </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-23620.htm">kotlin 标准函数和静态方法 with、run、apply</a></h4>
+                <p>一.标准函数 1.with函数 with函数接受两个参数，第一个是任意类型的对象，第二个是lambda表达式。 作用：连续调用同一对象的多个方法。返回值是最后一个值 格式如下： val result </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-39770.htm">python里函数怎么样使用元组或字典作为参数调用</a></h4>
+                <p>在原来python2里有一个函数apply来做这种事情，如下：  # File: builtin-apply-example-1.py  def function(a, b):     print a</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-48678.htm">我想开宠物店（我想开宠物店怎么申请）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈我想开宠物店，以及我想开宠物店怎么申请对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、开一个宠物店大概需要多少投资?...        </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="title-big mb-sm-3 mb-3">归纳</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                                <h4><span class="badge" style="float: right;">15</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+                            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+        <!-- Footer -->
+    <section class="w3l-footer py-sm-5 py-4">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-8 footer-left">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        <p class="m-0">Clash Node官网订阅站 版权所有</p>
+                    </div>
+                    <div class="col-lg-4 footer-right text-lg-right text-center mt-lg-0 mt-3">
+                        <ul class="social m-0 p-0">
+                            <li><a href="#facebook"><span class="fa fa-facebook-official"></span></a></li>
+                            <li><a href="#linkedin"><span class="fa fa-linkedin-square"></span></a></li>
+                            <li><a href="#instagram"><span class="fa fa-instagram"></span></a></li>
+                            <li><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            <span class="fa fa-angle-up"></span>
+        </button>
+        <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+        </script>
+        <!-- /move top -->
+    </section>
+    <!-- //Footer -->
+    <!-- all js scripts and files here -->
+    <script src="/assets/website/js/frontend/clashnode/theme-change.js"></script><!-- theme switch js (light and dark)-->
+    <script src="/assets/website/js/frontend/clashnode/jquery-3.5.1.min.js"></script><!-- default jQuery -->
+    <!-- /typig-text-->
+    <script>
+    const typedTextSpan = document.querySelector(".typed-text");
+    const cursorSpan = document.querySelector(".cursor");
+
+    const textArray = ["UI/UX Designer", "Freelancer", "Web developer"];
+    const typingDelay = 200;
+    const erasingDelay = 10;
+    const newTextDelay = 100; // Delay between current and next text
+    let textArrayIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+        if (charIndex < textArray[textArrayIndex].length) {
+            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+            typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            setTimeout(erase, newTextDelay);
+        }
+    }
+
+    function erase() {
+        if (charIndex > 0) {
+            // add class 'typing' if there's none
+            if (!cursorSpan.classList.contains("typing")) {
+                cursorSpan.classList.add("typing");
+            }
+            typedTextSpan.textContent = textArray[textArrayIndex].substring(0, 0);
+            charIndex--;
+            setTimeout(erase, erasingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            textArrayIndex++;
+            if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+            setTimeout(type, typingDelay);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+        if (textArray.length) setTimeout(type, newTextDelay + 250);
+    });
+    </script>
+    <!-- //typig-text-->
+    <!-- services owlcarousel -->
+    <script src="/assets/website/js/frontend/clashnode/owl.carousel.js"></script>
+    <!-- script for services -->
+    <script>
+    $(document).ready(function() {
+        $('.owl-two').owlCarousel({
+            loop: true,
+            margin: 30,
+            nav: false,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                700: {
+                    items: 1,
+                    nav: false
+                },
+                1090: {
+                    items: 3,
+                    nav: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for services -->
+    <!-- script for tesimonials carousel slider -->
+    <script>
+    $(document).ready(function() {
+        $("#owl-demo1").owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: false,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                736: {
+                    items: 1,
+                    nav: false
+                },
+                1000: {
+                    items: 2,
+                    nav: false,
+                    loop: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for tesimonials carousel slider -->
+    <!-- video popup -->
+    <script src="/assets/website/js/frontend/clashnode/jquery.magnific-popup.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+        $('.popup-with-move-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-slide-bottom'
+        });
+    });
+    </script>
+    <!-- //video popup -->
+    <!-- stats number counter-->
+    <script src="/assets/website/js/frontend/clashnode/jquery.waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/clashnode/jquery.countup.js"></script>
+    <script>
+    $('.counter').countUp();
+    </script>
+    <!-- //stats number counter -->
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+    $(function() {
+        $('.navbar-toggler').click(function() {
+            $('body').toggleClass('noscroll');
+        })
+    });
+    </script>
+    <!-- disable body scroll which navbar is in active -->
+    <!--/MENU-JS-->
+    <script>
+    $(window).on("scroll", function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 80) {
+            $("#site-header").addClass("nav-fixed");
+        } else {
+            $("#site-header").removeClass("nav-fixed");
+        }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function() {
+        $("header").toggleClass("active");
+    });
+    $(document).on("ready", function() {
+        if ($(window).width() > 991) {
+            $("header").removeClass("active");
+        }
+        $(window).on("resize", function() {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+        });
+    });
+    </script>
+    <!--//MENU-JS-->
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/clashnode/bootstrap.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
