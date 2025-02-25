@@ -1,0 +1,502 @@
+<!doctype html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashnode.github.io/news/article-61888.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>设计模式详解之结构型设计模式——适配器、装饰器</title>
+    <link rel="icon" href="/assets/website/img/clashnode/favicon.ico" type="image/x-icon"/>
+        <meta name="description" content="结构型设计模式 创建型设计模式主要是为了解决创建对象的问题，而结构型设计模式则是为了解决已有对象的使用问题。 适配器模式 适配器模式比较好理解，因为在我们的日常生活中就很常见，如耳机转换线、充电器适配" />
+    
+    <meta name="author" content="Clash Node官网订阅站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashnode.github.io/news/article-61888.htm" />
+    <meta property="og:site_name" content="Clash Node官网订阅站" />
+    <meta property="og:title" content="设计模式详解之结构型设计模式——适配器、装饰器" />
+    <meta property="og:image" content="https://clashnode.github.io/uploads/20240214/3f1275233c413ecd16089d50a0615f3d.webp" />
+        <meta property="og:release_date" content="2025-02-24T09:14:08" />
+    <meta property="og:updated_time" content="2025-02-24T09:14:08" />
+        <meta property="og:description" content="结构型设计模式 创建型设计模式主要是为了解决创建对象的问题，而结构型设计模式则是为了解决已有对象的使用问题。 适配器模式 适配器模式比较好理解，因为在我们的日常生活中就很常见，如耳机转换线、充电器适配" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="设计模式详解之结构型设计模式——适配器、装饰器">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/clashnode/style-starter.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8B9V1K3BBT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8B9V1K3BBT');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- header -->
+    <header id="site-header" class="fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg stroke">
+                <a class="navbar-brand" href="/">
+                                        <span class="fa fa-laptop"></span> Clash Node                </a>
+                <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                    </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav ml-auto">
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/">首页</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/free-nodes/">免费节点</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/client.htm">客户端</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/news/">新闻资讯</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!-- toggle switch for light and dark theme -->
+                <div class="mobile-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+            </nav>
+        </div>
+    </header>
+    <!-- //header -->
+    <!-- about breadcrumb -->
+    <section class="w3l-about-breadcrumb text-center">
+        <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+            <div class="container py-2">
+                <h1 class="title" style="word-break: break-all;">设计模式详解之结构型设计模式——适配器、装饰器</h1>
+                <ul class="breadcrumbs-custom-path mt-2">
+                    <li><a href="/">首页</a></li>
+                    <li><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span></li>
+                    <li><a href="/news/">新闻资讯</a></li>
+                    <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> 正文</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- //about breadcrumb -->
+    <div class="container py-lg-5 py-3">
+        <div class="row">
+            <div class="col-md-8">
+                                <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<h2 id="结构型设计模式">结构型设计模式</h2> <p>创建型设计模式主要是为了解决创建对象的问题，而结构型设计模式则是为了解决已有对象的使用问题。</p> <h3 id="适配器模式">适配器模式</h3> <p>适配器模式比较好理解，因为在我们的日常生活中就很常见，如耳机转换线、充电器适配器、插座等，举个最常见的例子：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/cac0851c9d7461b1c86901aee9c78a36.jpg" alt="设计模式详解之结构型设计模式——适配器、装饰器"></p> <p>插座就是个适配器，将一个接口扩展为多个接口，将墙上的双孔接口转换为三孔接口。而这也就是适配器的作用：将一个接口<strong>转换</strong>为用户期望的另一个接口。</p> <p>适配器的使用场景：</p> <ul> <li>需要使用第三方SDK的核心功能，但其接口或者功能不符合需求，这时可以使用适配器对其进行兼容和扩展</li> <li>随着业务发展，旧接口已经不能满足需求，但重写代价又太大，这时可以使用适配器对接口功能进行扩展</li> </ul> <blockquote> <p>注意：适配器是对已有资源进行兼容和扩展，属于一种折中的方式，如果可以的话，尽量重构系统而不是使用适配器</p> </blockquote> <p>继承器的实现有两种方式：<strong>继承</strong>和<strong>组合</strong>,基于合成复用的原则，组合优于继承，所以应尽量使用组合的方式实现适配器。类图如下：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/d54612541514eaed432da4cff77aacf8.jpg" alt="设计模式详解之结构型设计模式——适配器、装饰器"></p> <p>实现代码：</p> <pre><code>    //已有的旧接口,不兼容于现在的系统     public interface IAmericanElectrictService     {         int Get110VElectric();     }          //adaptee，需要适配的SDK     public class AmericanElectrictService : IAmericanElectrictService     {         public int Get110VElectric()         {             Console.WriteLine("美国的电压是110v，只能提供110V的电压");             return 110;         }     }          //已有接口，现在的系统需要使用这个接口     public interface IChineseElectricService     {         int Get220VElectric();     }          //适配器，采取组合的方式     //这里是为了适配已有接口，所以实现了这个接口     public class AdapterPattern : IChineseElectricService     {         private readonly IAmericanElectrictService _service;          public AdapterPattern(IAmericanElectrictService service)         {             this._service = service;         }         public int Get220VElectric()         {             var electric = this._service.Get110VElectric();             Console.WriteLine("劈里啪啦劈里啪啦，经过一番操作，现在电压转换为220V的了");             return electric + 110;         }     }          //使用适配器，将110V电压转换成220V     public class AdapterRunner : IRunner     {         public void Run()         {             //实际情况中，adaptee有可能是已有SDK，有可能是interface，通过IOC容器对应具体实现类             var americanElectric = new AmericanElectrictService();             var electric = americanElectric.Get110VElectric();             Console.WriteLine($"获得了{electric}V电压");             Console.WriteLine("使用适配器");             var adapter = new AdapterPattern(americanElectric);             electric = adapter.Get220VElectric();             Console.WriteLine($"使用适配器后获得了{electric}V电压");         }     }     //输出     //------------------------------------     //美国的电压是110v，只能提供110V的电压     //获得了110V电压     //使用适配器     //美国的电压是110v，只能提供110V的电压     //劈里啪啦劈里啪啦，经过一番操作，现在电压转换为220V的了     //使用适配器后获得了220V电压</code></pre> <h3 id="总结">总结</h3> <p>优点：</p> <ul> <li>可以扩展和兼容现有类，灵活性高</li> <li>提高了类的复用，原本不能使用的类适配后能使用</li> </ul> <p>缺点：</p> <ul> <li>适配器本质是套一层，如果使用过多，可能导致系统混乱，甚至出现套中套的复杂情况</li> </ul> <h2 id="装饰器模式">装饰器模式</h2> <blockquote> <p>利用继承和组合，在不改变现有结构的情况下对功能进行扩展的模式称为<strong>装饰器模式</strong></p> </blockquote> <p>装饰器模式和适配器模式很像，但侧重点不一样。适配器的重心在于兼容已有系统，而装饰器的重心在于功能扩展。装饰器的类图如下：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/424a0141ca3490031f09824d463013ee.jpg" alt="设计模式详解之结构型设计模式——适配器、装饰器"></p> <p>上图中，基础装饰器继承抽象类，每个装饰器继承前一个装饰器，一步一步添加功能，并且所有装饰器都用到具体实现类，因为需要扩展具体功能。</p> <p>这里其实就能看出一些装饰器和适配器的区别，适配器和装饰器都使用组合来包装已有类，不同的是装饰器用到了<strong>继承</strong>。装饰器的核心原则是<strong>里氏替换原则</strong>，即父类一定能被子类替换而不影响现有代码。实现代码如下：</p> <pre><code>//抽象基础类 public abstract class AbstractStudent {     public abstract void Study(); }  //具体实现类 public class Student : AbstractStudent {     public override void Study()     {         Console.WriteLine("我正在学习！！！");     } }   //基础装饰器，什么也不做 //注意，这里标记为抽象类，此后的装饰器以此为基础 public abstract class BaseDecorator : AbstractStudent {     private readonly AbstractStudent _student;     public BaseDecorator(AbstractStudent student)     {         this._student = student;     }     //这里使用override还是Virtual取决于AbstractStudent基础类是抽象类还是接口     public override void Study()     {         this._student.Study();     } }  //前缀装饰器，在调用具体功能前做点什么  public class PreDecorator : BaseDecorator {     public PreDecorator(AbstractStudent student) : base(student)     {     }     public override void Study()     {         Console.WriteLine("学习前看会儿小说");         base.Study();     } }  //后缀装饰器，在调用具体功能后做点什么 public class NextDecorator : PreDecorator {     public NextDecorator(AbstractStudent student) : base(student)     {     }     public override void Study()     {         base.Study();         Console.WriteLine("学习辛苦啦，奖励自己一包辣条");     } }  //测试代码 public class DecoratorRunner : IRunner {     public void Run()     {         Console.WriteLine("没有用装饰器的基本功能：");         var student = new Student();         student.Study();         Console.WriteLine();                  Console.WriteLine("使用前缀装饰器在基础功能之前做点什么");         var preDecorator = new PreDecorator(student);         preDecorator.Study();         Console.WriteLine();                  Console.WriteLine("使用后缀装饰器在前缀装饰器功能之后做点什么");         //注意：这里传入的前缀装饰器，在前缀装饰器的基础之上做扩展         var nextDecorator = new NextDecorator(student);         nextDecorator.Study();     } }  //输出：   //没有用装饰器的基本功能： //我正在学习！！！ // //使用前缀装饰器在基础功能之前做点什么 //学习前看会儿小说 //我正在学习！！！ // //使用后缀装饰器在前缀装饰器功能之后做点什么 //学习前看会儿小说 //我正在学习！！！ //学习辛苦啦，奖励自己一包辣条</code></pre> <p>可以看出，装饰器其实就是利用<strong>组合+继承(实现)+override</strong>不断包装和更新对象，使其功能得到扩展。装饰器是用于<strong>替换继承</strong>的设计模式，主要使用场景如下：</p> <ul> <li>想扩展实现类的功能，又不想添加太多子类</li> <li>需要动态增加和撤销功能(例如游戏技能)</li> </ul> <p>装饰器的优点在于灵活，耦合性低，且不会改变现有结构。缺点则是嵌套过多会增加系统复杂度。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-61887.htm">vue项目中数据更新页面不刷新问题</a></p>
+                                        <p>下一个：<a href="/news/article-62484.htm">pom.xml 报错org.apache.maven.plugin.war.WarMojo的解决办法</a></p>
+                                    </div>
+                            </div>
+            <div class="col-md-4 w3l-services">
+                <h3 class="title-big mb-sm-3 mb-3">热门文章</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-33474.htm">被猫抓了一下红色划痕会传染吗（被猫抓了红色划痕有事吗）</a></h4>
+                <p>摘要：       今天给各位分享被猫抓了一下红色划痕会传染吗的知识，其中也会对被猫抓了红色划痕有事吗进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、手背被小.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-37307.htm">动物疫苗注射部位图片高清（动物疫苗的使用方法及注意事项）</a></h4>
+                <p>摘要：       今天给各位分享动物疫苗注射部位图片高清的知识，其中也会对动物疫苗的使用方法及注意事项进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、狗狗打.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2024-12-3-free-v2ray.htm">12月3日更新20.4M/S，2024年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了日本、欧洲、加拿大、香港、新加坡、美国、韩国等地区,最高速度可达20.4 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-57822.htm">动物疫苗如何存放 动物疫苗如何存放保鲜</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于动物疫苗如何存放的问题，于是小编就整理了2个相关介绍动物疫苗如何存放的解答，让我们一起看看吧。动物防疫站存放疫苗冷库如何设计？成</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-19952.htm">重庆宠物领养中心有哪些地址呢（重庆宠物领养重庆宠物赠送）</a></h4>
+                <p>摘要：       今天给各位分享重庆宠物领养中心有哪些地址呢的知识，其中也会对重庆宠物领养重庆宠物赠送进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、重庆有.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-52838.htm">动物疫苗研发生产流程视频（动物疫苗研发生产流程视频讲解）</a></h4>
+                <p>摘要：       今天给各位分享动物疫苗研发生产流程视频的知识，其中也会对动物疫苗研发生产流程视频讲解进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、疫苗研.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2024-12-23-free-shadowrocket-node.htm">12月23日更新21.1M/S，2024年最新高速Shadowrocket/SSR/V2ray/Clash订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、加拿大、香港、美国、欧洲、日本、韩国等地区,最高速度可达21.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-50729.htm">领养宠物签的合同到底有用吗（领养宠物签的合同到底有用吗安全吗）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈领养宠物签的合同到底有用吗，以及领养宠物签的合同到底有用吗安全吗对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、宠物领养协议有法律效力..</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-32519.htm">梦到抱别的女人什么意思周公解梦梦见蛇（梦见抱别人女人是什么）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈梦到抱别的女人什么意思周公解梦梦见蛇，以及梦见抱别人女人是什么对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、梦见女人抱着蛇的预兆... </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2024-11-23-clash-v2ray-ss-ssr.htm">11月23日更新20.6M/S，2024年最新高速Clash/SSR/Shadowrocket/V2ray订阅链接免费节点订阅</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、新加坡、香港、欧洲、日本、美国、韩国等地区,最高速度可达20.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="title-big mb-sm-3 mb-3">归纳</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                                <h4><span class="badge" style="float: right;">71</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+                            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+        <!-- Footer -->
+    <section class="w3l-footer py-sm-5 py-4">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-8 footer-left">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        <p class="m-0">Clash Node官网订阅站 版权所有</p>
+                    </div>
+                    <div class="col-lg-4 footer-right text-lg-right text-center mt-lg-0 mt-3">
+                        <ul class="social m-0 p-0">
+                            <li><a href="#facebook"><span class="fa fa-facebook-official"></span></a></li>
+                            <li><a href="#linkedin"><span class="fa fa-linkedin-square"></span></a></li>
+                            <li><a href="#instagram"><span class="fa fa-instagram"></span></a></li>
+                            <li><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            <span class="fa fa-angle-up"></span>
+        </button>
+        <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+        </script>
+        <!-- /move top -->
+    </section>
+    <!-- //Footer -->
+    <!-- all js scripts and files here -->
+    <script src="/assets/website/js/frontend/clashnode/theme-change.js"></script><!-- theme switch js (light and dark)-->
+    <script src="/assets/website/js/frontend/clashnode/jquery-3.5.1.min.js"></script><!-- default jQuery -->
+    <!-- /typig-text-->
+    <script>
+    const typedTextSpan = document.querySelector(".typed-text");
+    const cursorSpan = document.querySelector(".cursor");
+
+    const textArray = ["UI/UX Designer", "Freelancer", "Web developer"];
+    const typingDelay = 200;
+    const erasingDelay = 10;
+    const newTextDelay = 100; // Delay between current and next text
+    let textArrayIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+        if (charIndex < textArray[textArrayIndex].length) {
+            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+            typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            setTimeout(erase, newTextDelay);
+        }
+    }
+
+    function erase() {
+        if (charIndex > 0) {
+            // add class 'typing' if there's none
+            if (!cursorSpan.classList.contains("typing")) {
+                cursorSpan.classList.add("typing");
+            }
+            typedTextSpan.textContent = textArray[textArrayIndex].substring(0, 0);
+            charIndex--;
+            setTimeout(erase, erasingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            textArrayIndex++;
+            if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+            setTimeout(type, typingDelay);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+        if (textArray.length) setTimeout(type, newTextDelay + 250);
+    });
+    </script>
+    <!-- //typig-text-->
+    <!-- services owlcarousel -->
+    <script src="/assets/website/js/frontend/clashnode/owl.carousel.js"></script>
+    <!-- script for services -->
+    <script>
+    $(document).ready(function() {
+        $('.owl-two').owlCarousel({
+            loop: true,
+            margin: 30,
+            nav: false,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                700: {
+                    items: 1,
+                    nav: false
+                },
+                1090: {
+                    items: 3,
+                    nav: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for services -->
+    <!-- script for tesimonials carousel slider -->
+    <script>
+    $(document).ready(function() {
+        $("#owl-demo1").owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: false,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                736: {
+                    items: 1,
+                    nav: false
+                },
+                1000: {
+                    items: 2,
+                    nav: false,
+                    loop: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for tesimonials carousel slider -->
+    <!-- video popup -->
+    <script src="/assets/website/js/frontend/clashnode/jquery.magnific-popup.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+        $('.popup-with-move-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-slide-bottom'
+        });
+    });
+    </script>
+    <!-- //video popup -->
+    <!-- stats number counter-->
+    <script src="/assets/website/js/frontend/clashnode/jquery.waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/clashnode/jquery.countup.js"></script>
+    <script>
+    $('.counter').countUp();
+    </script>
+    <!-- //stats number counter -->
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+    $(function() {
+        $('.navbar-toggler').click(function() {
+            $('body').toggleClass('noscroll');
+        })
+    });
+    </script>
+    <!-- disable body scroll which navbar is in active -->
+    <!--/MENU-JS-->
+    <script>
+    $(window).on("scroll", function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 80) {
+            $("#site-header").addClass("nav-fixed");
+        } else {
+            $("#site-header").removeClass("nav-fixed");
+        }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function() {
+        $("header").toggleClass("active");
+    });
+    $(document).on("ready", function() {
+        if ($(window).width() > 991) {
+            $("header").removeClass("active");
+        }
+        $(window).on("resize", function() {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+        });
+    });
+    </script>
+    <!--//MENU-JS-->
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/clashnode/bootstrap.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

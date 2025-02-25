@@ -123,6 +123,7 @@
                   				  				  				<h3 id="id-服务器安全加固文档-1.账号和口令">一、账号和口令</h3> <h4 id="id-服务器安全加固文档-1.1禁用或删除无用账号">1.1 禁用或删除无用账号</h4> <p>查看 /etc/passwd 文件查看是否有无用的账号，如果存在则删除，降低安全风险。</p> <p><strong>操作步骤：</strong></p> <ul> <li>使用命令<code>userdel &lt;用户名&gt;</code>&nbsp;删除不必要的账号。</li> <li>使用命令<code>passwd -l &lt;用户名&gt;</code>&nbsp;锁定不必要的账号。</li> <li>使用命令<code>passwd -u &lt;用户名&gt;</code>&nbsp;解锁必要的账号。</li> </ul> <h4 id="id-服务器安全加固文档-1.2检查特殊账号">1.2 检查特殊账号</h4> <p><strong>操作步骤：</strong></p> <ol> <li>查看空口令和root权限账号，确认是否存在异常账号： <ul> <li>使用命令<code>awk -F: '($2=="")' /etc/shadow</code>&nbsp;查看空口令账号。</li> <li>使用命令<code>awk -F: '($3==0)' /etc/passwd</code>&nbsp;查看UID为零的账号。</li> </ul> </li> <li>加固空口令账号： <ul> <li>使用命令<code>passwd &lt;用户名&gt;</code>&nbsp;为空口令账号设定密码。</li> <li>确认UID为0的账号只有root账号。</li> </ul> </li> </ol> <h4 id="id-服务器安全加固文档-1.3添加口令策略">1.3 添加口令策略</h4> <p><strong>操作步骤</strong></p> <ol> <li>使用命令<code>vim /etc/login.defs</code>&nbsp;修改配置文件。 <ul> <li><code>PASS_MAX_DAYS 90</code>&nbsp; &nbsp;#新建用户的密码最长使用天数</li> <li><code>PASS_MIN_DAYS 0</code>&nbsp; &nbsp; &nbsp;#新建用户的密码最短使用天数（两次修改口令的最小间隔时间）</li> <li><code>PASS_MIN_LEN&nbsp; 8</code>&nbsp; &nbsp; &nbsp;#新建用户的密码最小长度</li> <li><code>PASS_WARN_AGE&nbsp;14</code>&nbsp; &nbsp;#新建用户的密码到期提前提醒天数</li> </ul> </li> <li> <p class="auto-cursor-target">使用chage命令修改用户设置。</p> <pre class="language-bash"><code># 设置用户密码最短使用天数为7天，密码最长使用天数为30天，过期前14天警告用户 sudo chage -m 7 -M 90 -W 14 root    sudo chage -m 7 -M 90 -W 14 admin # 密码过期时间查看方法： [admin@Centos7 ~]$ sudo chage -l root Last password change                               : Sep 14, 2020【最近一次修改密码的时间】 Password expires                                   : Dec 13, 2020【密码过期时间】 Password inactive                                  : never【密码失效时间】 Account expires                                    : never【账户过期时间】 Minimum number of days between password change     : 7【两次改变密码之间相距最小天数】 Maximum number of days between password change     : 90【两次密码改变密码相距最大天数】 Number of days of warning before password expires  : 15【密码过期前开始警告的天数】</code></pre> </li> <li>密码锁定策略 <pre class="language-bash"><code># 设置连续输错五次密码，账号锁定五分钟。 vim /etc/pam.d/system-auth auth        required      pam_tally2.so onerr=fail deny=5 unlock_time=300 even_deny_root root_unlock_time=90</code></pre> <p>说明：</p> <ul> <li>deny：设置普通用户和root用户连续错误登陆的最大次数，超过最大次数，则锁定该用户</li> <li>unlock_time：设定普通用户锁定后，多少时间后解锁，单位是秒</li> <li>root_unlock_time：设定root用户锁定后，多少时间后解锁，单位是秒</li> </ul> </li> <li>密码复杂度 <pre class="language-bash"><code># 设置用户密码最小长度8位，必须包含大小写字母+数字+特殊字符（root用户同理） vim /etc/pam.d/system-auth password    requisite     pam_pwquality.so try_first_pass local_users_only minlen=8 ucredit=-1 lcredit=-1 dcredit=-1 password    required      pam_pwhistory.so use_authtok remember=5 enforce_for_root vim /etc/pam.d/password-auth password    requisite     pam_pwquality.so try_first_pass local_users_only minlen=8 ucredit=-1 lcredit=-1 dcredit=-1 password    required      pam_pwhistory.so use_authtok remember=5 enforce_for_root</code></pre> <p>说明：</p> <ul> <li>minlen=8：将密码的最小长度设置为8个字符。</li> <li>lcredit=-1 ：将密码应包含的小写字母的最小数目设置为至少一个</li> <li>ucredit=-1：将密码上的大写字母的最小数目设置为至少一个。</li> <li>dcredit=-1 ：将密码中包含的最小位数至少设置为一个</li> <li>ocredit=-1：设置其他符号的最小数量，例如@，＃、!&nbsp;$％等，至少要有一个密码</li> <li>remember=5：口令不能修改为过去5次使用过的旧口令</li> <li>enforce_for_root ：确保即使是root用户设置密码，也应强制执行复杂性策略。</li> </ul> </li> </ol> <h4 id="id-服务器安全加固文档-1.4限制用户su">1.4 限制用户su</h4> <p><strong>操作步骤</strong></p> <p>使用命令<code>vim /etc/pam.d/su</code>修改配置文件，在配置文件中添加行。<br />例如，只允许admin组用户su到root，则添加<code>auth required pam_wheel.so group=admin</code>。</p> <p>【可选】为了方便操作，可配置admin支持免密sudo：在 /etc/sudoers 文件中添加&nbsp;admin ALL=(ALL) NOPASSWD:ALL</p> <h4 id="id-服务器安全加固文档-1.5加固su命令">1.5 加固su命令</h4> <p>为了防止使用"su"命令将当前用户环境变量带入其它用户，修改/etc/login.defs添加ALWAYS_SET_PATH=yes并保存。</p> <h4 id="id-服务器安全加固文档-1.6禁止root用户直接登入">1.6 禁止root用户直接登入</h4> <p><strong>操作步骤</strong></p> <ol> <li> <p class="auto-cursor-target">创建普通权限账号并配置密码，防止无法远程登录，如：</p> <pre class="language-bash"><code>groupadd -g 1000 admin &amp;&amp; useradd -g admin -c "Administrator" -u 1000 -n -s /bin/bash admin</code></pre> </li> <li class="auto-cursor-target">使用命令<code>vi /etc/ssh/sshd_config</code>修改配置文件将PermitRootLogin的值改成no，并重启<code>sshd</code>服务。</li> </ol> <h3 id="id-服务器安全加固文档-2.服务">二、系统服务</h3> <h4 id="id-服务器安全加固文档-2.1关闭不必要的服务">2.1 关闭不必要的服务</h4> <p><strong>操作步骤：</strong></p> <p>查看所有服务列表 systemctl list-units --type=service</p> <ul> <li>关闭不必要的服务：systemctl stop &lt;服务名&gt;</li> <li>设置开机不自启动：systemctl disable &lt;服务名&gt;</li> </ul> <h4 id="id-服务器安全加固文档-2.2SSH服务安全">2.2 SSH服务安全</h4> <p><strong>操作步骤</strong></p> <p>使用命令<code>vim /etc/ssh/sshd_config</code>编辑配置文件。</p> <div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code"> <div class="codeContent panelContent pdl"> <div> <div id="highlighter_315738" class="syntaxhighlighter sh-midnight nogutter  bash"></div> </div> </div> </div> <pre class="language-bash"><code>PermitRootLogin no  # 不允许root账号直接登录系统 Protocol 2          # 修改SSH使用的协议版本 MaxAuthTries 3      # 修改允许密码错误次数（默认6次） ClientAliveInterval 60   # server每隔60秒给客户端发送一次保活信息包给客户端 ClientAliveCountMax 30   # server端发出的请求客户端没有回应的次数达到30次的时候就断开连接。</code></pre> <p>配置文件修改完成后，重启sshd服务生效（systemctl restart sshd）。</p> <h3 id="id-服务器安全加固文档-3.文件系统">三、文件系统</h3> <h4 id="id-服务器安全加固文档-3.1设置umask值">3.1 设置umask值</h4> <p><strong>操作步骤</strong></p> <p><code>修改/etc/profile</code>&nbsp;配置文件，添加行<code>umask 027</code>， 即新创建的文件属主拥有读写执行权限，同组用户拥有读和执行权限，其他用户无权限。</p> <h4 id="id-服务器安全加固文档-3.2设置登入超时">3.2 设置登入超时</h4> <p><strong>操作步骤</strong></p> <p>修改<code>/etc/profile</code>&nbsp;配置文件，设置为<code>TMOUT=600，</code>表示超时10分钟无操作自动退出登录。</p> <h3 id="id-服务器安全加固文档-4.日志">四、系统日志</h3> <h4 id="id-服务器安全加固文档-4.1syslogd日志">4.1 syslogd日志</h4> <p><strong>操作步骤</strong></p> <p>Linux系统默认启用以下类型日志，配置文件为 /etc/rsyslog.conf：</p> <ul> <li>系统日志（默认）/var/log/messages</li> <li>cron日志（默认）/var/log/cron</li> <li>安全日志（默认）/var/log/secure</li> </ul> <h4 id="id-服务器安全加固文档-4.2记录所有用户的登入日志和操作日志">4.2 记录所有用户的登入日志和操作日志</h4> <div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-name="code"> <div class="codeContent panelContent pdl"> <div> <div id="highlighter_558245" class="syntaxhighlighter sh-midnight nogutter  bash"></div> </div> </div> </div> <pre class="language-bash"><code># 打开配置文件/etc/profile，在配置文件最后中输入以下内容： history USER=`whoami` USER_IP=`who -u am i 2&gt;/dev/null| awk '{print $NF}'|sed -e 's/[()]//g'` if [ "$USER_IP" = "" ]; then   USER_IP=`hostname` fi if [ ! -d /var/log/history ]; then   mkdir /var/log/history   chmod 777 /var/log/history fi if [ ! -d /var/log/history/${LOGNAME} ]; then   mkdir /var/log/history/${LOGNAME}   chmod 300 /var/log/history/${LOGNAME} fi export HISTSIZE=4096 DT=`date +"%Y%m%d_%H:%M:%S"` export HISTFILE="/var/log/history/${LOGNAME}/${USER}@${USER_IP}_$DT" chmod 600 /var/log/history/${LOGNAME}/*history* 2&gt;/dev/null # 执行source使其生效 source /etc/profile</code></pre> <p>通过上述步骤，可以在 /var/log/history 目录下以每个用户为名新建一个文件夹，每次用户退出后都会产生以用户名、登录IP、时间的日志文件，包含此用户本次的所有操作（root用户除外）</p> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-61292.htm">总结vue项目引入Vant遇到的坑</a></p>
+                                        <p>下一个：<a href="/news/article-61887.htm">vue项目中数据更新页面不刷新问题</a></p>
                                     </div>
                             </div>
             <div class="col-md-4 w3l-services">
@@ -131,8 +132,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-2-10-shadowrocket-node.htm">2月10日更新19M/S，2025年最新高速Shadowrocket/SSR/Clash/V2ray订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、日本、欧洲、新加坡、香港、韩国、加拿大等地区,最高速度可达19 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-55570.htm">重庆猫领养（重庆猫网领养）</a></h4>
+                <p>摘要：       今天给各位分享重庆猫领养的知识，其中也会对重庆猫网领养进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、重庆江津区猫领养中心地址...    </p>
             </div>
         </div>
     </div>
@@ -141,8 +142,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-1-23-free-ssr-subscribe.htm">1月23日更新18.7M/S，2025年最新高速Clash/V2ray/Shadowrocket/SSR订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、韩国、欧洲、香港、日本、美国、新加坡等地区,最高速度可达18.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-48679.htm">两个月猫抓伤了要打疫苗吗（两个月的猫抓伤了怎么办）</a></h4>
+                <p>摘要：       今天给各位分享两个月猫抓伤了要打疫苗吗的知识，其中也会对两个月的猫抓伤了怎么办进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、猫抓了两个月.</p>
             </div>
         </div>
     </div>
@@ -151,8 +152,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-57253.htm">Jackson 枚举序列化/反序列化</a></h4>
-                <p>枚举类： import com.fasterxml.jackson.annotation.JsonCreator; import com.fasterxml.jackson.annotation.Js</p>
+                <h4><a href="/free-nodes/2025-1-18-free-ssr-subscribe.htm">1月18日更新21.5M/S，2025年最新高速Shadowrocket/SSR/Clash/V2ray订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、美国、加拿大、新加坡、韩国、香港、日本等地区,最高速度可达21.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -161,8 +162,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-32996.htm">vue实现拖拽排序、移除</a></h4>
-                <p>vue实现拖拽排序、可用于图片、模块交换位置  效果 以“首页模块”为例    录屏软件很卡，实际效果是非常流畅的  本质都一样，只不过一个是单行、一个是双列，使用的是vuedraggle组件vued</p>
+                <h4><a href="/news/article-32045.htm">内江宠物乐园哪家好（昆明宠物乐园哪家好）</a></h4>
+                <p>摘要：       今天给各位分享内江宠物乐园哪家好的知识，其中也会对昆明宠物乐园哪家好进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、内江宠物交易市场在哪..</p>
             </div>
         </div>
     </div>
@@ -171,8 +172,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-11-20-free-node-subscribe.htm">11月20日更新20.5M/S，2024年最新高速SSR/Shadowrocket/V2ray/Clash订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、欧洲、新加坡、韩国、美国、日本、香港等地区,最高速度可达20.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-19953.htm">动物疫苗经营范围有哪些内容要求（动物疫苗经营许可）</a></h4>
+                <p>摘要：       今天给各位分享动物疫苗经营范围有哪些内容要求的知识，其中也会对动物疫苗经营许可进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、生物科技有限.</p>
             </div>
         </div>
     </div>
@@ -181,8 +182,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-2-12-free-subscribe-node.htm">2月12日更新21.3M/S，2025年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、韩国、新加坡、加拿大、香港、欧洲、日本等地区,最高速度可达21.3 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-2-17-free-node-subscribe.htm">2月17日更新20M/S，2025年最新高速SSR/Clash/V2ray/Shadowrocket订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、加拿大、香港、日本、新加坡、欧洲、韩国等地区,最高速度可达20 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -191,8 +192,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-24465.htm">宠物粮食品牌都有什么牌子好 宠物粮食品牌都有什么牌子好的</a></h4>
-                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于宠物粮食品牌都有什么牌子好的问题，于是小编就整理了3个相关介绍宠物粮食品牌都有什么牌子好的解答，让我们一起看看吧。鹦鹉粮食哪个品</p>
+                <h4><a href="/free-nodes/2025-2-6-free-high-speed-nodes.htm">2月6日更新20.6M/S，2025年最新高速Shadowrocket/Clash/V2ray/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、美国、日本、韩国、新加坡、香港、欧洲等地区,最高速度可达20.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -201,8 +202,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-2-7-free-node-subscribe.htm">2月7日更新22.2M/S，2025年最新高速Clash/Shadowrocket/SSR/V2ray订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、日本、加拿大、韩国、美国、欧洲等地区,最高速度可达22.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-47683.htm">动物医院申请条件及流程表图片模板下载（动物医院办理条件）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈动物医院申请条件及流程表图片模板下载，以及动物医院办理条件对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、开宠物医院需要什么证件...  </p>
             </div>
         </div>
     </div>
@@ -211,8 +212,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2024-12-17-clash-node-daily-updates.htm">12月17日更新18.9M/S，2024年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点订阅</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、欧洲、日本、韩国、美国、加拿大等地区,最高速度可达18.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-2-25-clash-node.htm">2月25日更新19.6M/S，2025年最新高速Clash/SSR/V2ray/Shadowrocket订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、韩国、日本、美国、香港、欧洲、新加坡等地区,最高速度可达19.6 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -221,8 +222,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-25012.htm">动物医院部门科室是什么（动物医院诊室）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈动物医院部门科室是什么，以及动物医院诊室对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、请问一般中小规模的宠物医院都分哪些科室,有几名..</p>
+                <h4><a href="/free-nodes/2025-1-25-clash-node-daily-updates.htm">1月25日更新22.5M/S，2025年最新高速SSR/Shadowrocket/Clash/V2ray订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、加拿大、欧洲、美国、香港、新加坡、日本等地区,最高速度可达22.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -233,7 +234,7 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">65</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                                <h4><span class="badge" style="float: right;">71</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
                                 <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
                                 <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
                                 <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
