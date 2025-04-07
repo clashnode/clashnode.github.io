@@ -123,6 +123,7 @@
                   				  				  				<div id="content_views" class="htmledit_views"> <p>对于IO来说，除了传统的block IO,使用最多的就是NIO了，通常我们在netty程序中最常用到的就是NIO,比如NioEventLoopGroup,NioServerSocketChannel等。</p> <p>我们也知道在IO中有比NIO更快的IO方式，比如kqueue和epoll，但是这两种方式需要native方法的支持，也就是说需要在操作系统层面提供服务。</p> <p>如果我们在支持Kqueue或者epoll的服务器上，netty是否可以提供对这些优秀IO的支持呢？</p> <p>答案是肯定的。但是首先kqueue和epoll需要JNI支持，也就是说JAVA程序需要调用本地的native方法。</p> <h2>native传输协议的依赖</h2> <p>要想使用kequeue和epoll这种native的传输方式，我们需要额外添加项目的依赖,如果是linux环境，则可以添加如下的maven依赖环境：</p> <pre>&lt;dependencies&gt;     &lt;dependency&gt;       &lt;groupId&gt;io.netty&lt;/groupId&gt;       &lt;artifactId&gt;netty-transport-native-epoll&lt;/artifactId&gt;       &lt;version&gt;${project.version}&lt;/version&gt;       &lt;classifier&gt;linux-x86_64&lt;/classifier&gt;     &lt;/dependency&gt;     ...   &lt;/dependencies&gt;</pre> <p>其中version需要匹配你所使用的netty版本号，否则可能出现调用异常的情况。</p> <p>classifier表示的是系统架构，它的值可以是linux-x86_64，也可以是linux-aarch_64.</p> <p>如果你使用的mac系统，那么可以这样引入：</p> <pre>&lt;dependencies&gt;     &lt;dependency&gt;       &lt;groupId&gt;io.netty&lt;/groupId&gt;       &lt;artifactId&gt;netty-transport-native-kqueue&lt;/artifactId&gt;       &lt;version&gt;${project.version}&lt;/version&gt;       &lt;classifier&gt;osx-x86_64&lt;/classifier&gt;     &lt;/dependency&gt;     ...   &lt;/dependencies&gt;</pre> <p>netty除了单独的个体包之外，还有一个all in one的netty-all包，如果你使用了这个all in one的包，那么不需要额外添加native的依赖。</p> <p>如果netty提供的系统架构并没有你正在使用的，那么你需要手动进行编译，以下是编译所依赖的程序包, 如果是在RHEL/CentOS/Fedora系统中，则使用：</p> <pre>sudo yum install autoconf automake libtool make tar \                  glibc-devel \                  libgcc.i686 glibc-devel.i686</pre> <p>如果是在Debian/Ubuntu系统中，则使用：</p> <pre>sudo apt-get install autoconf automake libtool make tar \                      gcc</pre> <p>如果是在MacOS/BSD系统中，则使用：</p> <pre>brew install autoconf automake libtool</pre> <h2>netty本地传输协议的使用</h2> <p>安装好依赖包之后，我们就可以在netty中使用这些native传输协议了。</p> <p>native传输协议的使用和NIO的使用基本一致，我们只需要进行下面的替换即可。</p> <p>如果是在liunx系统中，则进行下面的替换：</p> <pre>NioEventLoopGroup → EpollEventLoopGroup     NioEventLoop → EpollEventLoop     NioServerSocketChannel → EpollServerSocketChannel     NioSocketChannel → EpollSocketChannel</pre> <p>如果是在mac系统中，则进行下面的替换：</p> <pre>NioEventLoopGroup → KQueueEventLoopGroup     NioEventLoop → KQueueEventLoop     NioServerSocketChannel → KQueueServerSocketChannel     NioSocketChannel → KQueueSocketChannel</pre> <p>这里还是使用我们熟悉的聊天服务为例，首先看下基于Kqueue的netty服务器端应该怎么写：</p> <pre>EventLoopGroup bossGroup = new KQueueEventLoopGroup(1);         EventLoopGroup workerGroup = new KQueueEventLoopGroup();         try {             ServerBootstrap b = new ServerBootstrap();             b.group(bossGroup, workerGroup)              .channel(KQueueServerSocketChannel.class)              .handler(new LoggingHandler(LogLevel.INFO))              .childHandler(new NativeChatServerInitializer());              Channel channel = b.bind(PORT).sync().channel();             log.info("server channel:{}", channel);             channel.closeFuture().sync();</pre> <p>和NIO一样，在服务器端我们需要使用KQueueEventLoopGroup创建两个EventLoopGroup，一个是bossGroup, 一个是workerGroup。</p> <p>然后将这两个group传入到ServerBootstrap中，并且添加KQueueServerSocketChannel作为channel。</p> <p>其他的内容和NIO server的内容是一样的。</p> <p>接下来我们看下基于Kqueue的netty客户端改如何跟server端建立连接：</p> <pre>EventLoopGroup group = new KQueueEventLoopGroup();         try {             Bootstrap b = new Bootstrap();             b.group(group)              .channel(KQueueSocketChannel.class)              .handler(new NativeChatClientInitializer());              // 建立连接             Channel ch = b.connect(HOST, PORT).sync().channel();             log.info("client channel: {}", ch);</pre> <p>这里使用的是KQueueEventLoopGroup，并将KQueueEventLoopGroup放到Bootstrap中，并且为Bootstrap提供了和server端一致的KQueueSocketChannel。</p> <p>然后就是客户端向channel中写消息，这里我们直接从命令行输入：</p> <pre>// 从命令行输入             ChannelFuture lastWriteFuture = null;             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));             for (;;) {                 String line = in.readLine();                 if (line == null) {                     break;                 }                 // 将从命令行输入的一行字符写到channel中                 lastWriteFuture = ch.writeAndFlush(line + "\r\n");                 // 如果输入'再见'，则等待server端关闭channel                 if ("再见".equalsIgnoreCase(line)) {                     ch.closeFuture().sync();                     break;                 }             }</pre> <p>上面代码的意思是将命令行收到的消息写入到channel中，如果输入的是’再见’，则关闭channel。</p> <p>为了能够处理字符串，这里用到了三个编码解码器：</p> <pre>// 添加行分割器         pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));         // 添加String Decoder和String Encoder,用来进行字符串的转换         pipeline.addLast(new StringEncoder());         pipeline.addLast(new StringDecoder());</pre> <p>分别是行分割器，字符编码器和字符解码器。</p> <p>运行一下看，程序运行没问题，客户端和服务器端可以进行通讯。</p> <p>这里我们只以Kqueue为例介绍了netty中native传输协议的使用，具体的代码，大家可以参考：</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/ddean2009/learn-netty4"  title="learn-netty4" rel="nofollow">learn-netty4</a></p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-87163.htm">Java ArrayList集合(Java动态数组)</a></p>
+                                        <p>下一个：<a href="/news/article-87887.htm">开宠物店狗粮怎么进货呢（开宠物店狗粮怎么进货呢视频）</a></p>
                                     </div>
                             </div>
             <div class="col-md-4 w3l-services">
@@ -131,8 +132,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-3-6-free-v2ray-subscribe.htm">3月6日更新19.1M/S，2025年最新高速V2ray/Clash/SSR/Shadowrocket订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、加拿大、新加坡、日本、欧洲、韩国、美国等地区,最高速度可达19.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-85728.htm">和田宠物医院污水处理价格多少（宠物店污水处理设备）</a></h4>
+                <p>摘要：       今天给各位分享和田宠物医院污水处理价格多少的知识，其中也会对宠物店污水处理设备进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、宠物医院未配.</p>
             </div>
         </div>
     </div>
@@ -141,8 +142,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-82872.htm">Java中的append方法是什么？</a></h4>
-                <p>java.lang.StringBuffer的append（char c）方法将char参数的字符串表示形式附加到此序列。参数将附加到此序列的内容中。该序列的长度增加1。 示例 import&nbsp</p>
+                <h4><a href="/news/article-85729.htm">长沙宠物领养贴吧 长沙宠物领养贴吧论坛</a></h4>
+                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于长沙宠物领养贴吧的问题，于是小编就整理了4个相关介绍长沙宠物领养贴吧的解答，让我们一起看看吧。请问长沙有没有收留藏獒的地方？长沙</p>
             </div>
         </div>
     </div>
@@ -151,8 +152,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-78006.htm">C#自定义配置文件方法详解_在线工具</a></h4>
-                <p>.NET程序中，经常使用Config文件来配置应用程序中经常使用的值，比如数据库连接字符串。最近项目遇到一个需要配置好多节点在配置文件中的需求。为了使配置节点整洁易维护，在代码调用时也保证获取时比较直</p>
+                <h4><a href="/free-nodes/2025-4-3-shadowrocket-node.htm">4月3日更新22.1M/S，2025年最新高速V2ray/Clash/Shadowrocket/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、韩国、新加坡、美国、欧洲、日本、加拿大等地区,最高速度可达22.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -161,8 +162,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-3-26-node-share.htm">3月26日更新22.4M/S，2025年最新高速V2ray/Shadowrocket/Clash/SSR订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、美国、日本、香港、加拿大、新加坡、韩国等地区,最高速度可达22.4 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-74610.htm">vue中npm run dev 报错（eslint规则）</a></h4>
+                <p>1.报错了。。。 You may use special comments to disable some warnings. Use // eslint-disable-next-line to i</p>
             </div>
         </div>
     </div>
@@ -171,8 +172,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-73268.htm">宠物疫苗自己打可以吗（宠物疫苗自己打可以吗现在）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈宠物疫苗自己打可以吗，以及宠物疫苗自己打可以吗现在对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、可以自己给狗打疫苗吗2、...     </p>
+                <h4><a href="/news/article-84291.htm">为啥家猫不需要打疫苗宠物猫要打呢（为什么猫不用打狂犬疫苗）</a></h4>
+                <p>摘要：       今天给各位分享为啥家猫不需要打疫苗宠物猫要打呢的知识，其中也会对为什么猫不用打狂犬疫苗进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、为什.</p>
             </div>
         </div>
     </div>
@@ -181,8 +182,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-81478.htm">梦到抱着别的女人亲热是什么意思啊（梦中抱着别的女人）</a></h4>
-                <p>摘要：       今天给各位分享梦到抱着别的女人亲热是什么意思啊的知识，其中也会对梦中抱着别的女人进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、梦见亲吻别.</p>
+                <h4><a href="/free-nodes/2025-3-9-free-clash-subscribe.htm">3月9日更新18.9M/S，2025年最新高速Clash/Shadowrocket/V2ray/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、新加坡、加拿大、日本、欧洲、美国、香港等地区,最高速度可达18.9 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -191,8 +192,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-3-4-shadowrocket-node.htm">3月4日更新22.1M/S，2025年最新高速Clash/V2ray/SSR/Shadowrocket订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、香港、欧洲、美国、加拿大、韩国、新加坡等地区,最高速度可达22.1 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-78692.htm">通州区宠物店（通州区宠物店电话）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈通州区宠物店，以及通州区宠物店电话对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、宠物驯导师的职业概况2、...        本篇文章给</p>
             </div>
         </div>
     </div>
@@ -201,8 +202,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-79379.htm">mysql5.7自动创建分区</a></h4>
-                <p>实现了下自动按月表分区，开发环境为Mysql 5.7.28 核心的两个存储过程： auto_create_partition为创建表分区，调用后为该表创建到下月结束的表分区。 auto_del_par</p>
+                <h4><a href="/news/article-69329.htm">24小时宠物医院咨询电话临平（临平宠物店）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈24小时宠物医院咨询电话临平，以及临平宠物店对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、宠物医生怎么咨询.2、...        本</p>
             </div>
         </div>
     </div>
@@ -211,8 +212,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-80772.htm">十大冷门暴利生意(最挣钱没人干的行业有哪些?)（冷门生意有哪些十大冷门生意利润高）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈十大冷门暴利生意(最挣钱没人干的行业有哪些?)，以及冷门生意有哪些十大冷门生意利润高对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、有..</p>
+                <h4><a href="/free-nodes/2025-4-1-free-v2ray.htm">4月1日更新18.2M/S，2025年最新高速V2ray/Clash/SSR/Shadowrocket订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、日本、加拿大、欧洲、香港、新加坡、韩国等地区,最高速度可达18.2 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -221,8 +222,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-71945.htm">宠物粮厂家招聘最新信息（宠物粮基地）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈宠物粮厂家招聘最新信息，以及宠物粮基地对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、浙江宠物干粮生产厂家哪家好...        本篇</p>
+                <h4><a href="/news/article-71287.htm">宠物粮品牌起名字大全集图片及价格（宠物粮品牌名称）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈宠物粮品牌起名字大全集图片及价格，以及宠物粮品牌名称对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、世界十大顶级狗粮品牌...      </p>
             </div>
         </div>
     </div>
@@ -233,7 +234,7 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">8</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+                                <h4><span class="badge" style="float: right;">16</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
                                 <h4><span class="badge" style="float: right;">85</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
                             </div>
         </div>
@@ -248,15 +249,17 @@
             <div class="footer-content">
                 <div class="row">
                     <div class="col-lg-8 footer-left">
-                            <p>
-                                <a href="/">首页</a> | 
-                                <a href="/free-node/">免费节点</a> | 
-                                <a href="/news/">新闻资讯</a> |
-                                <a href="/about-us.htm">关于我们</a> |
-                                <a href="/disclaimer.htm">免责申明</a> |
-                                <a href="/privacy.htm">隐私申明</a> |
-                                <a href="/sitemap.xml">网站地图</a>
-                            </p>
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
                         <p class="m-0">Clash Node官网订阅站 版权所有</p>
                     </div>
                     <div class="col-lg-4 footer-right text-lg-right text-center mt-lg-0 mt-3">
