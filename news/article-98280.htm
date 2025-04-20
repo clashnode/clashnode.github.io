@@ -1,0 +1,502 @@
+<!doctype html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashnode.github.io/news/article-98280.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>C语言数据结构、十字链表的分析及实现</title>
+    <link rel="icon" href="/assets/website/img/clashnode/favicon.ico" type="image/x-icon"/>
+        <meta name="description" content="目录  前言 一、什么是十字链表 二、认识十字链表 1.十字链表的组成 2.顶点和弧的连接 三、代码逻辑实现 1.出度 &nbsp;2.入度 总结    &nbsp; 无论是什么程序都要和数据打交道，" />
+    
+    <meta name="author" content="Clash Node官网订阅站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashnode.github.io/news/article-98280.htm" />
+    <meta property="og:site_name" content="Clash Node官网订阅站" />
+    <meta property="og:title" content="C语言数据结构、十字链表的分析及实现" />
+    <meta property="og:image" content="https://clashnode.github.io/uploads/20240214/76102f0ccd571ad24bf10b61732c8d20.webp" />
+        <meta property="og:release_date" content="2025-04-18T09:35:10" />
+    <meta property="og:updated_time" content="2025-04-18T09:35:10" />
+        <meta property="og:description" content="目录  前言 一、什么是十字链表 二、认识十字链表 1.十字链表的组成 2.顶点和弧的连接 三、代码逻辑实现 1.出度 &nbsp;2.入度 总结    &nbsp; 无论是什么程序都要和数据打交道，" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="C语言数据结构、十字链表的分析及实现">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/clashnode/style-starter.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8B9V1K3BBT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8B9V1K3BBT');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- header -->
+    <header id="site-header" class="fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg stroke">
+                <a class="navbar-brand" href="/">
+                                        <span class="fa fa-laptop"></span> Clash Node                </a>
+                <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                    </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav ml-auto">
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/">首页</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/free-nodes/">免费节点</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/client.htm">客户端</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/news/">新闻资讯</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!-- toggle switch for light and dark theme -->
+                <div class="mobile-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+            </nav>
+        </div>
+    </header>
+    <!-- //header -->
+    <!-- about breadcrumb -->
+    <section class="w3l-about-breadcrumb text-center">
+        <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+            <div class="container py-2">
+                <h1 class="title" style="word-break: break-all;">C语言数据结构、十字链表的分析及实现</h1>
+                <ul class="breadcrumbs-custom-path mt-2">
+                    <li><a href="/">首页</a></li>
+                    <li><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span></li>
+                    <li><a href="/news/">新闻资讯</a></li>
+                    <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> 正文</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- //about breadcrumb -->
+    <div class="container py-lg-5 py-3">
+        <div class="row">
+            <div class="col-md-8">
+                                <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> </h1> <p id="main-toc"><strong>目录</strong></p> <p id="%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95-toc" style="margin-left:0px;"> <p id="%E5%89%8D%E8%A8%80-toc" style="margin-left:0px;"><a href="#%E5%89%8D%E8%A8%80" rel="nofollow">前言</a></p> <p id="%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8-toc" style="margin-left:0px;"><a href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8" rel="nofollow">一、什么是十字链表</a></p> <p id="%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4-toc" style="margin-left:0px;"><a href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4" rel="nofollow">二、认识十字链表</a></p> <p id="1.%E5%BC%95%E5%85%A5%E5%BA%93-toc" style="margin-left:40px;"><a href="#1.%E5%BC%95%E5%85%A5%E5%BA%93" rel="nofollow">1.十字链表的组成</a></p> <p id="2.%E9%A1%B6%E7%82%B9%E5%92%8C%E5%BC%A7%E7%9A%84%E8%BF%9E%E6%8E%A5-toc" style="margin-left:40px;"><a href="#2.%E9%A1%B6%E7%82%B9%E5%92%8C%E5%BC%A7%E7%9A%84%E8%BF%9E%E6%8E%A5" rel="nofollow">2.顶点和弧的连接</a></p> <p id="%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0-toc" style="margin-left:0px;"><a href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0" rel="nofollow">三、代码逻辑实现</a></p> <p id="%E5%87%BA%E5%BA%A6-toc" style="margin-left:40px;"><a href="#%E5%87%BA%E5%BA%A6" rel="nofollow">1.出度</a></p> <p id="%C2%A0%E5%85%A5%E5%BA%A6-toc" style="margin-left:40px;"><a href="#%C2%A0%E5%85%A5%E5%BA%A6" rel="nofollow">&nbsp;2.入度</a></p> <p id="%E6%80%BB%E7%BB%93-toc" style="margin-left:0px;"><a href="#%E6%80%BB%E7%BB%93" rel="nofollow">总结</a></p> <hr id="hr-toc"/> <hr/> </h1> <p><code>&nbsp; 无论是什么程序都要和数据打交道，一个好的程序员会选择更优的数据结构来更好的解决问题，因此数据结构的重要性不言而喻。数据结构的学习本质上是让我们能见到很多前辈在解决一些要求时间和空间的难点问题上设计出的一系列解决方法，我们可以在今后借鉴这些方法，也可以根据这些方法在遇到具体的新问题时提出自己的解决方法。（所以各种定义等字眼就不用过度深究啦，每个人的表达方式不一样而已），在此以下的所有代码都是仅供参考，并不是唯一的答案，只要逻辑上能行的通，写出来的代码能达到相同的结果，并且在复杂度上差不多，就行了。</code></p> <hr/> </h1> <p>在上篇文章的最后，我们分析了邻接表的优劣，邻接表本身并没有什么大的缺陷，如果说有缺点，那么是对于有向图而言对同时表示一个顶点的出度和入度麻烦，因为需要有邻接表和逆邻接表同时表示，而且这种应用场景是存在的。十字链表就是为了使这个问题得到解决而出现的。</p> <p>所以十字链表就是一种将<strong>邻接表和逆邻接表结合在一起</strong>的一种图的存储结构，它针对的就是有向图中出度和入度一起使用的情况，并且大大节省了内存。</p> </h1> <h2 id="1.%E5%BC%95%E5%85%A5%E5%BA%93"> <a id="1_27" rel="nofollow"></a>1.十字链表的组成<code class="language-c"> </code><br /> </h2> <p>十字链表是由<strong>数组+链表</strong>的形式构成的，数组用来记录顶点的信息，链表用来记录弧（边）的信息。</p> <p>在有向图中，顶点集的存储结构如下图所示</p> <p class="img-center"><img fetchpriority="high" decoding="async" alt="" height="121" src="http://img.555519.xyz/uploads/20230204/8eceabac70a3932b8d8fcf6604b196dd.jpg"></p> <p>其中data是数据域，用于记录顶点的信息，而firstIn和firstOut是两个指针，指向的是以该节点为弧头（In）或弧尾（Out）的第一节点。</p> <p>&nbsp;对于如此一个有向图而言，弧头和弧尾的概念是人为设置的，在这里我们假定一个顶点的入度指向弧头，出度的方向为弧尾</p> <p class="img-center"><img decoding="async" alt="" height="150" src="http://img.555519.xyz/uploads/20230204/985960c52dc95e4c54d72d7df4bfa8c9.jpg"></p> <p class="img-center"><img decoding="async" alt="" height="300" src="http://img.555519.xyz/uploads/20230204/6138764f1d280b78195652167f4e2664.jpg"></p> <p>&nbsp;它的顶点数组应该这么表示，为了方便讲解，这里我们假定输入的值就是对应的下标，实际上应该通过用户输入的值在顶点数组中找到对应的下标</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="160" src="http://img.555519.xyz/uploads/20230204/aadbe42e4a5d5e5f8a7c862620169c75.jpg"></p> <p>代码实现</p> <pre><code class="language-cpp">//顶点集 typedef struct VexNode {     //数据域     int data;     ArcBox* firstIn, *firstOut;//以该节点为弧头或弧尾的首节点 }VexNode;</code></pre> <p>&nbsp;在有向图中每一个顶点与之对应的弧，具体的弧的存储结构如下所示</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="133" src="http://img.555519.xyz/uploads/20230204/777928747297862643d3c77cf8ef6214.jpg"></p> <p>其中tailvex表示的是在这一条弧中弧尾节点在顶点数组中对应的下标，headvex表示的是在这一条弧中弧头节点在顶点数组中对应的下标；（实际上应该还有一个代表权值的元素weight，但这里不做描述）</p> <p>代码实现</p> <pre><code class="language-cpp">//边集(弧集) typedef struct ArcBox {     int tailvex, headvex;//弧尾 弧头对应的顶点下标     struct AcrBox* nextIn, *nextOut;//下一个相同尾节点的弧 下一个相同头节点的弧 }ArcBox;</code></pre> <h2 id="2.%E8%AF%BB%E5%85%A5%E6%95%B0%E6%8D%AE"><a id="2_41" rel="nofollow"></a></h2> <p>然而在代码逻辑上，我们还是需要一个抽象结构，也就是可以用一个结构体把顶点集合与弧的集合联系在一起，构建十字链表</p> <pre><code class="language-cpp">#define MAXVEX 200 typedef struct X {     //存储顶点的一维数组     VexNode* Xlist[MAXVEX];     int numV, numA;//顶点数 弧数 }OLGraph;</code></pre> <h2 id="2.%E9%A1%B6%E7%82%B9%E5%92%8C%E5%BC%A7%E7%9A%84%E8%BF%9E%E6%8E%A5">2.顶点和弧的连接</h2> <p>还是对于这样一个有向图，我们以节点V0为例，可以看到与V0有关的弧有四条，分别是：（V0，V1）、（V0，V2）、（V1，V0）、（V3，V0）因为这是一个有向图，所以我们应该以有向图的入度和出度的形式去观察V0节点，很明显（V0，V1）、（V0，V2）两条弧表示V0的出度，而（V1，V0）、（V3，V0）表示的是V0的入度</p> <p class="img-center"><img decoding="async" alt="" height="300" src="http://img.555519.xyz/uploads/20230204/6138764f1d280b78195652167f4e2664.jpg"></p> <p>结合上文的描述，我们可以构建出这个有向图的顶点集合与弧集，我把它们具现化为如下图表</p> <p><img loading="lazy" decoding="async" alt="" height="470" src="http://img.555519.xyz/uploads/20230204/c94b68bcace36224465081b6a0d378f7.jpg"></p> <p>怎么理解这张图表呢？左边的图表表示的是从V0到V3的顶点的集合，data是V0到V3的值；右边的离散的表格代表的就是有向图中一条一条的弧，也就是每个顶点对应的弧的集合</p> <p>我还是以V0为例，对于V0<strong><span style="color:#f3f3f4;"><span style="background-color:#4da8ee;">入度</span></span></strong>节点是V1和V3，<span style="color:#f3f3f4;"><strong><span style="background-color:#fe2c24;">出度</span></strong></span>节点是V1和V2，现在要根据上文的描述，把V0的顶点集合和与V0有关的弧的集合联系起来</p> <p><img loading="lazy" decoding="async" alt="" height="445" src="http://img.555519.xyz/uploads/20230204/0dad8d1026cecb45874281ab8cdd4f59.jpg"><img loading="lazy" decoding="async" alt="" height="455" src="http://img.555519.xyz/uploads/20230204/d36ec31dc9a6fad968f82a9fc88f9bfe.jpg"></p> <p>&nbsp;对于顶点集合的结构来说，firstOut应该指向V0的第一个出度节点，从逻辑上来说没有先后排序，但从代码上的步骤是遍历V0的所有的邻接点去判断，所以这里firstOut应该指向弧（V0，V1），如下图所示</p> <p><img loading="lazy" decoding="async" alt="" class="left" height="121" src="http://img.555519.xyz/uploads/20230204/8eceabac70a3932b8d8fcf6604b196dd.jpg"><img loading="lazy" decoding="async" alt="" class="right" height="133" src="http://img.555519.xyz/uploads/20230204/777928747297862643d3c77cf8ef6214.jpg"></p> <p>&nbsp;<img loading="lazy" decoding="async" alt="" height="200" src="http://img.555519.xyz/uploads/20230204/1bbac8aeca5bebec408bd1fac59f392c.jpg"></p> <p>&nbsp;而在弧集中的结构来说，nextIn表示的是指向下一个相同尾节点的弧，对于弧（V0，V1）和弧（V0，V2）它们都是从V0开始，也就是它们有着同一个尾节点V0，所以弧（V0，V1）的nextIn应该指向的是弧（V0，V2）</p> <p><img loading="lazy" decoding="async" alt="" height="206" src="http://img.555519.xyz/uploads/20230204/46a3af4a255cf5e3b739c4416b0f5150.jpg"></p> <p>对于顶点集合的结构来说，firstIn应该指向V0的第一个入度节点，从逻辑上来说没有先后排序，但从代码上的步骤是遍历V0的所有的邻接点去判断，所以这里firstIn应该指向弧（V1，V0），如下图所示</p> <p><img loading="lazy" decoding="async" alt="" class="left" height="121" src="http://img.555519.xyz/uploads/20230204/8eceabac70a3932b8d8fcf6604b196dd.jpg"><img loading="lazy" decoding="async" alt="" class="right" height="133" src="http://img.555519.xyz/uploads/20230204/777928747297862643d3c77cf8ef6214.jpg"></p> <p>&nbsp;<img loading="lazy" decoding="async" alt="" height="263" src="http://img.555519.xyz/uploads/20230204/81d8a5996948d6dca69db9d4160c2f8d.jpg"></p> <p>&nbsp;&nbsp;而在弧集中的结构来说，nextOut表示的是指向下一个相同头节点的弧，也就是弧头所指向的都是V0的弧，即弧（V1，V0）的nextOut应该指向弧（V3，V0）</p> <p><img loading="lazy" decoding="async" alt="" height="450" src="http://img.555519.xyz/uploads/20230204/305e49a25b88f0cc389b55e0d8fca10b.jpg"></p> <p>这个时候与顶点V0和其有关所有的弧都联系上了。其它的节点同理</p> </h1> <p>在代码逻辑上对上文描述的顶点和弧的连接采用了链表中的<strong>头插法，</strong>逻辑比较简单，不清楚的可以在纸上画一画就清楚了</p> <p>（<strong>黑线</strong>代表原来的连接，<strong><span style="color:#fe2c24;">红线</span></strong>或<strong><span style="color:#6eaad7;">蓝色</span></strong>代表头插以后的连接）</p> <h2 id="%E5%87%BA%E5%BA%A6">1.出度</h2> <p>①</p> <p><img loading="lazy" decoding="async" alt="" height="188" src="http://img.555519.xyz/uploads/20230204/07bf369d26b14fb35c3947be6d009abd.jpg"></p> <p>②</p> <p><img loading="lazy" decoding="async" alt="" height="195" src="http://img.555519.xyz/uploads/20230204/ed5ac043efb1a4f844b1bff22a90e926.jpg"></p> <p>&nbsp;③</p> <p><img loading="lazy" decoding="async" alt="" height="199" src="http://img.555519.xyz/uploads/20230204/6fdcff605bcd9ec319084b1d035d7ffc.jpg"></p> <h2 id="%C2%A0%E5%85%A5%E5%BA%A6">&nbsp;2.入度</h2> <p>①</p> <p><img loading="lazy" decoding="async" alt="" height="486" src="http://img.555519.xyz/uploads/20230204/a4c43cca9f639ea5d0313885c3526697.jpg"></p> <p>②</p> <p><img loading="lazy" decoding="async" alt="" height="480" src="http://img.555519.xyz/uploads/20230204/5fe3e2c4f895237c77fb71746a0a16ce.jpg"></p> <p>③</p> <p><img loading="lazy" decoding="async" alt="" height="467" src="http://img.555519.xyz/uploads/20230204/2f97a4bde739aaf1f06b3a67165fd082.jpg"></p> <p>代码实现</p> <pre><code class="language-cpp">void creatDG(OLGraph* G) {     int vi, vj;     //输入有向图的顶点数和边数     scanf_s("%d%d", &amp;G-&gt;numV, &amp;G-&gt;numA);     //输入顶点集的数据     for(int i = 0; i &lt; G-&gt;numV; i++)     {         scanf_s("%d", &amp;G-&gt;Xlist[i]-&gt;data);         G-&gt;Xlist[i]-&gt;firstIn = NULL;         G-&gt;Xlist[i]-&gt;firstOut = NULL;     }     //构建十字链表     for(int i = 0; i &lt; G-&gt;numA; i++)     {         //输入值 查找相对应的下标         //这里就当直接输入下标         scanf_s("%d%d", &amp;vi, &amp;vj);         //建立弧的节点         ArcBox* p = (ArcBox*)malloc(sizeof(ArcBox));         p-&gt;tailvex = vi;         p-&gt;tailvex = vj;         //头插法插入新的边表节点p         p-&gt;nextIn = G-&gt;Xlist[vj]-&gt;firstIn;//指向弧头相同的下一个弧         p-&gt;nextOut = G-&gt;Xlist[vi]-&gt;firstOut;//指向弧尾相同的下一个弧         G-&gt;Xlist[vi]-&gt;firstOut = G-&gt;Xlist[vj]-&gt;firstIn = p;      } }</code></pre> </h1> <p><img loading="lazy" decoding="async" alt="" height="466" src="http://img.555519.xyz/uploads/20230204/818f91a6cab62f1ea1c403de1d65a506.jpg">&nbsp;全部代码</p> <pre><code class="language-cpp">#include&lt;stdio.h&gt; #include&lt;stdlib.h&gt; #define MAXVEX 200 //十字链表 //边集(弧集) typedef struct ArcBox {     int tailvex, headvex;//弧尾 弧头对应的顶点下标     struct AcrBox* nextIn, *nextOut;//下一个相同尾节点的弧 下一个相同头节点的弧 }ArcBox; //顶点集 typedef struct VexNode {     //数据域     int data;     ArcBox* firstIn, *firstOut;//以该节点为弧头或弧尾的首节点 }VexNode; //构建十字链表 typedef struct X {     //存储顶点的一维数组     VexNode* Xlist[MAXVEX];     int numV, numA;//顶点数 弧数 }OLGraph;  void creatDG(OLGraph* G) {     int vi, vj;     //输入有向图的顶点数和边数     scanf_s("%d%d", &amp;G-&gt;numV, &amp;G-&gt;numA);     //输入顶点集的数据     for(int i = 0; i &lt; G-&gt;numV; i++)     {         scanf_s("%d", &amp;G-&gt;Xlist[i]-&gt;data);         G-&gt;Xlist[i]-&gt;firstIn = NULL;         G-&gt;Xlist[i]-&gt;firstOut = NULL;     }     //构建十字链表     for(int i = 0; i &lt; G-&gt;numA; i++)     {         //输入值 查找相对应的下标         //这里就当直接输入下标         scanf_s("%d%d", &amp;vi, &amp;vj);         //建立弧的节点         ArcBox* p = (ArcBox*)malloc(sizeof(ArcBox));         p-&gt;tailvex = vi;         p-&gt;tailvex = vj;         //头插法插入新的边表节点p         p-&gt;nextIn = G-&gt;Xlist[vj]-&gt;firstIn;//指向弧头相同的下一个弧         p-&gt;nextOut = G-&gt;Xlist[vi]-&gt;firstOut;//指向弧尾相同的下一个弧         G-&gt;Xlist[vi]-&gt;firstOut = G-&gt;Xlist[vj]-&gt;firstIn = p;      } }   </code></pre> <p>如果在一个项目中，需要频繁的对一个图的边（弧）增删改查呢？那么对十字链表来说增加或删除一条边有可能就会牵一发而动全身呢？是不是操作很麻烦？这就是十字链表的缺点，那么又存在什么样的结构可以解决上述问题呢？我们下一篇文章再解析。</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-97508.htm">宠物领养软件下载免费 宠物领养软件下载免费大全</a></p>
+                                        <p>下一个：<a href="/news/article-98281.htm">动物打疫苗前后要注意什么事项呢（动物接种疫苗前的准备）</a></p>
+                                    </div>
+                            </div>
+            <div class="col-md-4 w3l-services">
+                <h3 class="title-big mb-sm-3 mb-3">热门文章</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-96083.htm">天宫院附近宠物医院有哪些（天宫院附近有什么好玩的）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈天宫院附近宠物医院有哪些，以及天宫院附近有什么好玩的对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、常州宠物医院2、...        </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-90081.htm">请多多无货源店怎么开（拼多多无货源店怎么开）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈请多多无货源店怎么开，以及拼多多无货源店怎么开对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、拼多多怎么做无货源店铺...        </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-4-11-clash-node-daily-updates.htm">4月11日更新21.7M/S，2025年最新高速SSR/V2ray/Clash/Shadowrocket订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、日本、韩国、欧洲、美国、新加坡、加拿大等地区,最高速度可达21.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-75966.htm">违约养宠物还能退押金吗怎么处理（宠物店押金不退可以报警吗）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈违约养宠物还能退押金吗怎么处理，以及宠物店押金不退可以报警吗对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、领养宠物押金一年返还套路怎..</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-93047.htm">Spring的两种依赖注入方式:setter方法注入与构造方法注入</a></h4>
+                <p>&nbsp; &nbsp;Spring的两种依赖注入方式：setter注入与构造方法注入，这两种方法的不同主要就是在xml文件下对应使用property和constructor-arg属性， 例如： </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-66141.htm">生产狗粮利润大吗（狗粮生产赚钱吗）</a></h4>
+                <p>摘要：       今天给各位分享生产狗粮利润大吗的知识，其中也会对狗粮生产赚钱吗进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、开个狗粮加工厂挣钱吗...  </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-73944.htm">长沙领养宠物猫在哪里领（长沙领养宠物猫在哪里领养）</a></h4>
+                <p>摘要：       今天给各位分享长沙领养宠物猫在哪里领的知识，其中也会对长沙领养宠物猫在哪里领养进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、在哪里可以领.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-3-30-free-shadowrocket-node.htm">3月30日更新19.7M/S，2025年最新高速SSR/Shadowrocket/Clash/V2ray订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、新加坡、美国、韩国、加拿大、欧洲、日本等地区,最高速度可达19.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-4-4-free-high-speed-nodes.htm">4月4日更新20.5M/S，2025年最新高速Shadowrocket/Clash/V2ray/SSR订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、美国、欧洲、香港、韩国、新加坡、加拿大等地区,最高速度可达20.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/news/article-85009.htm">动物疫苗的种类及特点有哪些呢（动物疫苗的使用方法及注意事项）</a></h4>
+                <p>摘要：       今天给各位分享动物疫苗的种类及特点有哪些呢的知识，其中也会对动物疫苗的使用方法及注意事项进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、常.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="title-big mb-sm-3 mb-3">归纳</h3>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                                <h4><span class="badge" style="float: right;">54</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+                                <h4><span class="badge" style="float: right;">85</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+                            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+        <!-- Footer -->
+    <section class="w3l-footer py-sm-5 py-4">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-8 footer-left">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="m-0">Clash Node官网订阅站 版权所有</p>
+                    </div>
+                    <div class="col-lg-4 footer-right text-lg-right text-center mt-lg-0 mt-3">
+                        <ul class="social m-0 p-0">
+                            <li><a href="#facebook"><span class="fa fa-facebook-official"></span></a></li>
+                            <li><a href="#linkedin"><span class="fa fa-linkedin-square"></span></a></li>
+                            <li><a href="#instagram"><span class="fa fa-instagram"></span></a></li>
+                            <li><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            <span class="fa fa-angle-up"></span>
+        </button>
+        <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+        </script>
+        <!-- /move top -->
+    </section>
+    <!-- //Footer -->
+    <!-- all js scripts and files here -->
+    <script src="/assets/website/js/frontend/clashnode/theme-change.js"></script><!-- theme switch js (light and dark)-->
+    <script src="/assets/website/js/frontend/clashnode/jquery-3.5.1.min.js"></script><!-- default jQuery -->
+    <!-- /typig-text-->
+    <script>
+    const typedTextSpan = document.querySelector(".typed-text");
+    const cursorSpan = document.querySelector(".cursor");
+
+    const textArray = ["UI/UX Designer", "Freelancer", "Web developer"];
+    const typingDelay = 200;
+    const erasingDelay = 10;
+    const newTextDelay = 100; // Delay between current and next text
+    let textArrayIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+        if (charIndex < textArray[textArrayIndex].length) {
+            if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+            typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            setTimeout(erase, newTextDelay);
+        }
+    }
+
+    function erase() {
+        if (charIndex > 0) {
+            // add class 'typing' if there's none
+            if (!cursorSpan.classList.contains("typing")) {
+                cursorSpan.classList.add("typing");
+            }
+            typedTextSpan.textContent = textArray[textArrayIndex].substring(0, 0);
+            charIndex--;
+            setTimeout(erase, erasingDelay);
+        } else {
+            cursorSpan.classList.remove("typing");
+            textArrayIndex++;
+            if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+            setTimeout(type, typingDelay);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+        if (textArray.length) setTimeout(type, newTextDelay + 250);
+    });
+    </script>
+    <!-- //typig-text-->
+    <!-- services owlcarousel -->
+    <script src="/assets/website/js/frontend/clashnode/owl.carousel.js"></script>
+    <!-- script for services -->
+    <script>
+    $(document).ready(function() {
+        $('.owl-two').owlCarousel({
+            loop: true,
+            margin: 30,
+            nav: false,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                700: {
+                    items: 1,
+                    nav: false
+                },
+                1090: {
+                    items: 3,
+                    nav: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for services -->
+    <!-- script for tesimonials carousel slider -->
+    <script>
+    $(document).ready(function() {
+        $("#owl-demo1").owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: false,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                736: {
+                    items: 1,
+                    nav: false
+                },
+                1000: {
+                    items: 2,
+                    nav: false,
+                    loop: false
+                }
+            }
+        })
+    })
+    </script>
+    <!-- //script for tesimonials carousel slider -->
+    <!-- video popup -->
+    <script src="/assets/website/js/frontend/clashnode/jquery.magnific-popup.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+        $('.popup-with-move-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-slide-bottom'
+        });
+    });
+    </script>
+    <!-- //video popup -->
+    <!-- stats number counter-->
+    <script src="/assets/website/js/frontend/clashnode/jquery.waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/clashnode/jquery.countup.js"></script>
+    <script>
+    $('.counter').countUp();
+    </script>
+    <!-- //stats number counter -->
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+    $(function() {
+        $('.navbar-toggler').click(function() {
+            $('body').toggleClass('noscroll');
+        })
+    });
+    </script>
+    <!-- disable body scroll which navbar is in active -->
+    <!--/MENU-JS-->
+    <script>
+    $(window).on("scroll", function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 80) {
+            $("#site-header").addClass("nav-fixed");
+        } else {
+            $("#site-header").removeClass("nav-fixed");
+        }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function() {
+        $("header").toggleClass("active");
+    });
+    $(document).on("ready", function() {
+        if ($(window).width() > 991) {
+            $("header").removeClass("active");
+        }
+        $(window).on("resize", function() {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+        });
+    });
+    </script>
+    <!--//MENU-JS-->
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/clashnode/bootstrap.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
