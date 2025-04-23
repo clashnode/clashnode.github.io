@@ -38,6 +38,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/website/css/clashnode/style-starter.css">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8B9V1K3BBT"></script>
 <script>
@@ -120,7 +121,9 @@
         <div class="row">
             <div class="col-md-8">
                                 <input type="hidden" id="share-website-info" data-name="" data-url="">
-                  				  				  				<div id="content_views" class="htmledit_views"> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126392576?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（一、搭建虚拟机）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（一、搭建虚拟机）</a></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126393577?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（二、克隆虚拟机）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（二、克隆虚拟机）</a></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126406340?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（三、搭建负载均衡）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（三、搭建负载均衡）</a></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126406681?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（四、搭建主从复制和读写分离）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（四、搭建主从复制和读写分离）</a></p> <p style="margin-left:.0001pt;text-align:justify;">由于mysql权限限制，root用户连接不了navicat，解决方法：</p> <pre><code>mysql -u root -p  use mysql  update user set host='%' where user='root' \g  FLUSH PRIVILEGES \g  quit;  systemctl restart mysqld 重启mysql</code></pre> <p style="margin-left:.0001pt;text-align:justify;">为了方便测试还需要关闭防火墙，这里设置开机不启动防火墙，不然端口不开放也是连接不了Navicat的。</p> <pre><code>systemctl stop firewalld 先关闭本次的防火墙  systemctl disable firewalld 再设置每次启动时自动关闭防火墙  firewall-cmd --state&nbsp;查看防火墙状态</code></pre> <p style="margin-left:.0001pt;text-align:justify;">这样就能连接navicat了。</p> <p class="img-center"><img fetchpriority="high" decoding="async" alt="" height="549" src="http://img.555519.xyz/uploads3/20220820/337a5d4f548a747d4cca49d0de1f7b70.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-1</p> <p style="margin-left:.0001pt;text-align:justify;">由于虚拟机是克隆的所以server-id都相同，现在需要把第二台和第三台虚拟机改成不同的。<img decoding="async" alt="" height="602" src="http://img.555519.xyz/uploads3/20220820/de1da55c6de1f943371d375ad978e7e2.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-2</p> <p>注意，auto.cnf中的server-uuid也可能一样的，查看一下<br /> find / -name auto.cnf<br /> vi /www/server/data/auto.cnf<br /> 如果主服务器和从服务器server-uuid一样，使用如下方法解决<br /> 停止从库的mysqld服务，删除他的auto.cnf文件，再启动数据库服务即可：<br /> systemctl stop mysqld.service<br /> mv /www/server/data/auto.cnf /www/server/data/auto.cnf.bak （重命名，你也可以直接删除，重启会重新生成auto.cnf）<br /> systemctl start mysqld.service</p> <p>接下来设置主库：</p> <pre><code>mysql -u root -p grant all privileges on *.* to 'user1'@'%' identified by '123456' with grant option;（设置一个用户） show master status;（查看主库信息）</code></pre> <p class="img-center"><img decoding="async" alt="" height="211" src="http://img.555519.xyz/uploads3/20220820/a0a6a2349ce1ae861f10c64026ddf55a.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-3</p> <p style="margin-left:.0001pt;text-align:justify;">切换到从库：</p> <pre><code>1.mysql -u root -p 2.change master to master_host='192.168.121.111',master_user='user1',master_password='123456',master_log_file='mysql-bin.000016',master_log_pos=445; 3.start slave; 4.show slave status\G</code></pre> <p style="margin-left:.0001pt;text-align:center;"><img loading="lazy" decoding="async" alt="" height="196" src="http://img.555519.xyz/uploads3/20220820/63a90a0983a5c75d154ba177f39da2f7.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-4</p> <p style="margin-left:.0001pt;text-align:justify;">这两个都显示yes就是成功了。</p> <p style="margin-left:.0001pt;text-align:justify;">在主库中创建一个数据库，从库也自动创建。</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="348" src="http://img.555519.xyz/uploads3/20220820/fa3eb913c9c6221e4e4e1ce5a962ad43.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-5</p> <p style="margin-left:.0001pt;">六、读写分离</p> <p style="margin-left:.0001pt;">由于小编使用的是thinkphp6框架，框架自带了读写分离功能，只需要在配置文件里设置好主从数据库就可以了。</p> <p style="margin-left:.0001pt;">找到config文件下面的database.php，修改如下，</p> <pre><code>            'type'            =&gt; "mysql",             // 服务器地址             'hostname'        =&gt; "192.168.121.111,192.168.121.112",             // 数据库名             'database'        =&gt; "test",             // 用户名             'username'        =&gt; "root",             // 密码             'password'        =&gt; "123456",             // 端口             'hostport'        =&gt; env('database.hostport', '3306'),             // 数据库连接参数             'params'          =&gt; [],             // 数据库编码默认采用utf8             'charset'         =&gt; env('database.charset', 'utf8'),             // 数据库表前缀             'prefix'          =&gt; env('database.prefix', ''),              // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)             'deploy'          =&gt; 1,             // 数据库读写是否分离 主从式有效             'rw_separate'     =&gt; true,</code></pre> <p style="margin-left:.0001pt;">mysql插入和查询数据</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="192" src="http://img.555519.xyz/uploads3/20220820/ab0ff651f389b5fc907703b8029d2e5b.jpg"></p> <p style="text-align:center;">图6-1</p> <p style="text-align:center;"> <p>在调试工具中可以看到读写分离设置成功。</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="174" src="http://img.555519.xyz/uploads3/20220820/2a21bcaa7cc2960928feb380b4986298.jpg"></p> <p style="text-align:center;">图6-2</p> <p style="margin-left:.0001pt;"> </div> 			                <div class="clearfix"></div>
+                <div class="xcblog-blog-detail">
+                      				  				  				<div id="content_views" class="htmledit_views"> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126392576?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（一、搭建虚拟机）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（一、搭建虚拟机）</a></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126393577?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（二、克隆虚拟机）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（二、克隆虚拟机）</a></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126406340?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（三、搭建负载均衡）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（三、搭建负载均衡）</a></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lmp5023/article/details/126406681?spm=1001.2014.3001.5501"  title="虚拟机搭建负载均衡，mysql主从复制和读写分离（四、搭建主从复制和读写分离）" rel="nofollow">虚拟机搭建负载均衡，mysql主从复制和读写分离（四、搭建主从复制和读写分离）</a></p> <p style="margin-left:.0001pt;text-align:justify;">由于mysql权限限制，root用户连接不了navicat，解决方法：</p> <pre><code>mysql -u root -p  use mysql  update user set host='%' where user='root' \g  FLUSH PRIVILEGES \g  quit;  systemctl restart mysqld 重启mysql</code></pre> <p style="margin-left:.0001pt;text-align:justify;">为了方便测试还需要关闭防火墙，这里设置开机不启动防火墙，不然端口不开放也是连接不了Navicat的。</p> <pre><code>systemctl stop firewalld 先关闭本次的防火墙  systemctl disable firewalld 再设置每次启动时自动关闭防火墙  firewall-cmd --state&nbsp;查看防火墙状态</code></pre> <p style="margin-left:.0001pt;text-align:justify;">这样就能连接navicat了。</p> <p class="img-center"><img fetchpriority="high" decoding="async" alt="" height="549" src="http://img.555519.xyz/uploads3/20220820/337a5d4f548a747d4cca49d0de1f7b70.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-1</p> <p style="margin-left:.0001pt;text-align:justify;">由于虚拟机是克隆的所以server-id都相同，现在需要把第二台和第三台虚拟机改成不同的。<img decoding="async" alt="" height="602" src="http://img.555519.xyz/uploads3/20220820/de1da55c6de1f943371d375ad978e7e2.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-2</p> <p>注意，auto.cnf中的server-uuid也可能一样的，查看一下<br /> find / -name auto.cnf<br /> vi /www/server/data/auto.cnf<br /> 如果主服务器和从服务器server-uuid一样，使用如下方法解决<br /> 停止从库的mysqld服务，删除他的auto.cnf文件，再启动数据库服务即可：<br /> systemctl stop mysqld.service<br /> mv /www/server/data/auto.cnf /www/server/data/auto.cnf.bak （重命名，你也可以直接删除，重启会重新生成auto.cnf）<br /> systemctl start mysqld.service</p> <p>接下来设置主库：</p> <pre><code>mysql -u root -p grant all privileges on *.* to 'user1'@'%' identified by '123456' with grant option;（设置一个用户） show master status;（查看主库信息）</code></pre> <p class="img-center"><img decoding="async" alt="" height="211" src="http://img.555519.xyz/uploads3/20220820/a0a6a2349ce1ae861f10c64026ddf55a.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-3</p> <p style="margin-left:.0001pt;text-align:justify;">切换到从库：</p> <pre><code>1.mysql -u root -p 2.change master to master_host='192.168.121.111',master_user='user1',master_password='123456',master_log_file='mysql-bin.000016',master_log_pos=445; 3.start slave; 4.show slave status\G</code></pre> <p style="margin-left:.0001pt;text-align:center;"><img loading="lazy" decoding="async" alt="" height="196" src="http://img.555519.xyz/uploads3/20220820/63a90a0983a5c75d154ba177f39da2f7.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-4</p> <p style="margin-left:.0001pt;text-align:justify;">这两个都显示yes就是成功了。</p> <p style="margin-left:.0001pt;text-align:justify;">在主库中创建一个数据库，从库也自动创建。</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="348" src="http://img.555519.xyz/uploads3/20220820/fa3eb913c9c6221e4e4e1ce5a962ad43.jpg"></p> <p style="margin-left:.0001pt;text-align:center;">图5-5</p> <p style="margin-left:.0001pt;">六、读写分离</p> <p style="margin-left:.0001pt;">由于小编使用的是thinkphp6框架，框架自带了读写分离功能，只需要在配置文件里设置好主从数据库就可以了。</p> <p style="margin-left:.0001pt;">找到config文件下面的database.php，修改如下，</p> <pre><code>            'type'            =&gt; "mysql",             // 服务器地址             'hostname'        =&gt; "192.168.121.111,192.168.121.112",             // 数据库名             'database'        =&gt; "test",             // 用户名             'username'        =&gt; "root",             // 密码             'password'        =&gt; "123456",             // 端口             'hostport'        =&gt; env('database.hostport', '3306'),             // 数据库连接参数             'params'          =&gt; [],             // 数据库编码默认采用utf8             'charset'         =&gt; env('database.charset', 'utf8'),             // 数据库表前缀             'prefix'          =&gt; env('database.prefix', ''),              // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)             'deploy'          =&gt; 1,             // 数据库读写是否分离 主从式有效             'rw_separate'     =&gt; true,</code></pre> <p style="margin-left:.0001pt;">mysql插入和查询数据</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="192" src="http://img.555519.xyz/uploads3/20220820/ab0ff651f389b5fc907703b8029d2e5b.jpg"></p> <p style="text-align:center;">图6-1</p> <p style="text-align:center;"> <p>在调试工具中可以看到读写分离设置成功。</p> <p class="img-center"><img loading="lazy" decoding="async" alt="" height="174" src="http://img.555519.xyz/uploads3/20220820/2a21bcaa7cc2960928feb380b4986298.jpg"></p> <p style="text-align:center;">图6-2</p> <p style="margin-left:.0001pt;"> </div> 			                </div>
+                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-98956.htm">SpringBoot如何整合spring-retry来实现接口请求重试</a></p>
                                         <p>下一个：<a href="/news/article-99746.htm">宠物粮行业发展趋势分析报告（宠物粮行业发展趋势分析报告范文）</a></p>
@@ -132,8 +135,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-78006.htm">C#自定义配置文件方法详解_在线工具</a></h4>
-                <p>.NET程序中，经常使用Config文件来配置应用程序中经常使用的值，比如数据库连接字符串。最近项目遇到一个需要配置好多节点在配置文件中的需求。为了使配置节点整洁易维护，在代码调用时也保证获取时比较直</p>
+                <h4><a href="/free-nodes/2025-3-13-clash-v2ray-ss-ssr.htm">3月13日更新18.5M/S，2025年最新高速SSR/Shadowrocket/Clash/V2ray订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、韩国、欧洲、香港、新加坡、加拿大、日本等地区,最高速度可达18.5 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -142,8 +145,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-4-19-clash-v2ray-ss-ssr.htm">4月19日更新23M/S，2025年最新高速V2ray/Clash/Shadowrocket/SSR订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了韩国、日本、香港、欧洲、新加坡、美国、加拿大等地区,最高速度可达23 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-78693.htm">动物疫控中心可以打疫苗吗多少钱（动物防疫中心可以打疫苗吗）</a></h4>
+                <p>摘要：       今天给各位分享动物疫控中心可以打疫苗吗多少钱的知识，其中也会对动物防疫中心可以打疫苗吗进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、给狗.</p>
             </div>
         </div>
     </div>
@@ -152,8 +155,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-67402.htm">宠物寄养协议书简单版（宠物狗寄养协议）</a></h4>
-                <p>摘要：       今天给各位分享宠物寄养协议书简单版的知识，其中也会对宠物狗寄养协议进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、宠物领养协议书2、... </p>
+                <h4><a href="/free-nodes/2025-3-28-free-high-speed-nodes.htm">3月28日更新21M/S，2025年最新高速V2ray/Clash/SSR/Shadowrocket订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、韩国、日本、新加坡、美国、欧洲、香港等地区,最高速度可达21 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -162,8 +165,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-3-24-free-node-subscribe.htm">3月24日更新21M/S，2025年最新高速V2ray/SSR/Clash/Shadowrocket订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、香港、日本、欧洲、加拿大、韩国、美国等地区,最高速度可达21 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-83588.htm">东北农业大学动物医学院研究生院（东北农大动物科学学院）</a></h4>
+                <p>摘要：       今天给各位分享东北农业大学动物医学院研究生院的知识，其中也会对东北农大动物科学学院进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1、东北农业.</p>
             </div>
         </div>
     </div>
@@ -172,8 +175,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-4-6-shadowrocket-node.htm">4月6日更新20M/S，2025年最新高速Shadowrocket/SSR/Clash/V2ray订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、日本、欧洲、香港、美国、新加坡、韩国等地区,最高速度可达20 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-4-13-free-node-subscribe.htm">4月13日更新19.7M/S，2025年最新高速Shadowrocket/V2ray/SSR/Clash订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、欧洲、香港、加拿大、韩国、美国、新加坡等地区,最高速度可达19.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -182,8 +185,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-97507.htm">动物医院名字大全集图片（动物医院牌匾）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈动物医院名字大全集图片，以及动物医院牌匾对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、请帮忙起个宠物医院的名字...        本篇</p>
+                <h4><a href="/news/article-71945.htm">宠物粮厂家招聘最新信息（宠物粮基地）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈宠物粮厂家招聘最新信息，以及宠物粮基地对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、浙江宠物干粮生产厂家哪家好...        本篇</p>
             </div>
         </div>
     </div>
@@ -192,8 +195,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-79380.htm">宠物店领养宠物多少钱一天啊（宠物店领养宠物要钱吗）</a></h4>
-                <p>摘要：       本篇文章给大家谈谈宠物店领养宠物多少钱一天啊，以及宠物店领养宠物要钱吗对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、把狗狗放到宠物店寄养大概是多少钱一..</p>
+                <h4><a href="/news/article-69328.htm">Java 18为什么要指定UTF-8为默认字符集_在线工具</a></h4>
+                <p>在Java 18中，将UTF-8指定为标准Java API的默认字符集。有了这一更改，依赖于默认字符集的API将在所有实现、操作系统、区域设置和配置中保持一致。 做这一更改的主要目标：  当Java程</p>
             </div>
         </div>
     </div>
@@ -202,8 +205,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-3-17-free-node-subscribe.htm">3月17日更新20.7M/S，2025年最新高速V2ray/Shadowrocket/SSR/Clash订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、香港、美国、欧洲、日本、韩国、加拿大等地区,最高速度可达20.7 M/S。只需复制下方的Clash/v2ray订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/news/article-71287.htm">宠物粮品牌起名字大全集图片及价格（宠物粮品牌名称）</a></h4>
+                <p>摘要：       本篇文章给大家谈谈宠物粮品牌起名字大全集图片及价格，以及宠物粮品牌名称对应的知识点，希望对各位有所帮助，不要忘了收藏本站喔。本文目录一览：1、世界十大顶级狗粮品牌...      </p>
             </div>
         </div>
     </div>
@@ -212,8 +215,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-66142.htm">美联众合动物医院美容价格 美联众合动物医院价目表</a></h4>
-                <p>摘要：       大家好，今天小编关注到一个比较有意思的话题，就是关于美联众合动物医院美容价格的问题，于是小编就整理了4个相关介绍美联众合动物医院美容价格的解答，让我们一起看看吧。太原市的宠物医院哪</p>
+                <h4><a href="/news/article-80771.htm">STL之vector</a></h4>
+                <p>目录 vector概念 vector的遍历 1、[ ]的重载 2、迭代器 3、范围for vector的模拟实现 成员变量 reserve函数与拷贝构造 增删函数 push_back pop_back</p>
             </div>
         </div>
     </div>
@@ -222,8 +225,8 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/news/article-83586.htm">猫抓了出血了可以不打疫苗吗猫（猫抓了一下出了点血不打疫苗可以吗）</a></h4>
-                <p>摘要：       今天给各位分享猫抓了出血了可以不打疫苗吗猫的知识，其中也会对猫抓了一下出了点血不打疫苗可以吗进行解释，如果能碰巧解决你现在面临的问题，别忘了关注本站，现在开始吧！本文目录一览：1.</p>
+                <h4><a href="/news/article-90080.htm">微服务nacos简单部署+网关设置+日志管理</a></h4>
+                <p>1.nacos简单部署 2.网关设置 3日志管理.   nacos引用的主要依赖是然后在配置文件进行注册（需要提前启动nacos插件，默认密码都是nacos）       &lt;dependency</p>
             </div>
         </div>
     </div>
@@ -234,7 +237,7 @@
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">54</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+                                <h4><span class="badge" style="float: right;">61</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
                                 <h4><span class="badge" style="float: right;">85</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
                             </div>
         </div>
