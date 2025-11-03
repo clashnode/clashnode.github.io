@@ -1,4 +1,4 @@
-# 10月25日更新20.9M/S，2025年最新高速Shadowrocket节点/Clash节点/Singbox节点/V2ray节点/SSR节点订阅链接免费节点地址分享  更新时间 2025-10-25 09:05:28
+# 11月3日更新22.4M/S，2025年最新高速Clash节点/Singbox节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享  更新时间 2025-11-03 08:52:43
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://clashnode.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### 免费Clash节点订阅链接
 
-- https://clashnode.github.io/uploads/2025/10/0-20251025.yaml
-- https://clashnode.github.io/uploads/2025/10/1-20251025.yaml
-- https://clashnode.github.io/uploads/2025/10/2-20251025.yaml
-- https://clashnode.github.io/uploads/2025/10/3-20251025.yaml
-- https://clashnode.github.io/uploads/2025/10/4-20251025.yaml
+- https://clashnode.github.io/uploads/2025/11/0-20251103.yaml
+- https://clashnode.github.io/uploads/2025/11/1-20251103.yaml
+- https://clashnode.github.io/uploads/2025/11/2-20251103.yaml
+- https://clashnode.github.io/uploads/2025/11/3-20251103.yaml
+- https://clashnode.github.io/uploads/2025/11/4-20251103.yaml
 
 ### 免费V2ray节点订阅链接
 
-- https://clashnode.github.io/uploads/2025/10/0-20251025.txt
-- https://clashnode.github.io/uploads/2025/10/1-20251025.txt
-- https://clashnode.github.io/uploads/2025/10/2-20251025.txt
-- https://clashnode.github.io/uploads/2025/10/3-20251025.txt
-- https://clashnode.github.io/uploads/2025/10/4-20251025.txt
+- https://clashnode.github.io/uploads/2025/11/0-20251103.txt
+- https://clashnode.github.io/uploads/2025/11/1-20251103.txt
+- https://clashnode.github.io/uploads/2025/11/2-20251103.txt
+- https://clashnode.github.io/uploads/2025/11/3-20251103.txt
+- https://clashnode.github.io/uploads/2025/11/4-20251103.txt
 
 ### 免费Sing-box节点订阅链接
 
-- https://clashnode.github.io/uploads/2025/10/20251025.json
+- https://clashnode.github.io/uploads/2025/11/20251103.json
 
 ## 更多Clash节点订阅 ：
 
