@@ -294,19 +294,19 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Sing-box 如何实现精确域名分流？</h5></div>
-    <div class="panel-body">
-        Sing-box 可以按域名设置分流规则，将不同流量发送到指定节点。结合策略组使用，可实现网页、视频和游戏流量精准分配，提高访问速度和网络稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 的多策略组设置能提高访问效率吗？</h5></div>
-    <div class="panel-body">
-        多策略组可以将节点按用途、延迟或地域分类，结合规则文件自动分流不同流量。这样可以确保游戏、视频或网页流量走最优节点，提高整体访问效率和稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Mellow 的 TUN 模式与系统全局代理有何区别？</h5></div>
     <div class="panel-body">
         TUN 模式直接拦截 IP 层流量，不依赖应用代理设置，系统全局代理通常只影响支持 HTTP/HTTPS 的程序。TUN 更适合全局科学上网和游戏环境。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Mihomo 节点分组如何提升访问效率？</h5></div>
+    <div class="panel-body">
+        节点可按延迟、地区或用途分组，结合策略组实现自动分流。快速选择最优节点可提高网页、视频和游戏访问速度，同时优化节点管理和维护效率，提升整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VLess 为什么被认为是未来趋势？</h5></div>
+    <div class="panel-body">
+        VLess 去掉了内置加密层，改为依赖外部 TLS 进行安全通信，这使其更轻量化且更灵活。它能与 Hysteria、Reality 等现代传输方式结合使用，适应性更强，是取代 Vmess 的新标准。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Nekoray 节点订阅自动更新如何实现？</h5></div>
@@ -314,9 +314,9 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
         用户添加订阅 URL 后，Nekoray 会定期下载最新节点列表并替换旧节点。保持节点列表最新可减少手动维护，保证节点可用性和网络连接稳定性，提升使用体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Mihomo 节点分组如何提升访问效率？</h5></div>
+    <div class="panel-heading"><h5>Sing-box 如何实现精确域名分流？</h5></div>
     <div class="panel-body">
-        节点可按延迟、地区或用途分组，结合策略组实现自动分流。快速选择最优节点可提高网页、视频和游戏访问速度，同时优化节点管理和维护效率，提升整体网络体验。<hr />    </div>
+        Sing-box 可以按域名设置分流规则，将不同流量发送到指定节点。结合策略组使用，可实现网页、视频和游戏流量精准分配，提高访问速度和网络稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Shadowrocket 的分流规则如何优化视频播放？</h5></div>
@@ -329,19 +329,19 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
         QuantumultX 的重写规则支持请求头修改、响应内容修改、广告屏蔽及自动跳转。结合脚本可实现自动签到、流量统计和定制化网络访问，极大增强客户端灵活性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VLess 为什么被认为是未来趋势？</h5></div>
+    <div class="panel-heading"><h5>WinXray 的多策略组设置能提高访问效率吗？</h5></div>
     <div class="panel-body">
-        VLess 去掉了内置加密层，改为依赖外部 TLS 进行安全通信，这使其更轻量化且更灵活。它能与 Hysteria、Reality 等现代传输方式结合使用，适应性更强，是取代 Vmess 的新标准。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Sing-box 的分流规则可以按端口分配节点吗？</h5></div>
-    <div class="panel-body">
-        支持。用户可通过端口号匹配流量，将不同应用的流量分配到指定节点，实现精准分流。结合策略组使用，可优化访问速度和网络稳定性。<hr />    </div>
+        多策略组可以将节点按用途、延迟或地域分类，结合规则文件自动分流不同流量。这样可以确保游戏、视频或网页流量走最优节点，提高整体访问效率和稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Trojan 节点无法连接时应如何排查？</h5></div>
     <div class="panel-body">
-        遇到 Trojan 无法连接时，需检查服务器证书是否有效、端口是否开放、密码配置是否匹配。还应确认防火墙未阻断相关端口，并尝试切换 TLS 版本或使用 IP 地址连接。    </div>
+        遇到 Trojan 无法连接时，需检查服务器证书是否有效、端口是否开放、密码配置是否匹配。还应确认防火墙未阻断相关端口，并尝试切换 TLS 版本或使用 IP 地址连接。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Sing-box 的分流规则可以按端口分配节点吗？</h5></div>
+    <div class="panel-body">
+        支持。用户可通过端口号匹配流量，将不同应用的流量分配到指定节点，实现精准分流。结合策略组使用，可优化访问速度和网络稳定性。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -369,8 +369,8 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-1-free-ssr-node.htm">11月1日更新18.4M/S，2025年最新高速Clash节点/V2ray节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、香港、加拿大、韩国、欧洲、新加坡、日本等地区,最高速度可达18.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-10-25-shadowrocket-node.htm">10月25日更新18.1M/S，2025年最新高速Singbox节点/SSR节点/Clash节点/V2ray节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、加拿大、欧洲、美国、新加坡、日本、香港等地区,最高速度可达18.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -379,8 +379,8 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-21-free-clash-subscribe.htm">10月21日更新21.5M/S，2025年最新高速V2ray节点/Singbox节点/Clash节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了韩国、新加坡、香港、美国、加拿大、日本、欧洲等地区,最高速度可达21.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-10-13-clash-node.htm">10月13日更新18M/S，2025年最新高速Singbox节点/SSR节点/Shadowrocket节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、香港、美国、日本、新加坡、加拿大、欧洲等地区,最高速度可达18 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -389,8 +389,18 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-18-clash-windows.htm">10月18日更新22.3M/S，2025年最新高速V2ray节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、韩国、欧洲、美国、加拿大、日本、香港等地区,最高速度可达22.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-12-free-node-subscribe-links.htm">11月12日更新22.1M/S，2025年最新高速V2ray节点/Shadowrocket节点/Clash节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、新加坡、日本、欧洲、加拿大、香港、韩国等地区,最高速度可达22.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-10-4-clash-node-daily-updates.htm">10月4日更新22.7M/S，2025年最新高速Clash节点/Singbox节点/Shadowrocket节点/SSR节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、加拿大、美国、韩国、日本、欧洲、新加坡等地区,最高速度可达22.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -409,8 +419,8 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-19-clash-windows.htm">10月19日更新20.6M/S，2025年最新高速V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、欧洲、日本、加拿大、香港、韩国、美国等地区,最高速度可达20.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-10-14-free-clash-subscribe.htm">10月14日更新20.1M/S，2025年最新高速Shadowrocket节点/Singbox节点/Clash节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、日本、韩国、香港、新加坡、加拿大、美国等地区,最高速度可达20.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -419,8 +429,8 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-24-clash-node.htm">10月24日更新19.5M/S，2025年最新高速Clash节点/Singbox节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、日本、韩国、美国、欧洲、新加坡、加拿大等地区,最高速度可达19.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-13-free-shadowrocket-node.htm">11月13日更新23M/S，2025年最新高速Shadowrocket节点/Singbox节点/V2ray节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、欧洲、新加坡、香港、加拿大、日本、美国等地区,最高速度可达23 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -429,8 +439,8 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-6-node-share-links.htm">11月6日更新21.2M/S，2025年最新高速Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、日本、美国、韩国、欧洲、加拿大等地区,最高速度可达21.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-10-21-free-clash-subscribe.htm">10月21日更新21.5M/S，2025年最新高速V2ray节点/Singbox节点/Clash节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、新加坡、香港、美国、加拿大、日本、欧洲等地区,最高速度可达21.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -439,8 +449,8 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-11-clash-node-daily-updates.htm">10月11日更新22.5M/S，2025年最新高速Singbox节点/Shadowrocket节点/V2ray节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、加拿大、香港、韩国、欧洲、新加坡、日本等地区,最高速度可达22.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-10-3-free-v2ray-subscribe.htm">10月3日更新20.5M/S，2025年最新高速SSR节点/Shadowrocket节点/Singbox节点/Clash节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、香港、欧洲、韩国、新加坡、加拿大、美国等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -449,18 +459,8 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-27-clash-node-daily-updates.htm">10月27日更新18.6M/S，2025年最新高速Shadowrocket节点/V2ray节点/Singbox节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、日本、新加坡、美国、韩国、加拿大、香港等地区,最高速度可达18.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-6-shadowrocket-node.htm">10月6日更新22.4M/S，2025年最新高速Singbox节点/V2ray节点/Shadowrocket节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、欧洲、韩国、日本、美国、新加坡、香港等地区,最高速度可达22.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-10-20-shadowrocket-node.htm">10月20日更新19.8M/S，2025年最新高速Shadowrocket节点/V2ray节点/Singbox节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、日本、加拿大、韩国、美国、新加坡、欧洲等地区,最高速度可达19.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -471,7 +471,7 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
+                                <h4><span class="badge" style="float: right;">12</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
                                 <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-10/" title="2025-10 归档">2025-10</a></h4>
                             </div>
         </div>
