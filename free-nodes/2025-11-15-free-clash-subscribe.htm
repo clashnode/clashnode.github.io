@@ -321,24 +321,9 @@ A5：V2Ray本质是一个网络通信工具，使用其访问违法内容才构�
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Clash 的 Profile URL 是否可以同时添加多个？</h5></div>
+    <div class="panel-heading"><h5>Surfboard 可以导入哪些格式的规则文件？</h5></div>
     <div class="panel-body">
-        可以。Clash 支持导入多个 Profile URL，用户可在“配置”面板切换不同订阅源。多个配置之间互不干扰，方便区分不同地区或用途的线路。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Netch 如何区分全局代理和规则代理？</h5></div>
-    <div class="panel-body">
-        全局代理会将所有流量通过节点转发，而规则代理仅对指定 IP、端口或应用生效。用户可根据需求选择代理模式，实现流量优化和不同应用的最佳网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Trojan 是否需要证书？</h5></div>
-    <div class="panel-body">
-        是的，Trojan 必须使用有效的 TLS 证书才能运行。推荐使用 Let's Encrypt 免费证书。若证书过期或配置错误，客户端将无法建立加密连接，导致无法访问外部网络。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>PassWall2 如何实现智能分流？</h5></div>
-    <div class="panel-body">
-        PassWall2 通过自定义规则文件控制流量走向。可根据目标域名、国家或 IP 范围自动判断走代理或直连。用户还能加载社区规则，实现类似 Clash 的高效路由分流。<hr />    </div>
+        Surfboard 支持 YAML 和部分 JSON 格式的规则文件，用户可以导入节点、策略组和分流规则。注意文件格式和语法必须符合 Surfboard 规范，否则可能导入失败。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>V2Ray 中的 alterId 是什么，现在还有必要配置吗？</h5></div>
@@ -346,19 +331,14 @@ A5：V2Ray本质是一个网络通信工具，使用其访问违法内容才构�
         alterId 曾用于 VMess 的用户混淆机制以防止重放攻击，但在 V2Ray 新版本与 VLess 出现后，alterId 已不再推荐使用。现代配置多使用 UUID 或直接迁移至 VLess/XTLS 以获得更好性能与安全性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>何时应选择 VLess 而非 Vmess？</h5></div>
+    <div class="panel-heading"><h5>Trojan 是否需要证书？</h5></div>
     <div class="panel-body">
-        若追求更轻量、高性能的连接且采用外部 TLS 或 XTLS 进行加密，建议选择 VLess。VLess 去除了内嵌加密，能更好配合现代传输（XTLS/Reality）实现更低延迟与更好扩展性。<hr />    </div>
+        是的，Trojan 必须使用有效的 TLS 证书才能运行。推荐使用 Let's Encrypt 免费证书。若证书过期或配置错误，客户端将无法建立加密连接，导致无法访问外部网络。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS + XTLS 模式在移动网络下表现如何？</h5></div>
+    <div class="panel-heading"><h5>Netch 如何区分全局代理和规则代理？</h5></div>
     <div class="panel-body">
-        XTLS 模式减少握手次数和加密开销，适合高延迟或不稳定移动网络。结合策略组和多出口节点，可提高访问速度和连接稳定性，保证用户体验流畅。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Surfboard 可以导入哪些格式的规则文件？</h5></div>
-    <div class="panel-body">
-        Surfboard 支持 YAML 和部分 JSON 格式的规则文件，用户可以导入节点、策略组和分流规则。注意文件格式和语法必须符合 Surfboard 规范，否则可能导入失败。<hr />    </div>
+        全局代理会将所有流量通过节点转发，而规则代理仅对指定 IP、端口或应用生效。用户可根据需求选择代理模式，实现流量优化和不同应用的最佳网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>SSR 的 UDP 转发功能如何启用？</h5></div>
@@ -366,9 +346,29 @@ A5：V2Ray本质是一个网络通信工具，使用其访问违法内容才构�
         SSR 支持 UDP 转发，可通过客户端设置开启。启用后，游戏和语音等 UDP 流量可通过节点代理，降低丢包率和延迟，提高实时网络应用体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>VLESS + XTLS 模式在移动网络下表现如何？</h5></div>
+    <div class="panel-body">
+        XTLS 模式减少握手次数和加密开销，适合高延迟或不稳定移动网络。结合策略组和多出口节点，可提高访问速度和连接稳定性，保证用户体验流畅。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Clash 的 Profile URL 是否可以同时添加多个？</h5></div>
+    <div class="panel-body">
+        可以。Clash 支持导入多个 Profile URL，用户可在“配置”面板切换不同订阅源。多个配置之间互不干扰，方便区分不同地区或用途的线路。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>Surfboard 如何在 iPhone 上使用？</h5></div>
     <div class="panel-body">
-        从 App Store 下载 Surfboard 后，导入 Clash 订阅链接即可使用。Surfboard 提供直观的节点切换和规则管理界面，可查看实时延迟与流量数据，非常适合希望简单上手的 iOS 用户。    </div>
+        从 App Store 下载 Surfboard 后，导入 Clash 订阅链接即可使用。Surfboard 提供直观的节点切换和规则管理界面，可查看实时延迟与流量数据，非常适合希望简单上手的 iOS 用户。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>何时应选择 VLess 而非 Vmess？</h5></div>
+    <div class="panel-body">
+        若追求更轻量、高性能的连接且采用外部 TLS 或 XTLS 进行加密，建议选择 VLess。VLess 去除了内嵌加密，能更好配合现代传输（XTLS/Reality）实现更低延迟与更好扩展性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>PassWall2 如何实现智能分流？</h5></div>
+    <div class="panel-body">
+        PassWall2 通过自定义规则文件控制流量走向。可根据目标域名、国家或 IP 范围自动判断走代理或直连。用户还能加载社区规则，实现类似 Clash 的高效路由分流。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -396,78 +396,8 @@ A5：V2Ray本质是一个网络通信工具，使用其访问违法内容才构�
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-6-node-share-links.htm">11月6日更新21.2M/S，2025年最新高速Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、日本、美国、韩国、欧洲、加拿大等地区,最高速度可达21.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-11-clash-node-daily-updates.htm">10月11日更新22.5M/S，2025年最新高速Singbox节点/Shadowrocket节点/V2ray节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、加拿大、香港、韩国、欧洲、新加坡、日本等地区,最高速度可达22.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-24-clash-node.htm">10月24日更新19.5M/S，2025年最新高速Clash节点/Singbox节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、日本、韩国、美国、欧洲、新加坡、加拿大等地区,最高速度可达19.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-18-clash-windows.htm">10月18日更新22.3M/S，2025年最新高速V2ray节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、韩国、欧洲、美国、加拿大、日本、香港等地区,最高速度可达22.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-6-shadowrocket-node.htm">10月6日更新22.4M/S，2025年最新高速Singbox节点/V2ray节点/Shadowrocket节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、欧洲、韩国、日本、美国、新加坡、香港等地区,最高速度可达22.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-26-free-ssr-subscribe.htm">10月26日更新22.4M/S，2025年最新高速Shadowrocket节点/Singbox节点/SSR节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、美国、加拿大、香港、日本、韩国、欧洲等地区,最高速度可达22.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-7-node-share-links.htm">11月7日更新18.5M/S，2025年最新高速V2ray节点/Clash节点/Singbox节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、香港、韩国、欧洲、加拿大、美国、日本等地区,最高速度可达18.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-1-free-ssr-node.htm">11月1日更新18.4M/S，2025年最新高速Clash节点/V2ray节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、香港、加拿大、韩国、欧洲、新加坡、日本等地区,最高速度可达18.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-10-27-clash-node-daily-updates.htm">10月27日更新18.6M/S，2025年最新高速Shadowrocket节点/V2ray节点/Singbox节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、日本、新加坡、美国、韩国、加拿大、香港等地区,最高速度可达18.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -492,13 +422,83 @@ A5：V2Ray本质是一个网络通信工具，使用其访问违法内容才构�
         </div>
     </div>
 </div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-10-18-clash-windows.htm">10月18日更新22.3M/S，2025年最新高速V2ray节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、韩国、欧洲、美国、加拿大、日本、香港等地区,最高速度可达22.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-10-14-free-clash-subscribe.htm">10月14日更新20.1M/S，2025年最新高速Shadowrocket节点/Singbox节点/Clash节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、日本、韩国、香港、新加坡、加拿大、美国等地区,最高速度可达20.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-11-6-node-share-links.htm">11月6日更新21.2M/S，2025年最新高速Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、新加坡、日本、美国、韩国、欧洲、加拿大等地区,最高速度可达21.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-10-4-clash-node-daily-updates.htm">10月4日更新22.7M/S，2025年最新高速Clash节点/Singbox节点/Shadowrocket节点/SSR节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、加拿大、美国、韩国、日本、欧洲、新加坡等地区,最高速度可达22.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-10-25-shadowrocket-node.htm">10月25日更新18.1M/S，2025年最新高速Singbox节点/SSR节点/Clash节点/V2ray节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、加拿大、欧洲、美国、新加坡、日本、香港等地区,最高速度可达18.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-11-26-clash-node-daily-updates.htm">11月26日更新20.5M/S，2025年最新高速Shadowrocket节点/V2ray节点/SSR节点/Clash节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、韩国、新加坡、美国、香港、欧洲、加拿大等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2025-11-10-node-share.htm">11月10日更新19.4M/S，2025年最新高速Singbox节点/Shadowrocket节点/V2ray节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、新加坡、加拿大、韩国、欧洲、美国、香港等地区,最高速度可达19.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <h3 class="title-big mb-sm-3 mb-3">归纳</h3>
 <div class="row w3l-achievements">
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">12</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
+                                <h4><span class="badge" style="float: right;">17</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
                                 <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-10/" title="2025-10 归档">2025-10</a></h4>
                             </div>
         </div>
