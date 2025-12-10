@@ -146,7 +146,6 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
 <p style="margin-bottom:3rem;color:#999;font-style:italic;">注：跳转链接可能会 <b style="color:red;">被墙</b> ，如多次打开失败，请先使用下面不稳定免费订阅后，再尝试点击链接</p><p>&nbsp;</p><p></p><h2>订阅链接</h2><p>&nbsp;</p><p><strong>clash订阅链接</strong></p><p>https://clashnode.github.io/uploads/2025/11/0-20251105.yaml</p><p>https://clashnode.github.io/uploads/2025/11/2-20251105.yaml</p><p>https://clashnode.github.io/uploads/2025/11/4-20251105.yaml</p><p>&nbsp;</p><p><strong>v2ray订阅链接:</strong></p><p>https://clashnode.github.io/uploads/2025/11/0-20251105.txt</p><p>https://clashnode.github.io/uploads/2025/11/1-20251105.txt</p><p>https://clashnode.github.io/uploads/2025/11/2-20251105.txt</p><p>https://clashnode.github.io/uploads/2025/11/3-20251105.txt</p><p><strong>sing-box订阅链接</strong></p><p>https://clashnode.github.io/uploads/2025/11/20251105.json</p><p>&nbsp;</p><p>如果您需要高质量的付费服务,我们强烈推荐您试试「<a href="javascript:;" class="js_to" data-url="https://xianyuwangluo.top/#/register?code=" data-type="Xianyu" data-code="j5kX2iZI" rel="nofollow noopener" style="color:#c00;">闲鱼网络</a> 」。提供全球范围内快速稳定的高速节点,轻松处理8K高清视频流量,并可解锁流媒体网站和chatGPT。其服务器性能出色,确保您享受到高品质的体验。</p><h2>在Linux系统上实现高效科学上网的终极指南</h2>  <h2>引言：突破网络边界的必要性</h2>  <p>在当今全球化的数字时代，获取无阻碍的网络访问已成为学术研究、商务交流和日常娱乐的基本需求。然而，地域性网络封锁和内容过滤政策使得许多优质资源变得遥不可及。Linux用户——这群崇尚自由与效率的技术爱好者——更需要掌握科学上网的完整方法论。本文将深入解析Linux环境下科学上网的技术原理、实施方案和疑难排解，助您构建自由畅通的网络通道。  </p>  <h2>第一章 科学上网的核心概念与技术选型</h2>  <h3>1.1 科学上网的本质解析</h3>  <p>科学上网（Network Bypassing）是通过加密隧道或代理中转等技术手段，绕过网络审查机制的行为。其技术核心在于：<br /> - <strong>IP伪装</strong>：通过境外服务器中转流量<br /> - <strong>流量混淆</strong>：将敏感数据伪装成普通HTTPS流量<br /> - <strong>协议创新</strong>：采用特殊协议规避深度包检测（DPI）  </p>  <h3>1.2 Linux系统的先天优势</h3>  <p>选择Linux作为科学上网平台具有三重战略优势：<br /> 1. <strong>内核级可控性</strong>：可直接修改网络栈参数，实现TCP BBR加速等优化<br /> 2. <strong>开源工具生态</strong>：拥有OpenVPN、Shadowsocks-libev等原生支持的开源解决方案<br /> 3. <strong>安全基线高</strong>：SELinux、AppArmor等安全模块可防止流量泄漏  </p>  <h2>第二章 主流技术方案横向评测</h2>  <h3>2.1 VPN技术矩阵</h3>  <p>| 协议类型 | 加密强度 | 穿透能力 | 适用场景 |<br /> |----------|----------|----------|----------|<br /> | OpenVPN | AES-256 | ★★★★ | 需要高安全性场景 |<br /> | WireGuard | ChaCha20 | ★★★★★ | 移动设备/低功耗环境 |<br /> | IPSec | 多种可选 | ★★ | 企业级组网 |  </p>  <p><strong>技术点评</strong>：WireGuard凭借现代加密算法和精简协议栈，已成为Linux内核原生支持的最佳选择，其传输效率比传统VPN高40%以上。  </p>  <h3>2.2 代理技术生态</h3>  <ul> <li><strong>Shadowsocks</strong>：采用SIP003插件系统支持obfs混淆，推荐使用v2ray-plugin增强隐蔽性  </li> <li><strong>Trojan</strong>：完美伪装成HTTPS流量，Nginx反向代理方案可达到企业级稳定性  </li> <li><strong>Clash Meta</strong>：支持规则分流和混合代理，适合多场景切换需求  </li> </ul>  <p><strong>性能实测</strong>：在Ubuntu 22.04环境下，Trojan-GFW的4K视频加载速度比SS裸协议快2.3倍。  </p>  <h2>第三章 实战配置手册</h2>  <h3>3.1 WireGuard全自动部署方案</h3>  <p>```bash</p>  <h1>内核模块检测  <p>sudo modprobe wireguard &amp;&amp; lsmod | grep wireguard</p>  <h1>一键安装（Ubuntu/Debian）  <p>sudo apt install wireguard resolvconf -y</p>  <h1>生成密钥对  <p>wg genkey | tee privatekey | wg pubkey > publickey</p>  <h1>配置示例（/etc/wireguard/wg0.conf）  <p>[Interface] PrivateKey = [你的私钥] Address = 10.8.0.2/24 DNS = 1.1.1.1 PostUp = iptables -A FORWARD -i wg0 -j ACCEPT</p>  <p>[Peer] PublicKey = [服务器公钥] AllowedIPs = 0.0.0.0/0 Endpoint = your.server:51820 PersistentKeepalive = 25 ```</p>  <h3>3.2 Shadowsocks-libev进阶配置</h3>  <p>通过systemd实现流量守护：<br /> ```ini</p>  <h1>/etc/systemd/system/ss.service  <p>[Unit] Description=Shadowsocks Client After=network.target</p>  <p>[Service] ExecStart=/usr/local/bin/ss-local -c /etc/shadowsocks/config.json -v Restart=always User=nobody CapabilityBoundingSet=CAP<em>NET</em>ADMIN</p>  <p>[Install] WantedBy=multi-user.target ```</p>  <p><strong>调优技巧</strong>：启用<code>TCP_FASTOPEN</code>和<code>BBR</code>拥塞控制算法可降低30%以上延迟。  </p>  <h2>第四章 网络诊断与优化策略</h2>  <h3>4.1 连通性检测工具箱</h3>  <ul> <li><strong>mtr</strong>：可视化路由追踪<br /> <code>bash mtr -4 --tcp -P 443 google.com</code></li> <li><strong>tcpping</strong>：精确测量TCP握手延迟<br /> <code>bash sudo apt install tcptraceroute tcpping -x 5 example.com 443</code></li> </ul>  <h3>4.2 性能瓶颈突破方案</h3>  <ol> <li><strong>MTU优化</strong>：通过分片检测找到最佳值<br /> <code>bash ping -s 1472 -M do 8.8.8.8</code></li> <li><strong>双栈优选</strong>：IPv6线路往往拥塞较少<br /> <code>bash curl --dns-servers 2001:4860:4860::8888 https://ipv6-test.com</code></li> </ol>  <h2>第五章 安全防护体系构建</h2>  <h3>5.1 防泄漏机制</h3>  <ul> <li><strong>kill-switch</strong>：使用iptables实现网络熔断<br /> <code>bash iptables -A OUTPUT ! -o lo ! -d 服务器IP -j DROP</code></li> <li><strong>DNS加密</strong>：配置DoH/DoT<br /> <code>bash sudo apt install stubby</code></li> </ul>  <h3>5.2 匿名性增强方案</h3>  <ul> <li><strong>Tor桥接</strong>：适合极端审查环境<br /> <code>bash apt install tor obfs4proxy echo "UseBridges 1" &gt;&gt; /etc/tor/torrc</code></li> </ul>  <h2>结语：自由与责任的平衡艺术</h2>  <p>在Linux系统上实现科学上网是一场技术能力与网络自由的完美邂逅。从内核级优化的WireGuard到精巧的Shadowsocks生态，开源社区为我们提供了丰富的武器库。但需要强调的是：技术中立性原则要求我们始终将这类工具用于合法合规的用途。  </p>  <p><strong>终极建议</strong>：对于追求极致体验的用户，建议采用"WireGuard+智能路由分流+QoS优化"的三重方案，在树莓派等低功耗设备上搭建专属网关，既保障全家设备畅通，又避免单点故障风险。  </p>  <p>正如Linux之父Linus Torvalds所言："Talk is cheap. Show me the code." 现在，您已掌握所有关键代码片段，是时候构建属于自己的自由网络了！</p> </div>
 <div class="clearfix"></div>
 <div class="col-md-12 mt-5">
-        <p>上一个：<a href="/free-nodes/2025-11-1-free-ssr-node.htm">11月1日更新18.4M/S，2025年最新高速Clash节点/V2ray节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></p>
         <p>下一个：<a href="/free-nodes/2025-11-6-node-share-links.htm">11月6日更新21.2M/S，2025年最新高速Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></p>
     </div>
 <h4>FAQ</h4>
@@ -156,29 +155,9 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         Hiddify Next 是 Hiddify 系列的新版本，集成了 VLESS、Trojan、Reality 等新型协议支持。它为用户提供一站式代理配置与分享功能，适合初学者快速上手使用。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 支持 Trojan 协议吗？</h5></div>
+    <div class="panel-heading"><h5>VMess AEAD 加密在封锁严格地区的作用？</h5></div>
     <div class="panel-body">
-        WinXray 内核基于 Xray-core，因此原生支持 Trojan 协议。用户在导入配置时，只需选择 Trojan 类型节点即可，无需额外插件，非常适合需要 TLS 伪装的环境。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>使用 Reality 协议后，客户端与服务端的密钥如何管理？</h5></div>
-    <div class="panel-body">
-        Reality 使用公私钥对进行认证，应生成唯一的公私钥对并妥善保存私钥，公钥可部署在服务端配置中。避免在多个服务共享同一密钥，定期轮换密钥并通过安全通道传输公钥以防泄露。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>PassWall2 如何结合延迟选择最优节点？</h5></div>
-    <div class="panel-body">
-        PassWall2 定期测速节点延迟，并结合策略组自动选择延迟最低的节点。无需手动操作即可保证网页、视频和游戏流量快速稳定访问，提高整体网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Hysteria2 的多路复用对短连接有何优势？</h5></div>
-    <div class="panel-body">
-        多路复用允许多个短连接共享同一通道，减少握手延迟和资源消耗。适合高频短连接应用，如游戏和即时通讯，可提高吞吐量和连接稳定性，优化网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 的 TLS 配置如何增强抗封锁能力？</h5></div>
-    <div class="panel-body">
-        TLS 配置可将流量伪装成正常 HTTPS 请求，隐藏真实数据特征。结合域名伪装、WebSocket 或 QUIC 等传输方式，可有效绕过封锁，提高节点长期可用性和连接稳定性。<hr />    </div>
+        AEAD 加密防止数据篡改和流量特征泄露，降低被封锁和 DPI 检测风险。保证节点长期可用，提高数据传输安全性和访问可靠性，优化用户体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Trojan TLS 如何避免被 DPI 检测？</h5></div>
@@ -186,19 +165,39 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         通过选择真实可访问域名并使用有效证书，Trojan 流量可完全模拟 HTTPS 请求。隐藏真实流量特征，降低被封锁和 DPI 检测风险，保证节点长期可用。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess AEAD 加密在封锁严格地区的作用？</h5></div>
+    <div class="panel-heading"><h5>Hysteria2 的多路复用对短连接有何优势？</h5></div>
     <div class="panel-body">
-        AEAD 加密防止数据篡改和流量特征泄露，降低被封锁和 DPI 检测风险。保证节点长期可用，提高数据传输安全性和访问可靠性，优化用户体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>在 Clash 中使用混合代理模式有什么好处？</h5></div>
-    <div class="panel-body">
-        Clash 的混合代理模式允许同时运行多个代理协议和端口监听，从而实现流量分流。它可以为不同的应用或域名设置不同的代理方式，提高灵活性与连接稳定性，非常适合多协议用户使用。<hr />    </div>
+        多路复用允许多个短连接共享同一通道，减少握手延迟和资源消耗。适合高频短连接应用，如游戏和即时通讯，可提高吞吐量和连接稳定性，优化网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>WinXray 延迟检测如何提高网络稳定性？</h5></div>
     <div class="panel-body">
-        WinXray 定期测速节点延迟，并结合策略组自动切换到延迟最低节点。这样可保证网页、视频和游戏流量稳定快速访问，减少卡顿和掉线，提高整体网络体验。    </div>
+        WinXray 定期测速节点延迟，并结合策略组自动切换到延迟最低节点。这样可保证网页、视频和游戏流量稳定快速访问，减少卡顿和掉线，提高整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 支持 Trojan 协议吗？</h5></div>
+    <div class="panel-body">
+        WinXray 内核基于 Xray-core，因此原生支持 Trojan 协议。用户在导入配置时，只需选择 Trojan 类型节点即可，无需额外插件，非常适合需要 TLS 伪装的环境。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>V2Ray 的 TLS 配置如何增强抗封锁能力？</h5></div>
+    <div class="panel-body">
+        TLS 配置可将流量伪装成正常 HTTPS 请求，隐藏真实数据特征。结合域名伪装、WebSocket 或 QUIC 等传输方式，可有效绕过封锁，提高节点长期可用性和连接稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>PassWall2 如何结合延迟选择最优节点？</h5></div>
+    <div class="panel-body">
+        PassWall2 定期测速节点延迟，并结合策略组自动选择延迟最低的节点。无需手动操作即可保证网页、视频和游戏流量快速稳定访问，提高整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>使用 Reality 协议后，客户端与服务端的密钥如何管理？</h5></div>
+    <div class="panel-body">
+        Reality 使用公私钥对进行认证，应生成唯一的公私钥对并妥善保存私钥，公钥可部署在服务端配置中。避免在多个服务共享同一密钥，定期轮换密钥并通过安全通道传输公钥以防泄露。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>在 Clash 中使用混合代理模式有什么好处？</h5></div>
+    <div class="panel-body">
+        Clash 的混合代理模式允许同时运行多个代理协议和端口监听，从而实现流量分流。它可以为不同的应用或域名设置不同的代理方式，提高灵活性与连接稳定性，非常适合多协议用户使用。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -226,8 +225,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-13-clash-node.htm">10月13日更新18M/S，2025年最新高速Singbox节点/SSR节点/Shadowrocket节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了韩国、香港、美国、日本、新加坡、加拿大、欧洲等地区,最高速度可达18 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-9-free-node-subscribe-links.htm">11月9日更新21.4M/S，2025年最新高速Shadowrocket节点/Clash节点/SSR节点/V2ray节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、日本、美国、加拿大、香港、韩国、新加坡等地区,最高速度可达21.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -236,8 +235,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-11-clash-node-daily-updates.htm">10月11日更新22.5M/S，2025年最新高速Singbox节点/Shadowrocket节点/V2ray节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、加拿大、香港、韩国、欧洲、新加坡、日本等地区,最高速度可达22.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-10-node-share.htm">11月10日更新19.4M/S，2025年最新高速Singbox节点/Shadowrocket节点/V2ray节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、新加坡、加拿大、韩国、欧洲、美国、香港等地区,最高速度可达19.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -246,8 +245,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-25-shadowrocket-node.htm">10月25日更新18.1M/S，2025年最新高速Singbox节点/SSR节点/Clash节点/V2ray节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了韩国、加拿大、欧洲、美国、新加坡、日本、香港等地区,最高速度可达18.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-7-node-share-links.htm">11月7日更新18.5M/S，2025年最新高速V2ray节点/Clash节点/Singbox节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、香港、韩国、欧洲、加拿大、美国、日本等地区,最高速度可达18.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -256,8 +255,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-26-free-ssr-subscribe.htm">10月26日更新22.4M/S，2025年最新高速Shadowrocket节点/Singbox节点/SSR节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、美国、加拿大、香港、日本、韩国、欧洲等地区,最高速度可达22.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-13-free-shadowrocket-node.htm">11月13日更新23M/S，2025年最新高速Shadowrocket节点/Singbox节点/V2ray节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、欧洲、新加坡、香港、加拿大、日本、美国等地区,最高速度可达23 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -266,8 +265,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-4-clash-node-daily-updates.htm">10月4日更新22.7M/S，2025年最新高速Clash节点/Singbox节点/Shadowrocket节点/SSR节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、加拿大、美国、韩国、日本、欧洲、新加坡等地区,最高速度可达22.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-17-free-high-speed-nodes.htm">11月17日更新22.2M/S，2025年最新高速Shadowrocket节点/SSR节点/Clash节点/Singbox节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、日本、香港、美国、欧洲、新加坡、韩国等地区,最高速度可达22.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -276,8 +275,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-20-shadowrocket-node.htm">10月20日更新19.8M/S，2025年最新高速Shadowrocket节点/V2ray节点/Singbox节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、日本、加拿大、韩国、美国、新加坡、欧洲等地区,最高速度可达19.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-15-free-clash-subscribe.htm">11月15日更新22.2M/S，2025年最新高速V2ray节点/Singbox节点/Clash节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、新加坡、欧洲、香港、美国、日本、加拿大等地区,最高速度可达22.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -286,8 +285,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-5-free-v2ray-subscribe.htm">10月5日更新18.2M/S，2025年最新高速V2ray节点/Shadowrocket节点/Singbox节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、欧洲、日本、新加坡、韩国、加拿大、香港等地区,最高速度可达18.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-18-node-share-links.htm">11月18日更新20.5M/S，2025年最新高速V2ray节点/Clash节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、香港、韩国、日本、美国、新加坡、加拿大等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -296,8 +295,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-23-free-high-speed-nodes.htm">10月23日更新18.2M/S，2025年最新高速V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、美国、新加坡、欧洲、加拿大、日本、韩国等地区,最高速度可达18.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-12-free-node-subscribe-links.htm">11月12日更新22.1M/S，2025年最新高速V2ray节点/Shadowrocket节点/Clash节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、新加坡、日本、欧洲、加拿大、香港、韩国等地区,最高速度可达22.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -306,8 +305,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-18-clash-windows.htm">10月18日更新22.3M/S，2025年最新高速V2ray节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、韩国、欧洲、美国、加拿大、日本、香港等地区,最高速度可达22.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-29-free-v2ray.htm">11月29日更新19.6M/S，2025年最新高速SSR节点/Singbox节点/V2ray节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、欧洲、美国、韩国、日本、香港、新加坡等地区,最高速度可达19.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -316,8 +315,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-8-free-node-subscribe-links.htm">11月8日更新18.6M/S，2025年最新高速Clash节点/Singbox节点/Shadowrocket节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、美国、欧洲、加拿大、新加坡、韩国、香港等地区,最高速度可达18.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-22-node-share-links.htm">11月22日更新18.4M/S，2025年最新高速V2ray节点/Singbox节点/Shadowrocket节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、加拿大、香港、欧洲、韩国、日本、美国等地区,最高速度可达18.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -328,8 +327,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
-                                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-10/" title="2025-10 归档">2025-10</a></h4>
+                                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
+                                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
                             </div>
         </div>
     </div>

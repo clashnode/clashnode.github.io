@@ -151,14 +151,9 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Quantumult X 的分流规则如何设置？</h5></div>
+    <div class="panel-heading"><h5>V2Ray 的路由规则可设置哪些匹配条件？</h5></div>
     <div class="panel-body">
-        Quantumult X 通过规则分组来控制流量走向。用户可自定义策略组，将特定网站流量指向不同节点。编辑规则文件时，可利用 GEOIP、DOMAIN-SUFFIX 等指令精确管理网络行为。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Netch 的 TCP/UDP 分流适合哪些应用？</h5></div>
-    <div class="panel-body">
-        TCP 分流适合网页、下载和视频播放，UDP 分流适合游戏、语音和实时视频。Netch 可同时代理 TCP 和 UDP 流量，实现精准分流，保证不同应用的最佳性能。<hr />    </div>
+        路由规则支持按域名、IP 地址、端口、协议类型或用户标签进行匹配。结合策略组，可实现国内直连、国外代理或特定节点定向分流，满足不同网络需求。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>VLESS + Reality 与 Trojan 在性能上差异大吗？</h5></div>
@@ -166,14 +161,14 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         两者性能相近。VLESS + Reality 伪装更自然，适合强封锁地区；Trojan 则依托标准 TLS 实现高速连接。选择取决于服务器支持与环境稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>SSR 如何手动导入节点？</h5></div>
+    <div class="panel-heading"><h5>Quantumult X 的分流规则如何设置？</h5></div>
     <div class="panel-body">
-        SSR 节点通常以“ssr://”链接形式提供。用户可在客户端中点击“添加节点”或“导入链接”，粘贴该字符串后保存即可。程序会自动解析服务器地址、端口、加密方式等参数。<hr />    </div>
+        Quantumult X 通过规则分组来控制流量走向。用户可自定义策略组，将特定网站流量指向不同节点。编辑规则文件时，可利用 GEOIP、DOMAIN-SUFFIX 等指令精确管理网络行为。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Hiddify Next 如何导入订阅？</h5></div>
+    <div class="panel-heading"><h5>V2Ray 的核心组件有哪些？</h5></div>
     <div class="panel-body">
-        打开 Hiddify Next，进入主页点击“添加订阅”，输入机场提供的链接后确认。应用会自动同步节点并分类显示，支持一键测速与规则模式切换。<hr />    </div>
+        V2Ray 的核心由 inbound、outbound、routing、policy 等模块组成。Inbound 处理入站请求，Outbound 负责出站连接，Routing 管理流量分流策略。模块化的设计让用户可以自由组合代理方式。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Mellow 的 TUN 模式与系统代理有何区别？</h5></div>
@@ -181,24 +176,29 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         TUN 模式直接拦截 IP 层流量，实现全局代理，而系统代理通常仅影响支持代理的应用。TUN 更适合游戏、视频或全局科学上网场景，确保所有流量经过代理节点。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Netch 的 TCP/UDP 分流适合哪些应用？</h5></div>
+    <div class="panel-body">
+        TCP 分流适合网页、下载和视频播放，UDP 分流适合游戏、语音和实时视频。Netch 可同时代理 TCP 和 UDP 流量，实现精准分流，保证不同应用的最佳性能。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>PassWall2 的规则优先级如何设置？</h5></div>
     <div class="panel-body">
         在 PassWall2 中，规则的匹配顺序按配置文件自上而下执行。建议将精确规则放在前面，通用规则放后面，以确保高优先级的流量优先被正确分流到指定出口。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Hiddify Next 如何导入订阅？</h5></div>
+    <div class="panel-body">
+        打开 Hiddify Next，进入主页点击“添加订阅”，输入机场提供的链接后确认。应用会自动同步节点并分类显示，支持一键测速与规则模式切换。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>SSR 如何手动导入节点？</h5></div>
+    <div class="panel-body">
+        SSR 节点通常以“ssr://”链接形式提供。用户可在客户端中点击“添加节点”或“导入链接”，粘贴该字符串后保存即可。程序会自动解析服务器地址、端口、加密方式等参数。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>如何安全地在服务器上部署 V2Ray（最小权限原则）？</h5></div>
     <div class="panel-body">
-        使用独立非 root 用户运行 V2Ray，限制服务访问端口并仅开放必要端口；配置防火墙规则与 Fail2ban 限制暴力登录；定期更新内核与 V2Ray 版本，并关闭不必要的系统服务以减少攻击面。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 的路由规则可设置哪些匹配条件？</h5></div>
-    <div class="panel-body">
-        路由规则支持按域名、IP 地址、端口、协议类型或用户标签进行匹配。结合策略组，可实现国内直连、国外代理或特定节点定向分流，满足不同网络需求。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 的核心组件有哪些？</h5></div>
-    <div class="panel-body">
-        V2Ray 的核心由 inbound、outbound、routing、policy 等模块组成。Inbound 处理入站请求，Outbound 负责出站连接，Routing 管理流量分流策略。模块化的设计让用户可以自由组合代理方式。    </div>
+        使用独立非 root 用户运行 V2Ray，限制服务访问端口并仅开放必要端口；配置防火墙规则与 Fail2ban 限制暴力登录；定期更新内核与 V2Ray 版本，并关闭不必要的系统服务以减少攻击面。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -226,8 +226,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-26-free-ssr-subscribe.htm">10月26日更新22.4M/S，2025年最新高速Shadowrocket节点/Singbox节点/SSR节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、美国、加拿大、香港、日本、韩国、欧洲等地区,最高速度可达22.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-2-node-share-links.htm">12月2日更新23M/S，2025年最新高速Clash节点/Shadowrocket节点/Singbox节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、新加坡、香港、美国、韩国、日本、欧洲等地区,最高速度可达23 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -236,8 +236,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-31-free-node-subscribe.htm">10月31日更新19.4M/S，2025年最新高速Shadowrocket节点/SSR节点/Singbox节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、日本、新加坡、加拿大、韩国、欧洲、香港等地区,最高速度可达19.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-17-free-high-speed-nodes.htm">11月17日更新22.2M/S，2025年最新高速Shadowrocket节点/SSR节点/Clash节点/Singbox节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、日本、香港、美国、欧洲、新加坡、韩国等地区,最高速度可达22.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -246,8 +246,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-5-free-v2ray-subscribe.htm">10月5日更新18.2M/S，2025年最新高速V2ray节点/Shadowrocket节点/Singbox节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、欧洲、日本、新加坡、韩国、加拿大、香港等地区,最高速度可达18.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-21-free-subscribe-node.htm">11月21日更新18.6M/S，2025年最新高速V2ray节点/Clash节点/Singbox节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、欧洲、新加坡、美国、日本、香港、加拿大等地区,最高速度可达18.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -256,8 +256,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-3-free-v2ray-subscribe.htm">10月3日更新20.5M/S，2025年最新高速SSR节点/Shadowrocket节点/Singbox节点/Clash节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、香港、欧洲、韩国、新加坡、加拿大、美国等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-3-clash-node.htm">12月3日更新19M/S，2025年最新高速Clash节点/Singbox节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、欧洲、新加坡、加拿大、美国、日本、香港等地区,最高速度可达19 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -266,8 +266,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-12-free-node-subscribe-links.htm">11月12日更新22.1M/S，2025年最新高速V2ray节点/Shadowrocket节点/Clash节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、新加坡、日本、欧洲、加拿大、香港、韩国等地区,最高速度可达22.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-14-free-clash-subscribe.htm">11月14日更新21M/S，2025年最新高速V2ray节点/Clash节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、新加坡、韩国、加拿大、欧洲、日本、香港等地区,最高速度可达21 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -276,8 +276,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-6-node-share-links.htm">11月6日更新21.2M/S，2025年最新高速Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、日本、美国、韩国、欧洲、加拿大等地区,最高速度可达21.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-26-clash-node-daily-updates.htm">11月26日更新20.5M/S，2025年最新高速Shadowrocket节点/V2ray节点/SSR节点/Clash节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、韩国、新加坡、美国、香港、欧洲、加拿大等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -286,8 +286,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-16-free-shadowrocket-node.htm">10月16日更新21.6M/S，2025年最新高速V2ray节点/Singbox节点/Clash节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、日本、韩国、欧洲、美国、加拿大等地区,最高速度可达21.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-18-node-share-links.htm">11月18日更新20.5M/S，2025年最新高速V2ray节点/Clash节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、香港、韩国、日本、美国、新加坡、加拿大等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -296,8 +296,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-10-18-clash-windows.htm">10月18日更新22.3M/S，2025年最新高速V2ray节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、韩国、欧洲、美国、加拿大、日本、香港等地区,最高速度可达22.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-11-29-free-v2ray.htm">11月29日更新19.6M/S，2025年最新高速SSR节点/Singbox节点/V2ray节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、欧洲、美国、韩国、日本、香港、新加坡等地区,最高速度可达19.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -316,8 +316,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-5-free-high-speed-nodes.htm">11月5日更新20.7M/S，2025年最新高速Shadowrocket节点/SSR节点/Clash节点/Singbox节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、韩国、香港、新加坡、加拿大、欧洲、美国等地区,最高速度可达20.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-4-node-share.htm">12月4日更新22.7M/S，2025年最新高速Singbox节点/Clash节点/Shadowrocket节点/SSR节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、日本、韩国、加拿大、新加坡、欧洲、美国等地区,最高速度可达22.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -328,9 +328,8 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">2</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
-                                <h4><span class="badge" style="float: right;">20</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
-                                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-10/" title="2025-10 归档">2025-10</a></h4>
+                                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
+                                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
                             </div>
         </div>
     </div>
