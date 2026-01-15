@@ -280,19 +280,9 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess 节点的 alterId 参数还需要设置吗？</h5></div>
+    <div class="panel-heading"><h5>Mellow 的 TUN 模式是否支持全局游戏加速？</h5></div>
     <div class="panel-body">
-        在新版 V2Ray/Xray 内核中，alterId 已被废弃，不再影响认证逻辑。建议用户设置为 0 或删除该字段，以避免连接异常或不兼容情况。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Potatso Lite 是否支持节点手动排序？</h5></div>
-    <div class="panel-body">
-        支持。用户可以根据延迟或使用需求手动排序节点顺序，结合策略组和规则文件实现基本分流管理。虽然不支持自动订阅更新，但满足轻量用户的节点管理需求。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Vmess 与 Trojan 哪个更快？</h5></div>
-    <div class="panel-body">
-        在相同环境下，Trojan 通常连接更快，因为它使用原生 TLS 通道；Vmess 则稍有额外的协议开销。但在配置合理的情况下，两者的速度差距不大，主要取决于服务器线路质量。<hr />    </div>
+        支持。TUN 模式拦截系统 IP 层流量，实现全局代理，确保游戏和其他应用的 UDP/TCP 流量都走代理节点，从而降低延迟，提高游戏体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>WinXray 的测速功能如何使用？</h5></div>
@@ -300,24 +290,9 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
         WinXray 内置节点测速工具，可以通过延迟测试（ping）或带宽测试判断节点质量。用户只需右键节点选择“测速”即可，测试结果将显示在列表中，帮助快速挑选最佳线路。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Surfboard 能否同步 Quantumult X 的规则？</h5></div>
-    <div class="panel-body">
-        Surfboard 的规则语法与 Quantumult X 相似，但并非完全兼容。部分策略组或脚本需手动修改格式方能正常使用，因此不建议直接复制，最好通过转换工具处理。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess 连接延迟过高该如何优化？</h5></div>
-    <div class="panel-body">
-        可尝试切换传输协议（如 WS、gRPC）、调整 MTU 或启用 MUX 多路复用功能。同时检查服务器地理位置、带宽和延迟，并选择最优节点以降低延迟。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Nekobox 能否同时管理多个客户端节点？</h5></div>
     <div class="panel-body">
         支持。Nekobox 与 Shadowsocks、Clash 等客户端独立运行，互不干扰。用户可通过策略组灵活管理节点，实现多客户端分流和网络优化，提高使用便利性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Mellow 的 TUN 模式是否支持全局游戏加速？</h5></div>
-    <div class="panel-body">
-        支持。TUN 模式拦截系统 IP 层流量，实现全局代理，确保游戏和其他应用的 UDP/TCP 流量都走代理节点，从而降低延迟，提高游戏体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Mihomo 如何进行远程控制管理？</h5></div>
@@ -327,7 +302,32 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Surfboard 的规则文件如何支持广告屏蔽？</h5></div>
     <div class="panel-body">
-        规则文件可添加广告域名或 URL 列表，将请求重定向或阻断。结合策略组和自动更新，Surfboard 可实现全局广告屏蔽，提高浏览体验并节省带宽。    </div>
+        规则文件可添加广告域名或 URL 列表，将请求重定向或阻断。结合策略组和自动更新，Surfboard 可实现全局广告屏蔽，提高浏览体验并节省带宽。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Vmess 与 Trojan 哪个更快？</h5></div>
+    <div class="panel-body">
+        在相同环境下，Trojan 通常连接更快，因为它使用原生 TLS 通道；Vmess 则稍有额外的协议开销。但在配置合理的情况下，两者的速度差距不大，主要取决于服务器线路质量。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Potatso Lite 是否支持节点手动排序？</h5></div>
+    <div class="panel-body">
+        支持。用户可以根据延迟或使用需求手动排序节点顺序，结合策略组和规则文件实现基本分流管理。虽然不支持自动订阅更新，但满足轻量用户的节点管理需求。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess 连接延迟过高该如何优化？</h5></div>
+    <div class="panel-body">
+        可尝试切换传输协议（如 WS、gRPC）、调整 MTU 或启用 MUX 多路复用功能。同时检查服务器地理位置、带宽和延迟，并选择最优节点以降低延迟。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Surfboard 能否同步 Quantumult X 的规则？</h5></div>
+    <div class="panel-body">
+        Surfboard 的规则语法与 Quantumult X 相似，但并非完全兼容。部分策略组或脚本需手动修改格式方能正常使用，因此不建议直接复制，最好通过转换工具处理。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess 节点的 alterId 参数还需要设置吗？</h5></div>
+    <div class="panel-body">
+        在新版 V2Ray/Xray 内核中，alterId 已被废弃，不再影响认证逻辑。建议用户设置为 0 或删除该字段，以避免连接异常或不兼容情况。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -355,8 +355,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-12-11-shadowrocket-node.htm">12月11日更新18.2M/S，2025年最新高速Shadowrocket节点/SSR节点/V2ray节点/Clash节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、欧洲、日本、韩国、新加坡、美国、香港等地区,最高速度可达18.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-27-node-share.htm">12月27日更新21.3M/S，2025年最新高速V2ray节点/SSR节点/Clash节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、日本、新加坡、香港、韩国、美国、欧洲等地区,最高速度可达21.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -365,8 +365,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-19-free-clash.htm">11月19日更新22.8M/S，2025年最新高速Clash节点/Singbox节点/Shadowrocket节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、加拿大、新加坡、香港、美国、日本、韩国等地区,最高速度可达22.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-26-free-v2ray-subscribe.htm">12月26日更新21.6M/S，2025年最新高速Singbox节点/SSR节点/Shadowrocket节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、美国、欧洲、韩国、新加坡、香港、日本等地区,最高速度可达21.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -375,8 +375,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-12-22-shadowrocket-node.htm">12月22日更新18.4M/S，2025年最新高速Shadowrocket节点/Singbox节点/Clash节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、加拿大、新加坡、美国、日本、香港、韩国等地区,最高速度可达18.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-17-clash-windows.htm">12月17日更新19.8M/S，2025年最新高速Singbox节点/Shadowrocket节点/SSR节点/Clash节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、日本、欧洲、美国、韩国、香港、新加坡等地区,最高速度可达19.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -385,8 +385,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-8-free-node-subscribe-links.htm">11月8日更新18.6M/S，2025年最新高速Clash节点/Singbox节点/Shadowrocket节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、美国、欧洲、加拿大、新加坡、韩国、香港等地区,最高速度可达18.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-31-free-high-speed-nodes.htm">12月31日更新21.6M/S，2025年最新高速Clash节点/Singbox节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、加拿大、香港、日本、韩国、美国、欧洲等地区,最高速度可达21.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -395,8 +395,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-30-clash-windows.htm">11月30日更新21.3M/S，2025年最新高速Clash节点/SSR节点/Singbox节点/V2ray节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、韩国、新加坡、加拿大、美国、日本、欧洲等地区,最高速度可达21.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-9-node-share.htm">12月9日更新20.9M/S，2025年最新高速SSR节点/V2ray节点/Clash节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、新加坡、香港、欧洲、加拿大、美国、韩国等地区,最高速度可达20.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -405,8 +405,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-12-5-clash-node.htm">12月5日更新22.8M/S，2025年最新高速Shadowrocket节点/Singbox节点/SSR节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、日本、加拿大、美国、韩国、新加坡、欧洲等地区,最高速度可达22.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-14-free-node-subscribe-links.htm">12月14日更新21.9M/S，2025年最新高速Clash节点/Shadowrocket节点/Singbox节点/SSR节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、加拿大、新加坡、韩国、日本、欧洲、美国等地区,最高速度可达21.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -415,8 +415,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-18-node-share-links.htm">11月18日更新20.5M/S，2025年最新高速V2ray节点/Clash节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、香港、韩国、日本、美国、新加坡、加拿大等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-18-free-shadowrocket-node.htm">12月18日更新18.3M/S，2025年最新高速SSR节点/Clash节点/Shadowrocket节点/V2ray节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、韩国、新加坡、香港、日本、欧洲、美国等地区,最高速度可达18.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -425,8 +425,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-11-21-free-subscribe-node.htm">11月21日更新18.6M/S，2025年最新高速V2ray节点/Clash节点/Singbox节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了韩国、欧洲、新加坡、美国、日本、香港、加拿大等地区,最高速度可达18.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-1-4-free-v2ray-subscribe.htm">1月4日更新21.8M/S，2025年最新高速Shadowrocket节点/V2ray节点/SSR节点/Clash节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、日本、香港、欧洲、加拿大、新加坡、韩国等地区,最高速度可达21.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -435,8 +435,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-12-19-free-node-subscribe.htm">12月19日更新21.2M/S，2025年最新高速V2ray节点/Shadowrocket节点/Clash节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、新加坡、韩国、日本、美国、加拿大、香港等地区,最高速度可达21.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-1-3-clash-v2ray-ss-ssr.htm">1月3日更新22.9M/S，2025年最新高速Clash节点/Singbox节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、美国、香港、日本、新加坡、欧洲、加拿大等地区,最高速度可达22.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -445,8 +445,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2025-12-21-free-subscribe-node.htm">12月21日更新18.5M/S，2025年最新高速SSR节点/Singbox节点/Shadowrocket节点/Clash节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、欧洲、美国、新加坡、加拿大、香港、韩国等地区,最高速度可达18.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2025-12-24-free-shadowrocket-node.htm">12月24日更新22.1M/S，2025年最新高速SSR节点/Shadowrocket节点/V2ray节点/Singbox节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、韩国、新加坡、加拿大、美国、香港、欧洲等地区,最高速度可达22.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -457,8 +457,8 @@ A4：在应用内进入“帮助与反馈”，选择在线客服或提交问题
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
-                                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
+                                <h4><span class="badge" style="float: right;">7</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
+                                <h4><span class="badge" style="float: right;">18</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
                             </div>
         </div>
     </div>
