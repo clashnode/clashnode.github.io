@@ -1,4 +1,4 @@
-# 2月24日更新18.4M/S，2025年最新高速Clash节点/Shadowrocket节点/V2ray节点/Singbox节点/SSR节点订阅链接免费节点地址分享  更新时间 2026-02-24 13:37:06
+# 2月24日更新22M/S，2025年最新高速SSR节点/Singbox节点/V2ray节点/Clash节点/Shadowrocket节点订阅链接免费节点地址分享  更新时间 2026-02-24 13:42:29
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://clashnode.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
