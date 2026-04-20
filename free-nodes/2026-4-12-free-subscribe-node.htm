@@ -283,14 +283,9 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekoray 与 Nekobox 有什么不同？</h5></div>
+    <div class="panel-heading"><h5>WinXray 的多策略组设置能提高访问效率吗？</h5></div>
     <div class="panel-body">
-        Nekoray 是一款基于 Qt 的跨平台代理前端，而 Nekobox 更偏向移动端简化使用。两者均支持 V2Ray/VLESS/Trojan 协议，但 Nekobox 提供了更轻量的界面和更快的连接启动速度。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess 配置 TLS+WebSocket 有哪些性能优势？</h5></div>
-    <div class="panel-body">
-        TLS+WebSocket 可伪装 HTTPS 流量，增强抗封锁能力，同时降低被检测风险。结合策略组和节点延迟检测，可保证访问速度和连接稳定性，特别适合视频和游戏场景。<hr />    </div>
+        多策略组可以将节点按用途、延迟或地域分类，结合规则文件自动分流不同流量。这样可以确保游戏、视频或网页流量走最优节点，提高整体访问效率和稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Potatso Lite 能否手动添加节点？</h5></div>
@@ -298,9 +293,9 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
         Potatso Lite 支持手动添加 Shadowsocks 节点。用户在“配置”中选择添加节点，输入服务器、端口、加密方式等信息即可建立连接，适合手动管理单个线路。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Sing-box 策略组如何优化视频和游戏流量？</h5></div>
+    <div class="panel-heading"><h5>VMess 配置 TLS+WebSocket 有哪些性能优势？</h5></div>
     <div class="panel-body">
-        Sing-box 可根据策略组和规则文件，将不同应用的流量分配到最佳节点。视频和游戏流量可选择低延迟、高带宽节点，保证流畅播放和操作响应，提高整体网络体验。<hr />    </div>
+        TLS+WebSocket 可伪装 HTTPS 流量，增强抗封锁能力，同时降低被检测风险。结合策略组和节点延迟检测，可保证访问速度和连接稳定性，特别适合视频和游戏场景。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Shadowrocket 如何实现节点自动切换？</h5></div>
@@ -313,14 +308,19 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
         Shadowrocket 支持多种协议，包括 Shadowsocks、Vmess、VLess、Trojan、HTTP、SOCKS5 等。它还可解析部分 QuantumultX 与 Clash 的订阅格式，适合 iOS 用户进行全协议代理管理与切换。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>SSR 如何选择合适混淆提高稳定性？</h5></div>
+    <div class="panel-body">
+        选择混淆方式时应根据网络环境和封锁程度，例如 tls1.2_ticket_auth 可模拟 HTTPS 流量。合理组合协议和混淆可提升节点稳定性和抗封锁能力，确保长期科学上网体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>SSR 如何防止流量被 DPI 检测？</h5></div>
     <div class="panel-body">
         通过协议插件和混淆方式可以模拟正常 HTTPS 或 HTTP 流量，隐藏真实流量特征。合理配置混淆插件和加密方式，可以有效绕过 DPI 检测，保证连接稳定性和长期可用性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 的多策略组设置能提高访问效率吗？</h5></div>
+    <div class="panel-heading"><h5>Nekoray 与 Nekobox 有什么不同？</h5></div>
     <div class="panel-body">
-        多策略组可以将节点按用途、延迟或地域分类，结合规则文件自动分流不同流量。这样可以确保游戏、视频或网页流量走最优节点，提高整体访问效率和稳定性。<hr />    </div>
+        Nekoray 是一款基于 Qt 的跨平台代理前端，而 Nekobox 更偏向移动端简化使用。两者均支持 V2Ray/VLESS/Trojan 协议，但 Nekobox 提供了更轻量的界面和更快的连接启动速度。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Hysteria2 的多路复用如何提高传输效率？</h5></div>
@@ -328,9 +328,9 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
         Hysteria2 利用 QUIC 的多路复用功能，将多个请求共享单个 UDP 连接，减少握手次数和延迟，提升整体吞吐量。尤其在高并发场景中效果显著。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>SSR 如何选择合适混淆提高稳定性？</h5></div>
+    <div class="panel-heading"><h5>Sing-box 策略组如何优化视频和游戏流量？</h5></div>
     <div class="panel-body">
-        选择混淆方式时应根据网络环境和封锁程度，例如 tls1.2_ticket_auth 可模拟 HTTPS 流量。合理组合协议和混淆可提升节点稳定性和抗封锁能力，确保长期科学上网体验。    </div>
+        Sing-box 可根据策略组和规则文件，将不同应用的流量分配到最佳节点。视频和游戏流量可选择低延迟、高带宽节点，保证流畅播放和操作响应，提高整体网络体验。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -358,18 +358,8 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-25-node-share-links.htm">3月25日更新22.9M/S，2025年最新高速V2ray节点/SSR节点/Trojan节点/Clash节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、美国、日本、加拿大、新加坡、韩国、香港等地区,最高速度可达22.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-28-free-high-speed-nodes.htm">3月28日更新20.1M/S，2025年最新高速SSR节点/Trojan节点/V2ray节点/Singbox节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、欧洲、香港、日本、加拿大、新加坡、韩国等地区,最高速度可达20.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-3-22-free-subscribe-node.htm">3月22日更新18.8M/S，2025年最新高速Singbox节点/Shadowrocket节点/V2ray节点/Clash节点/SSR节点/Trojan节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、欧洲、香港、韩国、日本、美国、新加坡等地区,最高速度可达18.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -388,8 +378,8 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-13-shadowrocket-node.htm">3月13日更新21M/S，2025年最新高速V2ray节点/Clash节点/Shadowrocket节点/Singbox节点/Trojan节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、美国、欧洲、加拿大、日本、香港、韩国等地区,最高速度可达21 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-4-16-clash-node.htm">4月16日更新21.5M/S，2025年最新高速SSR节点/Clash节点/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、香港、欧洲、日本、韩国、美国、加拿大等地区,最高速度可达21.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -398,8 +388,8 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-8-node-share.htm">3月8日更新20.5M/S，2025年最新高速V2ray节点/Clash节点/Singbox节点/Trojan节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、日本、香港、加拿大、韩国、新加坡、美国等地区,最高速度可达20.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-4-9-free-ssr-node.htm">4月9日更新21.3M/S，2025年最新高速SSR节点/Singbox节点/V2ray节点/Trojan节点/Shadowrocket节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、欧洲、日本、加拿大、韩国、美国、香港等地区,最高速度可达21.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -408,8 +398,8 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-7-node-share-links.htm">3月7日更新18.9M/S，2025年最新高速V2ray节点/Singbox节点/Trojan节点/Shadowrocket节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了韩国、加拿大、美国、香港、新加坡、日本、欧洲等地区,最高速度可达18.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-3-17-clash-node.htm">3月17日更新21.9M/S，2025年最新高速Clash节点/Shadowrocket节点/Trojan节点/V2ray节点/Singbox节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、加拿大、新加坡、香港、日本、欧洲、韩国等地区,最高速度可达21.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -418,8 +408,8 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-22-free-subscribe-node.htm">3月22日更新18.8M/S，2025年最新高速Singbox节点/Shadowrocket节点/V2ray节点/Clash节点/SSR节点/Trojan节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、欧洲、香港、韩国、日本、美国、新加坡等地区,最高速度可达18.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-3-25-node-share-links.htm">3月25日更新22.9M/S，2025年最新高速V2ray节点/SSR节点/Trojan节点/Clash节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、美国、日本、加拿大、新加坡、韩国、香港等地区,最高速度可达22.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -428,8 +418,8 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-30-free-clash.htm">3月30日更新20.3M/S，2025年最新高速Clash节点/Shadowrocket节点/Singbox节点/Trojan节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、加拿大、新加坡、欧洲、美国、韩国、日本等地区,最高速度可达20.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-3-20-free-v2ray.htm">3月20日更新22M/S，2025年最新高速Shadowrocket节点/Trojan节点/V2ray节点/Clash节点/SSR节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、欧洲、日本、美国、韩国、香港、新加坡等地区,最高速度可达22 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -438,8 +428,8 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-21-free-shadowrocket-node.htm">3月21日更新20.4M/S，2025年最新高速Clash节点/Shadowrocket节点/SSR节点/Singbox节点/V2ray节点/Trojan节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、韩国、欧洲、加拿大、日本、新加坡、美国等地区,最高速度可达20.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-4-18-free-v2ray-subscribe.htm">4月18日更新21.2M/S，2025年最新高速Clash节点/Trojan节点/SSR节点/V2ray节点/Shadowrocket节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、新加坡、香港、日本、加拿大、美国、韩国等地区,最高速度可达21.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -448,8 +438,18 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-3-23-free-subscribe-node.htm">3月23日更新22.3M/S，2025年最新高速Shadowrocket节点/Clash节点/SSR节点/V2ray节点/Trojan节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、日本、美国、韩国、新加坡、香港、欧洲等地区,最高速度可达22.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-3-27-free-node-subscribe.htm">3月27日更新20.8M/S，2025年最新高速Clash节点/Shadowrocket节点/Trojan节点/Singbox节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、日本、加拿大、韩国、美国、香港、欧洲等地区,最高速度可达20.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-4-12-free-subscribe-node.htm">4月12日更新19.2M/S，2025年最新高速SSR节点/Shadowrocket节点/Singbox节点/V2ray节点/Trojan节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、欧洲、韩国、日本、加拿大、香港、新加坡等地区,最高速度可达19.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -460,7 +460,7 @@ V2Ray设计注重多连接优化和高效资源管理，即使在网络波动较
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
+                                <h4><span class="badge" style="float: right;">13</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
                                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2026-03/" title="2026-03 归档">2026-03</a></h4>
                             </div>
         </div>
