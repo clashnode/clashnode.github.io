@@ -345,29 +345,9 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
         Netch 不直接修改系统代理，而是通过虚拟网卡（TAP 驱动）实现透明代理。这种方式不会影响浏览器设置，适合游戏和应用程序需要 UDP 支持的场景。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Potatso Lite 是否支持手动节点管理？</h5></div>
-    <div class="panel-body">
-        支持。用户可手动输入节点信息或扫描二维码导入节点，并可进行修改或删除。虽然不支持自动订阅更新，但足以满足轻量用户对节点管理和流量分流的需求。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 的多出口节点如何优化访问速度？</h5></div>
-    <div class="panel-body">
-        通过为不同流量类型设置不同出口节点，WinXray 可以自动选择延迟最低的节点处理请求。结合策略组，可提高网页访问、视频播放和游戏等应用的速度与稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Vmess 与 Trojan 哪个更快？</h5></div>
     <div class="panel-body">
         在相同环境下，Trojan 通常连接更快，因为它使用原生 TLS 通道；Vmess 则稍有额外的协议开销。但在配置合理的情况下，两者的速度差距不大，主要取决于服务器线路质量。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>QuantumultX 如何实现按应用分流？</h5></div>
-    <div class="panel-body">
-        QuantumultX 可以根据不同应用程序的流量类型设置分流规则，通过策略组选择最优节点。这样可保证游戏、视频和浏览器流量经过最优节点，提高访问速度和网络稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Hiddify Next 如何管理用户流量配额？</h5></div>
-    <div class="panel-body">
-        管理员可以为每个用户设置上传和下载带宽以及总流量上限。超出限制可自动降速或阻止访问，保证服务器资源合理分配，提高整体网络公平性和用户体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Surfboard 是否支持 Clash 配置？</h5></div>
@@ -380,9 +360,29 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
         根据网络封锁情况选择适合的混淆和协议组合，例如 tls1.2_ticket_auth 模拟 HTTPS 流量。不同组合对抗 DPI 和封锁能力不同，需要测试后选择最稳定和高效的方案。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 的多出口节点如何优化访问速度？</h5></div>
+    <div class="panel-body">
+        通过为不同流量类型设置不同出口节点，WinXray 可以自动选择延迟最低的节点处理请求。结合策略组，可提高网页访问、视频播放和游戏等应用的速度与稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Potatso Lite 是否支持手动节点管理？</h5></div>
+    <div class="panel-body">
+        支持。用户可手动输入节点信息或扫描二维码导入节点，并可进行修改或删除。虽然不支持自动订阅更新，但足以满足轻量用户对节点管理和流量分流的需求。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>V2Ray 的 VMess gRPC 传输适合高延迟环境吗？</h5></div>
     <div class="panel-body">
-        gRPC 支持长连接和多路复用，减少握手次数和连接延迟。高延迟环境下使用可保证流量稳定，特别适合移动网络和频繁访问海外网站的场景。    </div>
+        gRPC 支持长连接和多路复用，减少握手次数和连接延迟。高延迟环境下使用可保证流量稳定，特别适合移动网络和频繁访问海外网站的场景。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>QuantumultX 如何实现按应用分流？</h5></div>
+    <div class="panel-body">
+        QuantumultX 可以根据不同应用程序的流量类型设置分流规则，通过策略组选择最优节点。这样可保证游戏、视频和浏览器流量经过最优节点，提高访问速度和网络稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Hiddify Next 如何管理用户流量配额？</h5></div>
+    <div class="panel-body">
+        管理员可以为每个用户设置上传和下载带宽以及总流量上限。超出限制可自动降速或阻止访问，保证服务器资源合理分配，提高整体网络公平性和用户体验。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -410,6 +410,26 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-4-17-node-share.htm">4月17日更新22.5M/S，2025年最新高速Trojan节点/Singbox节点/SSR节点/Shadowrocket节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、香港、日本、美国、新加坡、韩国、欧洲等地区,最高速度可达22.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-5-7-free-clash-subscribe.htm">5月7日更新20.9M/S，2025年最新高速Clash节点/Singbox节点/Trojan节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、加拿大、美国、香港、日本、韩国、新加坡等地区,最高速度可达20.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
                 <h4><a href="/free-nodes/2026-5-2-free-node-subscribe-links.htm">5月2日更新22.7M/S，2025年最新高速V2ray节点/Singbox节点/Clash节点/Trojan节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
                 <p>这一次的节点更新覆盖了新加坡、香港、韩国、美国、欧洲、日本、加拿大等地区,最高速度可达22.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
@@ -420,8 +440,8 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-4-21-free-ssr-node.htm">4月21日更新22.1M/S，2025年最新高速Trojan节点/Clash节点/Singbox节点/V2ray节点/SSR节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、日本、新加坡、欧洲、加拿大、韩国、美国等地区,最高速度可达22.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-4-12-free-subscribe-node.htm">4月12日更新19.2M/S，2025年最新高速SSR节点/Shadowrocket节点/Singbox节点/V2ray节点/Trojan节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、欧洲、韩国、日本、加拿大、香港、新加坡等地区,最高速度可达19.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -430,8 +450,8 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-4-13-clash-node.htm">4月13日更新21.9M/S，2025年最新高速Trojan节点/Clash节点/V2ray节点/SSR节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、新加坡、香港、日本、欧洲、韩国、加拿大等地区,最高速度可达21.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-4-25-clash-node-daily-updates.htm">4月25日更新21.8M/S，2025年最新高速Trojan节点/Shadowrocket节点/Clash节点/Singbox节点/SSR节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、香港、韩国、欧洲、日本、美国、加拿大等地区,最高速度可达21.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -440,8 +460,28 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-5-11-free-clash.htm">5月11日更新18.7M/S，2025年最新高速Clash节点/V2ray节点/Shadowrocket节点/Trojan节点/Singbox节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、新加坡、加拿大、日本、欧洲、韩国、美国等地区,最高速度可达18.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-4-26-free-node-subscribe-links.htm">4月26日更新18.1M/S，2025年最新高速Clash节点/Shadowrocket节点/Trojan节点/Singbox节点/V2ray节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、新加坡、韩国、香港、欧洲、美国、日本等地区,最高速度可达18.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-4-14-free-clash.htm">4月14日更新21.5M/S，2025年最新高速V2ray节点/SSR节点/Trojan节点/Clash节点/Shadowrocket节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、加拿大、香港、日本、美国、新加坡、韩国等地区,最高速度可达21.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-4-16-clash-node.htm">4月16日更新21.5M/S，2025年最新高速SSR节点/Clash节点/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、香港、欧洲、日本、韩国、美国、加拿大等地区,最高速度可达21.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -460,48 +500,8 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-5-5-clash-node.htm">5月5日更新19.4M/S，2025年最新高速Singbox节点/Clash节点/SSR节点/Trojan节点/V2ray节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、香港、欧洲、日本、新加坡、韩国、美国等地区,最高速度可达19.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-4-22-free-node-subscribe.htm">4月22日更新21.9M/S，2025年最新高速Clash节点/V2ray节点/Singbox节点/Shadowrocket节点/SSR节点/Trojan节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、欧洲、新加坡、韩国、美国、加拿大、日本等地区,最高速度可达21.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-4-24-clash-windows.htm">4月24日更新21.6M/S，2025年最新高速Clash节点/Trojan节点/SSR节点/Singbox节点/Shadowrocket节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、日本、加拿大、香港、韩国、新加坡、欧洲等地区,最高速度可达21.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-4-17-node-share.htm">4月17日更新22.5M/S，2025年最新高速Trojan节点/Singbox节点/SSR节点/Shadowrocket节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、香港、日本、美国、新加坡、韩国、欧洲等地区,最高速度可达22.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-4-10-clash-v2ray-ss-ssr.htm">4月10日更新18M/S，2025年最新高速V2ray节点/Trojan节点/Singbox节点/SSR节点/Clash节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、欧洲、美国、新加坡、加拿大、韩国、日本等地区,最高速度可达18 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-4-19-shadowrocket-node.htm">4月19日更新20.4M/S，2025年最新高速Trojan节点/Clash节点/Shadowrocket节点/V2ray节点/Singbox节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、香港、加拿大、新加坡、日本、美国、欧洲等地区,最高速度可达20.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -513,7 +513,7 @@ A4：需要iOS系统版本符合官方要求，建议使用较新设备以保证
         <div class="card">
             <div class="box-wrap">
                                 <h4><span class="badge" style="float: right;">11</span> <a href="/date/2026-05/" title="2026-05 归档">2026-05</a></h4>
-                                <h4><span class="badge" style="float: right;">22</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
+                                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
                             </div>
         </div>
     </div>
