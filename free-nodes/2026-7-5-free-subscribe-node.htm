@@ -376,9 +376,19 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
         支持。用户可导入多个订阅 URL，每个订阅源独立管理。通过切换订阅源或合并策略组，可灵活管理节点，实现不同地区或用途的线路分配。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 如何实现延迟最低节点自动切换？</h5></div>
+    <div class="panel-heading"><h5>如何检查 Clash 连接失败的日志以定位问题？</h5></div>
     <div class="panel-body">
-        WinXray 支持节点延迟检测和策略组配置，可自动将流量切换至延迟最低的节点。用户无需手动选择，提高游戏、视频和网页访问速度及稳定性，优化整体网络体验。<hr />    </div>
+        打开 Clash 的日志面板或查看配置目录下的 log 文件，观察报错信息如 DNS 解析失败、节点拒绝连接或 TLS 握手错误。根据关键字（例如 timeout、refused、certificate）逐项排查并比对服务器配置。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Nekobox 可以与 Shadowsocks 等客户端同时使用吗？</h5></div>
+    <div class="panel-body">
+        可以。Nekobox 配置独立，与 Shadowsocks、Clash 等客户端互不干扰。用户可根据需要通过策略组选择节点，实现灵活的网络管理和分流策略。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Hysteria2 的 QUIC 协议如何降低延迟？</h5></div>
+    <div class="panel-body">
+        QUIC 协议基于 UDP，多路复用和拥塞控制优化，可减少握手延迟和包重传次数。Hysteria2 利用 QUIC 的特性，使高延迟或丢包网络下依然保持低延迟和高稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>SSR 的协议插件与加密方式如何搭配使用？</h5></div>
@@ -391,19 +401,9 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
         WinXray 支持为不同流量类型指定不同出口，通过策略组和路由规则自动选择最佳节点。这样可以分散流量压力，提高连接稳定性，并确保高优先级应用获得最佳速度。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Hysteria2 的 QUIC 协议如何降低延迟？</h5></div>
+    <div class="panel-heading"><h5>WinXray 如何实现延迟最低节点自动切换？</h5></div>
     <div class="panel-body">
-        QUIC 协议基于 UDP，多路复用和拥塞控制优化，可减少握手延迟和包重传次数。Hysteria2 利用 QUIC 的特性，使高延迟或丢包网络下依然保持低延迟和高稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS Reality 模式与 XTLS 模式有何不同？</h5></div>
-    <div class="panel-body">
-        VLESS Reality 通过伪造握手和真实网站的 TLS 指纹实现高仿真加密，而 XTLS 强调高性能传输。Reality 更注重隐蔽性，适合高安全需求环境；XTLS 则偏重传输效率。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekobox 可以与 Shadowsocks 等客户端同时使用吗？</h5></div>
-    <div class="panel-body">
-        可以。Nekobox 配置独立，与 Shadowsocks、Clash 等客户端互不干扰。用户可根据需要通过策略组选择节点，实现灵活的网络管理和分流策略。<hr />    </div>
+        WinXray 支持节点延迟检测和策略组配置，可自动将流量切换至延迟最低的节点。用户无需手动选择，提高游戏、视频和网页访问速度及稳定性，优化整体网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Matsuri 节点延迟排序如何提高访问速度？</h5></div>
@@ -411,9 +411,9 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
         Matsuri 定期测速节点延迟，结合策略组自动选择延迟最低节点处理流量。用户无需手动切换节点即可保持高速访问，提高网页浏览、视频播放和游戏体验的稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>如何检查 Clash 连接失败的日志以定位问题？</h5></div>
+    <div class="panel-heading"><h5>VLESS Reality 模式与 XTLS 模式有何不同？</h5></div>
     <div class="panel-body">
-        打开 Clash 的日志面板或查看配置目录下的 log 文件，观察报错信息如 DNS 解析失败、节点拒绝连接或 TLS 握手错误。根据关键字（例如 timeout、refused、certificate）逐项排查并比对服务器配置。    </div>
+        VLESS Reality 通过伪造握手和真实网站的 TLS 指纹实现高仿真加密，而 XTLS 强调高性能传输。Reality 更注重隐蔽性，适合高安全需求环境；XTLS 则偏重传输效率。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -460,6 +460,56 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-7-8-free-node-subscribe.htm">7月8日更新20.8M/S，2025年最新高速Shadowrocket节点/Trojan节点/V2ray节点/Singbox节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、欧洲、加拿大、日本、香港、新加坡、美国等地区,最高速度可达20.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-6-10-free-shadowrocket-node.htm">6月10日更新20.4M/S，2025年最新高速V2ray节点/Shadowrocket节点/SSR节点/Trojan节点/Clash节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、香港、美国、新加坡、加拿大、日本、韩国等地区,最高速度可达20.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-6-20-free-ssr-subscribe.htm">6月20日更新22.8M/S，2025年最新高速Clash节点/V2ray节点/Trojan节点/Shadowrocket节点/Singbox节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、香港、日本、韩国、加拿大、美国、欧洲等地区,最高速度可达22.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-7-2-free-clash.htm">7月2日更新20.3M/S，2025年最新高速Trojan节点/V2ray节点/SSR节点/Clash节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、欧洲、新加坡、韩国、香港、加拿大、美国等地区,最高速度可达20.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/2026-6-24-free-v2ray.htm">6月24日更新21.6M/S，2025年最新高速V2ray节点/Singbox节点/Shadowrocket节点/Trojan节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了香港、欧洲、加拿大、美国、韩国、新加坡、日本等地区,最高速度可达21.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
                 <h4><a href="/free-nodes/2026-6-9-free-high-speed-nodes.htm">6月9日更新19.2M/S，2025年最新高速Trojan节点/Singbox节点/Clash节点/SSR节点/Shadowrocket节点/V2ray节点订阅链接免费节点地址分享</a></h4>
                 <p>这一次的节点更新覆盖了加拿大、香港、韩国、欧洲、新加坡、美国、日本等地区,最高速度可达19.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
@@ -480,8 +530,8 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-7-2-free-clash.htm">7月2日更新20.3M/S，2025年最新高速Trojan节点/V2ray节点/SSR节点/Clash节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、欧洲、新加坡、韩国、香港、加拿大、美国等地区,最高速度可达20.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-7-1-node-share-links.htm">7月1日更新20.6M/S，2025年最新高速Shadowrocket节点/Singbox节点/V2ray节点/Trojan节点/SSR节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、加拿大、美国、韩国、香港、欧洲、新加坡等地区,最高速度可达20.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -490,8 +540,8 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-6-19-free-clash-subscribe.htm">6月19日更新21.2M/S，2025年最新高速Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点/Trojan节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、新加坡、香港、加拿大、日本、韩国、欧洲等地区,最高速度可达21.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-6-17-shadowrocket-node.htm">6月17日更新21.5M/S，2025年最新高速Shadowrocket节点/SSR节点/V2ray节点/Trojan节点/Singbox节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、美国、韩国、香港、新加坡、日本、加拿大等地区,最高速度可达21.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -500,58 +550,8 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-7-5-free-subscribe-node.htm">7月5日更新20.3M/S，2025年最新高速V2ray节点/Clash节点/SSR节点/Trojan节点/Singbox节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、日本、加拿大、韩国、欧洲、美国、香港等地区,最高速度可达20.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-6-21-free-high-speed-nodes.htm">6月21日更新22.4M/S，2025年最新高速V2ray节点/Trojan节点/Shadowrocket节点/SSR节点/Clash节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了香港、美国、加拿大、韩国、新加坡、欧洲、日本等地区,最高速度可达22.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-6-23-free-subscribe-node.htm">6月23日更新18.1M/S，2025年最新高速Clash节点/Shadowrocket节点/Singbox节点/V2ray节点/SSR节点/Trojan节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、香港、韩国、加拿大、欧洲、美国、新加坡等地区,最高速度可达18.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-7-3-clash-windows.htm">7月3日更新19.4M/S，2025年最新高速SSR节点/Clash节点/Singbox节点/Trojan节点/Shadowrocket节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、加拿大、新加坡、香港、欧洲、美国、韩国等地区,最高速度可达19.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-6-20-free-ssr-subscribe.htm">6月20日更新22.8M/S，2025年最新高速Clash节点/V2ray节点/Trojan节点/Shadowrocket节点/Singbox节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、香港、日本、韩国、加拿大、美国、欧洲等地区,最高速度可达22.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-6-16-free-ssr-subscribe.htm">6月16日更新22.7M/S，2025年最新高速Clash节点/Shadowrocket节点/Singbox节点/Trojan节点/SSR节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、新加坡、韩国、加拿大、美国、香港、日本等地区,最高速度可达22.7 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-6-28-free-v2ray.htm">6月28日更新18.2M/S，2025年最新高速Clash节点/Shadowrocket节点/Singbox节点/SSR节点/V2ray节点/Trojan节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、美国、日本、加拿大、香港、新加坡、欧洲等地区,最高速度可达18.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -562,7 +562,7 @@ A：Quantumult偏向专业用户，规则配置更自由；Quantumult X支持更
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                                <h4><span class="badge" style="float: right;">7</span> <a href="/date/2026-07/" title="2026-07 归档">2026-07</a></h4>
+                                <h4><span class="badge" style="float: right;">8</span> <a href="/date/2026-07/" title="2026-07 归档">2026-07</a></h4>
                                 <h4><span class="badge" style="float: right;">23</span> <a href="/date/2026-06/" title="2026-06 归档">2026-06</a></h4>
                             </div>
         </div>
