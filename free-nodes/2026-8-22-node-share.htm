@@ -424,29 +424,14 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Matsuri 节点延迟排序如何优化网络体验？</h5></div>
+    <div class="panel-heading"><h5>Netch 如何区分全局代理和规则代理？</h5></div>
     <div class="panel-body">
-        Matsuri 会定期测速节点延迟，并结合策略组自动选择低延迟节点。无需手动切换，确保网页、视频和游戏流量通过最优节点，提高访问速度和网络稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>SSR 的混淆和协议组合如何选择？</h5></div>
-    <div class="panel-body">
-        根据网络封锁情况选择适合的混淆和协议组合，例如 tls1.2_ticket_auth 模拟 HTTPS 流量。不同组合对抗 DPI 和封锁能力不同，需要测试后选择最稳定和高效的方案。<hr />    </div>
+        全局代理会将所有流量通过节点转发，而规则代理仅对指定 IP、端口或应用生效。用户可根据需求选择代理模式，实现流量优化和不同应用的最佳网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Clash 如何手动设置某应用直连？</h5></div>
     <div class="panel-body">
         在 Clash 的规则文件中添加 PROCESS-NAME 规则，如 `PROCESS-NAME,chrome.exe,DIRECT`。保存并重启后，该应用的流量将绕过代理直连。适用于游戏或内网程序等特殊场景。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess 使用 AEAD 加密对安全性有何帮助？</h5></div>
-    <div class="panel-body">
-        AEAD 加密可防止数据篡改、重放攻击和流量特征泄露。高封锁环境下使用，有助于保持节点长期可用，保证数据安全和连接稳定性，同时降低被检测的风险。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Clash 的自动测速功能如何设置？</h5></div>
-    <div class="panel-body">
-        Clash 支持定期测速节点延迟，用户可以设置测速频率和超时时间。测速结果会影响策略组的节点选择，从而自动切换至最优节点，提高访问速度和连接稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>VMess AEAD 加密在高封锁地区的优势？</h5></div>
@@ -459,19 +444,34 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
         可以。Sing-box 原生支持解析 Clash YAML 配置，并自动转换为自身 JSON 结构。节点和规则基本兼容，但部分脚本和自定义插件可能需要手动调整。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Matsuri 节点延迟排序如何优化网络体验？</h5></div>
+    <div class="panel-body">
+        Matsuri 会定期测速节点延迟，并结合策略组自动选择低延迟节点。无需手动切换，确保网页、视频和游戏流量通过最优节点，提高访问速度和网络稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>PassWall2 自动切换节点机制如何工作？</h5></div>
+    <div class="panel-body">
+        PassWall2 会根据节点延迟和丢包率测试结果，结合策略组自动选择最优节点处理流量。无需用户手动切换，保证网页、视频和游戏流量的速度和稳定性，优化网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>QuantumultX 的重写脚本可以实现哪些功能？</h5></div>
     <div class="panel-body">
         QuantumultX 支持 JavaScript 重写脚本，可修改请求头、响应内容、跳转 URL、广告屏蔽和定制化流量处理。结合策略组可实现个性化网络访问和优化，提高用户体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Netch 如何区分全局代理和规则代理？</h5></div>
+    <div class="panel-heading"><h5>Clash 的自动测速功能如何设置？</h5></div>
     <div class="panel-body">
-        全局代理会将所有流量通过节点转发，而规则代理仅对指定 IP、端口或应用生效。用户可根据需求选择代理模式，实现流量优化和不同应用的最佳网络体验。<hr />    </div>
+        Clash 支持定期测速节点延迟，用户可以设置测速频率和超时时间。测速结果会影响策略组的节点选择，从而自动切换至最优节点，提高访问速度和连接稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>PassWall2 自动切换节点机制如何工作？</h5></div>
+    <div class="panel-heading"><h5>SSR 的混淆和协议组合如何选择？</h5></div>
     <div class="panel-body">
-        PassWall2 会根据节点延迟和丢包率测试结果，结合策略组自动选择最优节点处理流量。无需用户手动切换，保证网页、视频和游戏流量的速度和稳定性，优化网络体验。    </div>
+        根据网络封锁情况选择适合的混淆和协议组合，例如 tls1.2_ticket_auth 模拟 HTTPS 流量。不同组合对抗 DPI 和封锁能力不同，需要测试后选择最稳定和高效的方案。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess 使用 AEAD 加密对安全性有何帮助？</h5></div>
+    <div class="panel-body">
+        AEAD 加密可防止数据篡改、重放攻击和流量特征泄露。高封锁环境下使用，有助于保持节点长期可用，保证数据安全和连接稳定性，同时降低被检测的风险。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -518,18 +518,8 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/free-ssr-node-2026-8-3.htm">8月3日更新18.5M/S，2025年最新高速Singbox节点/Shadowrocket节点/SSR节点/Trojan节点/V2ray节点/Clash节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了加拿大、欧洲、日本、新加坡、香港、美国、韩国等地区,最高速度可达18.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row w3l-achievements">
-    <div class="col-lg-12 item">
-        <div class="card">
-            <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-7-24-free-v2ray.htm">7月24日更新19.6M/S，2025年最新高速Singbox节点/Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Trojan节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了新加坡、美国、欧洲、日本、香港、韩国、加拿大等地区,最高速度可达19.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/free-ssr-node-2026-9-3.htm">9月3日更新21.6M/S，2025年最新高速Trojan节点/Shadowrocket节点/V2ray节点/Singbox节点/Clash节点/SSR节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、日本、韩国、香港、美国、加拿大、欧洲等地区,最高速度可达21.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -548,8 +538,8 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-7-20-clash-node.htm">7月20日更新18.2M/S，2025年最新高速Shadowrocket节点/SSR节点/Clash节点/Singbox节点/Trojan节点/V2ray节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了韩国、日本、香港、欧洲、加拿大、新加坡、美国等地区,最高速度可达18.2 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/2026-8-8-clash-node-daily-updates.htm">8月8日更新21M/S，2025年最新高速Trojan节点/SSR节点/Shadowrocket节点/V2ray节点/Singbox节点/Clash节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、欧洲、美国、加拿大、新加坡、日本、香港等地区,最高速度可达21 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -558,8 +548,8 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/node-share-links-2026-8-23.htm">8月23日更新19.1M/S，2025年最新高速SSR节点/Shadowrocket节点/Singbox节点/V2ray节点/Clash节点/Trojan节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、加拿大、韩国、欧洲、新加坡、香港、日本等地区,最高速度可达19.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/free-high-speed-nodes-2026-8-25.htm">8月25日更新18.9M/S，2025年最新高速Singbox节点/Shadowrocket节点/Trojan节点/SSR节点/Clash节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了韩国、新加坡、香港、美国、加拿大、日本、欧洲等地区,最高速度可达18.9 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -568,8 +558,8 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-7-25-clash-windows.htm">7月25日更新21.8M/S，2025年最新高速V2ray节点/Trojan节点/SSR节点/Clash节点/Shadowrocket节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、香港、加拿大、日本、韩国、新加坡、美国等地区,最高速度可达21.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/free-node-subscribe-links-2026-8-15.htm">8月15日更新18.6M/S，2025年最新高速SSR节点/V2ray节点/Trojan节点/Clash节点/Shadowrocket节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了日本、加拿大、欧洲、新加坡、香港、美国、韩国等地区,最高速度可达18.6 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -578,8 +568,8 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-8-4-free-ssr-subscribe.htm">8月4日更新19.5M/S，2025年最新高速Trojan节点/Shadowrocket节点/Clash节点/SSR节点/V2ray节点/Singbox节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了美国、欧洲、新加坡、日本、香港、韩国、加拿大等地区,最高速度可达19.5 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/clash-windows-2026-8-13.htm">8月13日更新20.4M/S，2025年最新高速V2ray节点/Shadowrocket节点/SSR节点/Clash节点/Trojan节点/Singbox节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了加拿大、新加坡、韩国、日本、美国、香港、欧洲等地区,最高速度可达20.4 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -598,8 +588,8 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/shadowrocket-node-2026-7-29.htm">7月29日更新18.8M/S，2025年最新高速Singbox节点/Trojan节点/SSR节点/Clash节点/V2ray节点/Shadowrocket节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了日本、加拿大、韩国、新加坡、欧洲、香港、美国等地区,最高速度可达18.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/shadowrocket-node-2026-8-29.htm">8月29日更新19.1M/S，2025年最新高速Clash节点/Singbox节点/Shadowrocket节点/SSR节点/V2ray节点/Trojan节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了欧洲、加拿大、新加坡、韩国、美国、日本、香港等地区,最高速度可达19.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -608,8 +598,18 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
-                <h4><a href="/free-nodes/2026-7-30-clash-node.htm">7月30日更新20.8M/S，2025年最新高速Trojan节点/Singbox节点/Clash节点/V2ray节点/Shadowrocket节点/SSR节点订阅链接免费节点地址分享</a></h4>
-                <p>这一次的节点更新覆盖了欧洲、香港、加拿大、日本、美国、韩国、新加坡等地区,最高速度可达20.8 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+                <h4><a href="/free-nodes/free-node-subscribe-links-2026-8-31.htm">8月31日更新21.3M/S，2025年最新高速SSR节点/Singbox节点/V2ray节点/Clash节点/Shadowrocket节点/Trojan节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了新加坡、欧洲、日本、香港、韩国、美国、加拿大等地区,最高速度可达21.3 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row w3l-achievements">
+    <div class="col-lg-12 item">
+        <div class="card">
+            <div class="box-wrap">
+                <h4><a href="/free-nodes/free-clash-subscribe-2026-8-17.htm">8月17日更新22.1M/S，2025年最新高速SSR节点/Clash节点/Shadowrocket节点/Trojan节点/Singbox节点/V2ray节点订阅链接免费节点地址分享</a></h4>
+                <p>这一次的节点更新覆盖了美国、新加坡、韩国、欧洲、日本、香港、加拿大等地区,最高速度可达22.1 M/S。只需复制下方的Clash节点/V2ray节点和singbox节点订阅链接,在客户端添加后即可正常使用。</p>
             </div>
         </div>
     </div>
@@ -620,8 +620,8 @@ A4：理论上可以，但需服务器支持解锁流媒体，并非所有节点
     <div class="col-lg-12 item">
         <div class="card">
             <div class="box-wrap">
+                                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
                                 <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
-                                <h4><span class="badge" style="float: right;">13</span> <a href="/date/2026-07/" title="2026-07 归档">2026-07</a></h4>
                             </div>
         </div>
     </div>
